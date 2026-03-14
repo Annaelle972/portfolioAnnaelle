@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annaëlle Champiau — Étudiante BTS SIO 2ème année · Alternance Développeuse & Conception Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070f;--bg2:#0d0d1c;--bg3:#141428;--surf:#1a1a2e;--surf2:#222240;
+  --brd:rgba(160,140,255,.09);--brdH:rgba(160,140,255,.22);
+  --acc:#a78bfa;--acc2:#6d28d9;--teal:#2dd4bf;--coral:#f87171;
+  --gold:#fbbf24;--grn:#34d399;--blue:#60a5fa;
+  --txt:#f0ecff;--txt2:#8b87a8;--txt3:#3f3d58;
+  --sans:'Instrument Sans',sans-serif;
+  --disp:'Syne',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+::selection{background:rgba(167,139,250,.3);color:#fff;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--acc2);border-radius:2px;}
+
+body{background:var(--bg);color:var(--txt);font-family:var(--sans);font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+/* ─── LIGHT MODE ─── */
+body.light{
+  --bg:#f5f3ff;--bg2:#ede9ff;--bg3:#e4dfff;--surf:#d8d2f7;--surf2:#cfc8f5;
+  --brd:rgba(100,80,200,.12);--brdH:rgba(100,80,200,.28);
+  --acc:#6d28d9;--acc2:#4c1d95;--teal:#0d9488;--coral:#dc2626;
+  --gold:#b45309;--grn:#059669;--blue:#2563eb;
+  --txt:#1a1035;--txt2:#4c4270;--txt3:#9993b8;
+}
+body.light .mesh .orb{filter:blur(120px);}
+body.light #prog{background:linear-gradient(90deg,var(--acc2),var(--acc),var(--teal));}
+body.light nav{background:rgba(245,243,255,.88);}
+body.light .mob-menu{background:rgba(245,243,255,.97);}
+body.light ::-webkit-scrollbar-track{background:var(--bg);}
+
+/* ─── THEME TOGGLE ─── */
+#theme-btn{
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--brd);
+  background:var(--surf);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;flex-shrink:0;
+}
+#theme-btn:hover{border-color:var(--brdH);background:var(--surf2);}
+#theme-btn svg{width:16px;height:16px;transition:transform .3s;}
+
+/* ─── CURSOR — system pointer + arrow indicator ─── */
+* { cursor: auto !important; }
+#cur,#laser{display:none!important;}
+@media (hover:none) { *{cursor:auto!important;} }
+
+/* click ripple */
+#cur-ring{
+  position:fixed;pointer-events:none;z-index:9099;
+  width:0;height:0;border-radius:50%;
+  background:rgba(255,100,100,0.2);
+  transform:translate(-50%,-50%);
+}
+#cur-ring.pop{animation:ripple .4s ease-out forwards;}
+@keyframes ripple{0%{width:0;height:0;opacity:.8;}100%{width:64px;height:64px;opacity:0;}}
+
+/* ─── INDICATEUR RAYONNANT ─── */
+#cur-arrow{
+  position:fixed;pointer-events:none;z-index:9101;
+  transform:translate(-50%,-50%);
+  opacity:0;transition:opacity .18s;
+  width:24px;height:24px;
+  background:url("fleche.png") center/contain no-repeat;
+  border-radius:50%;
+  box-shadow:0 0 14px rgba(0,0,0,.2);
+  mix-blend-mode:screen;
+}
+#cur-arrow.show{opacity:1;}
+@keyframes spinRays{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@media(hover:none){#cur,#cur-arrow,#cur-ring{display:none!important;}*{cursor:auto!important;}}
+
+/* ─── PROGRESS ─── */
+#prog{position:fixed;top:0;left:0;height:2px;z-index:500;background:linear-gradient(90deg,var(--acc2),var(--acc),var(--teal));width:0;}
+
+/* ─── MESH BG ─── */
+.mesh{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(110px);animation:drift 22s ease-in-out infinite;}
+.o1{width:700px;height:700px;background:rgba(109,40,217,.06);top:-250px;right:-200px;}
+.o2{width:500px;height:500px;background:rgba(45,212,191,.04);bottom:-150px;left:-200px;animation-delay:-9s;}
+.o3{width:350px;height:350px;background:rgba(248,113,113,.04);top:45%;left:35%;animation-delay:-16s;}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}40%{transform:translate(50px,-70px) scale(1.06);}70%{transform:translate(-35px,45px) scale(.95);}}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(1rem,4vw,3rem);
+  background:rgba(7,7,15,.82);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--brd);
+}
+.nav-logo{font-family:var(--disp);font-size:1rem;font-weight:700;color:var(--txt);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:var(--txt2);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.02em;transition:color .2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--acc);transition:width .25s;}
+.nav-links a:hover{color:var(--txt);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font-size:.8rem;font-weight:600;padding:8px 20px;border-radius:99px;text-decoration:none;box-shadow:0 0 20px rgba(109,40,217,.3);transition:transform .2s,box-shadow .2s;white-space:nowrap;}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(109,40,217,.5);}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.nav-hamburger span{width:22px;height:1.5px;background:var(--txt2);transition:all .3s;}
+.mob-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(7,7,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);padding:1.5rem 2rem;flex-direction:column;gap:1rem;z-index:199;}
+.mob-menu a{color:var(--txt2);text-decoration:none;font-size:1rem;font-weight:500;padding:.5rem 0;border-bottom:1px solid var(--brd);}
+.mob-menu.open{display:flex;}
+
+/* ─── SECTION BASE ─── */
+section{position:relative;z-index:1;}
+.ctr{max-width:1160px;margin:0 auto;padding:0 clamp(1rem,4vw,3rem);}
+.s-lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
+.s-lbl::before{content:'';width:20px;height:1px;background:var(--acc);}
+h2{font-family:var(--disp);font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.1;margin-bottom:.75rem;}
+.s-desc{color:var(--txt2);max-width:520px;margin-bottom:2.5rem;font-size:.92rem;line-height:1.8;}
+.sep{height:1px;background:linear-gradient(90deg,transparent,var(--brd),transparent);margin:0 clamp(1rem,4vw,3rem);}
+
+/* ─── REVEAL ANIMATION ─── */
+.reveal{opacity:0;transform:translateY(36px);}
+.reveal.in{opacity:1;transform:translateY(0);transition:opacity .65s ease,transform .65s ease;}
+
+/* ─── TECH LOGOS SVG ─── */
+.logo-php{color:#8993be;}
+.logo-html{color:#e34f26;}
+.logo-css{color:#264de4;}
+.logo-js{color:#f7df1e;}
+.logo-mysql{color:#4479a1;}
+.logo-wp{color:#21759b;}
+.logo-git{color:#f05032;}
+.logo-gh{color:#e0d9f5;}
+.logo-vsc{color:#007acc;}
+.logo-perl{color:#39457e;}
+.logo-canva{color:#00c4cc;}.logo-figma{color:#f24e1e;}
+.logo-linux{color:#fcc624;}
+
+svg.tech-svg{width:18px;height:18px;flex-shrink:0;}
+.tech-icon-lg svg{width:28px;height:28px;}
+
+/* ─── HERO ─── */
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px clamp(1rem,4vw,3rem) 60px;}
+.hero-grid{max-width:1160px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center;}
+
+.hero-tag{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--brdH);border-radius:99px;padding:6px 14px 6px 9px;margin-bottom:1.8rem;background:rgba(167,139,250,.05);animation:fadeUp .7s ease both;}
+.tag-pill{background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:99px;text-transform:uppercase;}
+.tag-txt{font-size:.78rem;color:var(--txt2);}
+h1{font-family:var(--disp);font-size:clamp(2.8rem,5.5vw,5rem);font-weight:800;line-height:1.0;margin-bottom:1.4rem;animation:fadeUp .7s .08s ease both;}
+.h1-grad{background:linear-gradient(135deg,var(--acc),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-p{color:var(--txt2);font-size:.96rem;line-height:1.85;max-width:460px;margin-bottom:2rem;animation:fadeUp .7s .16s ease both;}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;animation:fadeUp .7s .24s ease both;}
+.btn-pri{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font-weight:600;font-size:.86rem;padding:12px 26px;border-radius:11px;text-decoration:none;box-shadow:0 0 28px rgba(109,40,217,.35);transition:transform .2s,box-shadow .2s;}
+.btn-pri:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(109,40,217,.5);}
+.btn-sec{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--brd);color:var(--txt2);font-weight:500;font-size:.86rem;padding:12px 26px;border-radius:11px;text-decoration:none;background:rgba(255,255,255,.02);transition:all .2s;}
+.btn-sec:hover{border-color:var(--acc);color:var(--acc);}
+.hero-stats{display:flex;gap:1.8rem;margin-top:2.2rem;padding-top:2rem;border-top:1px solid var(--brd);animation:fadeUp .7s .32s ease both;flex-wrap:wrap;}
+.stat-n{font-family:var(--disp);font-size:1.7rem;font-weight:700;}
+.stat-n.ok{color:var(--grn);}
+.stat-l{font-size:.74rem;color:var(--txt2);margin-top:1px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+/* hero card */
+.hero-right{animation:fadeUp .7s .18s ease both;position:relative;}
+.hc{background:var(--bg2);border:1px solid var(--brd);border-radius:22px;padding:1.8rem;position:relative;overflow:hidden;transition:transform .4s;}
+.hc:hover{transform:perspective(900px) rotateY(-2deg) rotateX(1deg);}
+.hc::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.1) 0%,transparent 70%);pointer-events:none;}
+.hc-top{display:flex;align-items:center;gap:12px;margin-bottom:1.4rem;}
+.av{width:52px;height:52px;border-radius:50%;padding:2px;background:linear-gradient(135deg,var(--acc2),var(--teal));flex-shrink:0;}
+.av-in{width:100%;height:100%;border-radius:50%;background:var(--surf);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:1.1rem;font-weight:700;color:var(--acc);}
+.hc-name{font-family:var(--disp);font-weight:700;font-size:.95rem;}
+.hc-role{font-size:.78rem;color:var(--txt2);margin-top:2px;}
+.hc-dispo{margin-left:auto;display:flex;align-items:center;gap:5px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);border-radius:99px;padding:4px 10px;font-size:.68rem;color:var(--grn);font-weight:500;white-space:nowrap;}
+.dp{width:5px;height:5px;border-radius:50%;background:var(--grn);animation:blink 2s infinite;}
+.tech-grid2{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:1.2rem;}
+.tp{display:flex;align-items:center;gap:7px;background:var(--surf);border:1px solid var(--brd);border-radius:9px;padding:8px 11px;transition:border-color .2s;}
+.tp:hover{border-color:var(--brdH);}
+.tp-name{font-family:var(--mono);font-size:.7rem;color:var(--txt2);}
+.alt-box{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(109,40,217,.1),rgba(45,212,191,.06));border:1px solid rgba(167,139,250,.2);border-radius:12px;padding:11px 13px;}
+.alt-icon{font-size:1.2rem;flex-shrink:0;}
+.alt-txt{font-size:.78rem;color:var(--txt2);line-height:1.45;}
+.alt-txt strong{color:var(--acc);display:block;font-weight:600;font-size:.8rem;}
+
+/* float tags */
+.ftag{position:absolute;padding:5px 12px;background:var(--surf);border:1px solid var(--brd);border-radius:99px;font-family:var(--mono);font-size:.63rem;color:var(--txt2);white-space:nowrap;pointer-events:none;animation:float 6s ease-in-out infinite;}
+.ft1{top:-14px;right:30px;}
+.ft2{bottom:-14px;left:20px;animation-delay:-3s;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+/* ─── PROJETS ─── */
+#projets{padding:90px 0;}
+.proj-stack{display:flex;flex-direction:column;gap:2.5rem;}
+
+/* project card */
+.pc{background:var(--bg2);border:1px solid var(--brd);border-radius:22px;overflow:hidden;transition:border-color .3s;}
+.pc:hover{border-color:var(--brdH);}
+
+.pc-bar{padding:1.2rem 2rem;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pc-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.tag{font-family:var(--mono);font-size:.66rem;font-weight:500;padding:3px 10px;border-radius:99px;}
+.t-php{background:rgba(137,147,190,.12);color:#b0b8d8;border:1px solid rgba(137,147,190,.2);}
+.t-html{background:rgba(227,79,38,.1);color:#f09070;border:1px solid rgba(227,79,38,.18);}
+.t-css{background:rgba(38,77,228,.1);color:#7090ee;border:1px solid rgba(38,77,228,.18);}
+.t-js{background:rgba(247,223,30,.08);color:#d4b800;border:1px solid rgba(247,223,30,.15);}
+.t-sql{background:rgba(68,121,161,.12);color:#78b0d0;border:1px solid rgba(68,121,161,.2);}
+.t-wp{background:rgba(33,117,155,.12);color:#60a8c8;border:1px solid rgba(33,117,155,.2);}
+.t-git{background:rgba(240,80,50,.1);color:#f08070;border:1px solid rgba(240,80,50,.18);}
+.t-grp{background:rgba(52,211,153,.08);color:var(--grn);border:1px solid rgba(52,211,153,.18);}
+.t-solo{background:rgba(167,139,250,.08);color:var(--acc);border:1px solid rgba(167,139,250,.18);}
+.t-perl{background:rgba(57,69,126,.15);color:#8898d8;border:1px solid rgba(57,69,126,.25);}
+.t-perso{background:rgba(45,212,191,.08);color:var(--teal);border:1px solid rgba(45,212,191,.18);}
+
+.pc-tools{display:flex;gap:6px;flex-wrap:wrap;}
+.tool{display:flex;align-items:center;gap:5px;background:var(--surf);border:1px solid var(--brd);border-radius:7px;padding:4px 9px;font-family:var(--mono);font-size:.66rem;color:var(--txt2);}
+
+.pc-main{display:grid;grid-template-columns:1fr 1fr;}
+.pc-info{padding:1.8rem 2rem;border-right:1px solid var(--brd);}
+.pc-n{font-family:var(--disp);font-size:3rem;font-weight:800;color:rgba(255,255,255,.04);line-height:1;margin-bottom:.4rem;-webkit-text-stroke:1px rgba(255,255,255,.06);}
+.pc-title{font-family:var(--disp);font-size:1.6rem;font-weight:700;line-height:1.2;margin-bottom:.3rem;}
+.pc-sub{font-size:.84rem;color:var(--txt2);margin-bottom:1rem;}
+.pc-ctx{font-size:.88rem;color:var(--txt2);line-height:1.75;}
+
+/* image zone */
+.pc-img{padding:1.4rem;display:flex;flex-direction:column;gap:10px;}
+.img-ph{border-radius:13px;background:var(--surf);border:1.5px dashed rgba(167,139,250,.2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--txt3);cursor:pointer;transition:border-color .2s,background .2s;padding:1.5rem;text-align:center;}
+.img-ph:hover{border-color:var(--acc);background:rgba(167,139,250,.03);}
+.img-ph svg{width:32px;height:32px;opacity:.35;}
+.img-ph p{font-family:var(--mono);font-size:.65rem;line-height:1.6;}
+.img-ph span{color:var(--acc);display:block;margin-top:2px;}
+.img-cap{font-family:var(--mono);font-size:.63rem;color:var(--txt3);text-align:center;}
+
+/* 3 cols body */
+.pc-cols{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--brd);}
+.pc-col{padding:1.4rem 1.8rem;border-right:1px solid var(--brd);}
+.pc-col:last-child{border-right:none;}
+.col-lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);margin-bottom:.9rem;display:flex;align-items:center;gap:6px;}
+.col-lbl::before{content:'';width:12px;height:1px;background:var(--txt3);}
+
+/* MLD */
+.mld{background:var(--bg);border:1px solid var(--brd);border-radius:9px;padding:.9rem 1rem;font-family:var(--mono);font-size:.68rem;line-height:1.9;}
+.mt{color:var(--acc);font-weight:500;}.mpk{color:var(--teal);}.mfk{color:var(--coral);}.mc{color:var(--txt3);font-style:italic;}
+
+/* fonct list */
+.fl{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.fl li{display:flex;align-items:flex-start;gap:7px;font-size:.84rem;color:var(--txt2);line-height:1.55;}
+.fa{color:var(--acc);flex-shrink:0;font-size:.78rem;margin-top:2px;}
+.fok{color:var(--grn);}
+.fmid{color:var(--gold);}
+.fno{color:var(--txt3);}
+
+/* code block */
+.pc-code{border-top:1px solid var(--brd);}
+.cb{background:var(--bg);}
+.cb-head{background:var(--surf);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd);}
+.dots{display:flex;gap:5px;}
+.dot{width:9px;height:9px;border-radius:50%;}
+.dr{background:#ff5f57;}.dy{background:#febc2e;}.dg{background:#28c840;}
+.fn2{font-family:var(--mono);font-size:.66rem;color:var(--txt3);}
+pre{padding:1.1rem 1.4rem;font-family:var(--mono);font-size:.7rem;line-height:1.85;overflow-x:auto;color:var(--txt2);}
+.kw{color:#c792ea;}.fn{color:#82aaff;}.str{color:#c3e88d;}.cm{color:var(--txt3);font-style:italic;}.va{color:#f78c6c;}.cls{color:#ffcb6b;}.nb{color:var(--gold);}
+
+/* 2-col image row */
+.code-imgs{background:var(--bg);border-top:1px solid var(--brd);padding:1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* pc footer */
+.pc-foot{padding:.9rem 1.8rem;border-top:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pc-res{font-size:.82rem;color:var(--txt2);}
+.done{display:flex;align-items:center;gap:5px;font-size:.76rem;font-weight:500;padding:4px 12px;border-radius:99px;}
+.done-ok{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:var(--grn);}
+.done-wip{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);color:var(--gold);}
+.done-dot{width:5px;height:5px;border-radius:50%;animation:blink 2s infinite;}
+.done-ok .done-dot{background:var(--grn);}
+.done-wip .done-dot{background:var(--gold);}
+
+/* ─── COMPETENCES ─── */
+#competences{padding:90px 0;background:var(--bg2);}
+.cv-hdr{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-bottom:2.5rem;}
+.cv-dl{display:inline-flex;align-items:center;gap:7px;margin-top:1rem;border:1px solid var(--brdH);border-radius:9px;padding:9px 18px;text-decoration:none;color:var(--acc);font-size:.84rem;font-weight:500;background:rgba(167,139,250,.05);transition:all .2s;}
+.cv-dl:hover{background:rgba(167,139,250,.1);}
+.edu-items{display:flex;flex-direction:column;gap:.7rem;}
+.edu-item{background:var(--bg3);border:1px solid var(--brd);border-radius:13px;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:12px;}
+.edu-item.hl{border-color:rgba(167,139,250,.25);background:linear-gradient(135deg,rgba(109,40,217,.08),rgba(45,212,191,.05));}
+.edu-ico{font-size:1.3rem;flex-shrink:0;}
+.edu-title{font-weight:600;font-size:.88rem;}
+.edu-sub{font-size:.78rem;color:var(--txt2);}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.sk{background:var(--bg3);border:1px solid var(--brd);border-radius:16px;padding:1.3rem;transition:border-color .25s,transform .25s;}
+.sk:hover{border-color:var(--brdH);transform:translateY(-3px);}
+.sk-hdr{display:flex;align-items:center;gap:9px;margin-bottom:1rem;}
+.sk-ico{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ic-v{background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.2);}
+.ic-t{background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);}
+.ic-r{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);}
+.ic-g{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);}
+.ic-n{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);}
+.ic-b{background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);}
+.sk-title{font-family:var(--disp);font-weight:700;font-size:.9rem;}
+.sr{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--brd);font-size:.8rem;}
+.sr:last-child{border-bottom:none;}
+.sn{color:var(--txt2);}
+.slv{font-family:var(--mono);font-size:.62rem;font-weight:500;padding:2px 9px;border-radius:99px;}
+.lv-ok{background:rgba(52,211,153,.1);color:var(--grn);border:1px solid rgba(52,211,153,.2);}
+.lv-mid{background:rgba(251,191,36,.1);color:var(--gold);border:1px solid rgba(251,191,36,.2);}
+.lv-no{background:rgba(255,255,255,.04);color:var(--txt3);border:1px solid var(--brd);}
+
+/* ─── STAGES ─── */
+#stages{padding:90px 0;}
+.stage-stack{display:flex;flex-direction:column;gap:2rem;}
+.stg{background:var(--bg2);border:1px solid var(--brd);border-radius:22px;overflow:hidden;transition:border-color .3s;}
+.stg:hover{border-color:var(--brdH);}
+.stg-bar{padding:1.2rem 2rem;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.period{font-family:var(--mono);font-size:.7rem;color:var(--acc);background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);border-radius:99px;padding:4px 13px;}
+.stype{font-family:var(--mono);font-size:.68rem;padding:4px 11px;border-radius:99px;}
+.st-dev{background:rgba(45,212,191,.08);color:var(--teal);border:1px solid rgba(45,212,191,.15);}
+.st-inf{background:rgba(248,113,113,.08);color:var(--coral);border:1px solid rgba(248,113,113,.15);}
+.stg-main{display:grid;grid-template-columns:1.3fr .7fr;}
+.stg-info{padding:1.8rem 2rem;border-right:1px solid var(--brd);}
+.co-row{display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;}
+.co-logo{width:52px;height:52px;border-radius:12px;background:var(--surf);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+.co-logo img{width:100%;height:100%;object-fit:contain;padding:6px;}
+.co-name{font-family:var(--disp);font-size:1.3rem;font-weight:700;}
+.co-loc{font-size:.8rem;color:var(--txt2);margin-top:2px;}
+.stg-role{font-family:var(--disp);font-size:1.1rem;font-weight:700;margin-bottom:.75rem;}
+.stg-desc{font-size:.87rem;color:var(--txt2);line-height:1.75;}
+.stg-imgs{padding:1.4rem;display:flex;flex-direction:column;gap:10px;}
+.stg-body{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--brd);}
+.stg-col{padding:1.4rem 1.8rem;border-right:1px solid var(--brd);}
+.stg-col:last-child{border-right:none;}
+.ml{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.ml li{display:flex;align-items:flex-start;gap:7px;font-size:.84rem;color:var(--txt2);line-height:1.5;}
+.mi{color:var(--acc);flex-shrink:0;}
+.tools-row{display:flex;flex-wrap:wrap;gap:6px;}
+
+/* ─── VEILLE ─── */
+#veille{padding:90px 0;background:var(--bg2);}
+.vl-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+.vc{background:var(--bg3);border:1px solid var(--brd);border-radius:20px;overflow:hidden;transition:border-color .3s;}
+.vc:hover{border-color:var(--brdH);}
+.vc-top{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid var(--brd);}
+.vc-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;}
+.vc-yr{font-family:var(--mono);font-size:.66rem;color:var(--txt3);}
+.vc-cat{font-family:var(--mono);font-size:.66rem;padding:3px 10px;border-radius:99px;}
+.vc-secu{background:rgba(248,113,113,.08);color:var(--coral);border:1px solid rgba(248,113,113,.15);}
+.vc-dev{background:rgba(45,212,191,.08);color:var(--teal);border:1px solid rgba(45,212,191,.15);}
+.vc-title-row{display:flex;align-items:center;gap:11px;margin-bottom:.6rem;}
+.vc-ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.vc-h{font-family:var(--disp);font-weight:700;font-size:1rem;line-height:1.25;}
+.vc-d{font-size:.84rem;color:var(--txt2);line-height:1.7;}
+.vc-body{padding:1rem 1.5rem;}
+.src-lbl{font-family:var(--mono);font-size:.63rem;color:var(--txt3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+.srcs{display:flex;flex-wrap:wrap;gap:5px;}
+.src{font-family:var(--mono);font-size:.66rem;background:var(--surf);border:1px solid var(--brd);color:var(--txt2);padding:3px 9px;border-radius:6px;}
+.vc-img{margin:.5rem 1.5rem 1.5rem;aspect-ratio:16/7;border-radius:11px;background:var(--surf);border:1.5px dashed rgba(167,139,250,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:border-color .2s;}
+.vc-img:hover{border-color:var(--acc);}
+.vc-img p{font-family:var(--mono);font-size:.63rem;color:var(--txt3);text-align:center;}
+.vc-img span{color:var(--acc);}
+
+/* ─── CONTACT ─── */
+#contact{padding:90px 0;}
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.ct-big{font-family:var(--disp);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:1.2rem;}
+.ct-big span{background:linear-gradient(135deg,var(--acc),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ct-desc{color:var(--txt2);font-size:.92rem;line-height:1.8;margin-bottom:1.8rem;}
+.ct-items{display:flex;flex-direction:column;gap:.7rem;}
+.ct-item{display:flex;align-items:center;gap:11px;font-size:.88rem;color:var(--txt2);text-decoration:none;transition:color .2s;}
+.ct-item:hover{color:var(--txt);}
+.ct-ico{width:38px;height:38px;border-radius:9px;background:var(--surf);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;transition:border-color .2s;}
+.ct-item:hover .ct-ico{border-color:var(--brdH);}
+.ct-btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:1.5rem;}
+.alt-card{background:var(--bg2);border:1px solid var(--brdH);border-radius:20px;padding:1.8rem;position:relative;overflow:hidden;}
+.alt-card::before{content:'';position:absolute;top:-70px;right:-70px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,191,.07) 0%,transparent 70%);pointer-events:none;}
+.alt-hdr{display:flex;align-items:center;gap:11px;margin-bottom:1.2rem;}
+.alt-ic{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--acc2),var(--teal));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.alt-t{font-family:var(--disp);font-weight:700;font-size:.95rem;}
+.alt-s{font-size:.78rem;color:var(--txt2);}
+.alt-rows{display:flex;flex-direction:column;}
+.alt-row{display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--txt2);padding:.5rem 0;border-bottom:1px solid var(--brd);}
+.alt-row:last-child{border-bottom:none;}
+.alt-ri{width:18px;text-align:center;flex-shrink:0;}
+.alt-rv{color:var(--txt);font-weight:500;margin-left:auto;}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--brd);padding:1.2rem clamp(1rem,4vw,3rem);display:flex;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--txt3);position:relative;z-index:1;flex-wrap:wrap;gap:.5rem;}
+
+/* ─── SCHEMA DB ZONE ─── */
+.schema-ph{
+  border-radius:13px;background:var(--bg);border:1.5px dashed rgba(45,212,191,.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;color:var(--txt3);cursor:pointer;transition:border-color .2s,background .2s;
+  padding:1.5rem;text-align:center;margin-top:.75rem;
+}
+.schema-ph:hover{border-color:var(--teal);background:rgba(45,212,191,.03);}
+.schema-ph svg{width:28px;height:28px;opacity:.35;}
+.schema-ph p{font-family:var(--mono);font-size:.65rem;line-height:1.6;}
+.schema-ph span{color:var(--teal);display:block;margin-top:2px;}
+
+/* ─── CONTACT FORM ─── */
+#contact-form{padding:90px 0;background:var(--bg3);}
+.cf-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start;}
+.form-box{background:var(--bg2);border:1px solid var(--brd);border-radius:22px;padding:2rem;position:relative;overflow:hidden;}
+.form-box::before{content:'';position:absolute;top:-50px;right:-50px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.08) 0%,transparent 70%);pointer-events:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
+.form-group label{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);}
+.form-group input,.form-group textarea,.form-group select{
+  background:var(--surf);border:1px solid var(--brd);border-radius:10px;
+  padding:11px 14px;color:var(--txt);font-family:var(--sans);font-size:.88rem;
+  outline:none;transition:border-color .2s,box-shadow .2s;resize:none;
+  appearance:none;
+}
+body.light .form-group input,body.light .form-group textarea,body.light .form-group select{background:var(--bg);color:var(--txt);}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(167,139,250,.12);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--txt3);}
+.form-group textarea{height:120px;}
+.form-submit{
+  width:100%;background:linear-gradient(135deg,var(--acc2),var(--acc));
+  color:#fff;font-weight:600;font-size:.9rem;padding:13px 24px;
+  border-radius:11px;border:none;cursor:pointer;
+  box-shadow:0 0 24px rgba(109,40,217,.3);
+  transition:transform .2s,box-shadow .2s;font-family:var(--sans);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(109,40,217,.45);}
+.form-success{display:none;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);border-radius:11px;padding:1rem;text-align:center;color:var(--grn);font-size:.88rem;margin-top:1rem;}
+
+/* contact info side */
+.ci-cards{display:flex;flex-direction:column;gap:.75rem;}
+.ci-card{background:var(--bg2);border:1px solid var(--brd);border-radius:14px;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:14px;text-decoration:none;transition:border-color .2s,transform .2s;}
+.ci-card:hover{border-color:var(--brdH);transform:translateX(4px);}
+.ci-card-ico{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci-card-title{font-weight:600;font-size:.88rem;color:var(--txt);}
+.ci-card-val{font-size:.8rem;color:var(--txt2);margin-top:2px;}
+.ci-alt{background:linear-gradient(135deg,rgba(109,40,217,.08),rgba(45,212,191,.05));border-color:rgba(167,139,250,.2);}
+@media(max-width:800px){.cf-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+@media(max-width:1000px){
+  .hero-grid,.cv-hdr,.ct-grid{grid-template-columns:1fr;}
+  .pc-main,.stg-main{grid-template-columns:1fr;}
+  .pc-info,.stg-info{border-right:none;border-bottom:1px solid var(--brd);}
+  .pc-cols,.stg-body{grid-template-columns:1fr;}
+  .pc-col,.stg-col{border-right:none;border-bottom:1px solid var(--brd);}
+  .pc-col:last-child,.stg-col:last-child{border-bottom:none;}
+  .skills-grid{grid-template-columns:1fr 1fr;}
+  .vl-grid{grid-template-columns:1fr;}
+}
+@media(max-width:700px){
+  .nav-links,.nav-cta{display:none;}
+  .nav-hamburger{display:flex;}
+  .skills-grid{grid-template-columns:1fr;}
+  .code-imgs{grid-template-columns:1fr;}
+  .hero-stats{gap:1rem;}
+  footer{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR : Wii remote pointer -->
+<div id="cur">
+<svg viewBox="0 0 30 56" xmlns="http://www.w3.org/2000/svg" aria-label="Wii remote cursor">
+  <defs>
+    <filter id="fsh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1.2" dy="1.2" stdDeviation="0.8" flood-color="rgba(0,0,0,0.22)"/>
+    </filter>
+  </defs>
+  <g filter="url(#fsh)">
+    <rect x="5" y="2" width="20" height="50" rx="10" fill="#f8f8fb" stroke="#d2d2da" stroke-width="1"/>
+    <rect x="8" y="6" width="14" height="24" rx="5" fill="#fbfbfd"/>
+    <rect x="10" y="12" width="10" height="4" rx="2" fill="#ccd0dc"/>
+    <rect x="10" y="18" width="10" height="4" rx="2" fill="#ccd0dc"/>
+    <rect x="10" y="24" width="10" height="3" rx="1.5" fill="#f3f4fb"/>
+    <circle cx="15" cy="34" r="2.5" fill="#ff4a4a"/>
+    <circle cx="15" cy="40" r="1.3" fill="#b7b7c2"/>
+    <rect x="12" y="46" width="6" height="5" rx="2" fill="#d4d4dd"/>
+    <ellipse cx="15" cy="52" rx="2" ry="1.8" fill="#ff5454"/>
+  </g>
+</svg>
+</div>
+<div id="laser" class="hidden"></div>
+
+<!-- Indicateur rayonnant style image 1 : 7 traits qui tournent -->
+<div id="cur-arrow">
+<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="gspn" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="0.8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Centre de rayonnement en bas-droite (vers la pointe du curseur main) -->
+  <g filter="url(#gspn)" transform="translate(38,38)">
+    <line x1="0"   y1="-11" x2="0"   y2="-18" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="1.0"/>
+    <line x1="7"   y1="-8"  x2="12"  y2="-14" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.86"/>
+    <line x1="11"  y1="0"   x2="18"  y2="0"   stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.72"/>
+    <line x1="8"   y1="7"   x2="13"  y2="12"  stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+    <line x1="-6"  y1="9"   x2="-10" y2="15"  stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.38"/>
+    <line x1="-11" y1="0"   x2="-18" y2="0"   stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.22"/>
+    <line x1="-8"  y1="-7"  x2="-13" y2="-12" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.10"/>
+  </g>
+</svg>
+</div>
+<!-- Click ripple -->
+<div id="cur-ring"></div>
+<div id="prog"></div>
+<div class="mesh"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span class="logo-dot"></span>Annaëlle Champiau</a>
+  <ul class="nav-links">
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">CV</a></li>
+    <li><a href="#stages">Stages</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact-form">Me contacter</a>
+  <button id="theme-btn" onclick="toggleTheme()" title="Changer le thème" aria-label="Changer thème clair/sombre">
+    <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <div class="nav-hamburger" id="hbg" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#projets" onclick="closeMenu()">Projets</a>
+  <a href="#competences" onclick="closeMenu()">CV &amp; Compétences</a>
+  <a href="#stages" onclick="closeMenu()">Stages</a>
+  <a href="#veille" onclick="closeMenu()">Veille</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- ══════ HERO ══════ -->
+<section id="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">
+        <span class="tag-pill">BTS SIO · SLAM</span>
+        <span class="tag-txt">Étudiante 2ème année · Promo 2024–2026</span>
+      </div>
+      <h1>Étudiante BTS SIO<br><span class="h1-grad">2ème année</span></h1>
+      <p style="font-family:var(--mono);font-size:.78rem;color:var(--acc);margin-bottom:.6rem;letter-spacing:.04em;">RECHERCHE ALTERNANCE — DÉVELOPPEUSE &amp; CONCEPTION WEB · 2026</p>
+      <p class="hero-p">Passionnée par la création d'applications web et la protection des systèmes d'information, j'ai acquis des compétences solides en développement PHP/MVC, base de données MySQL et sécurité applicative tout au long de ma formation BTS SIO SLAM.</p>
+      <div class="hero-btns">
+        <a href="#projets" class="btn-pri">Voir mes projets</a>
+        <a href="#competences" class="btn-sec">Mon CV</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-n">5</div><div class="stat-l">Projets réalisés</div></div>
+        <div><div class="stat-n">2</div><div class="stat-l">Stages en entreprise</div></div>
+        <div><div class="stat-n">2</div><div class="stat-l">Sujets de veille</div></div>
+        <div><div class="stat-n ok">Dispo</div><div class="stat-l">Alternance 2026</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="ftag ft1">PHP · MySQL · MVC · Git</div>
+      <div class="hc">
+        <div class="hc-top">
+          <div class="av"><div class="av-in">AC</div></div>
+          <div>
+            <div class="hc-name">Annaëlle Champiau</div>
+            <div class="hc-role">BTS SIO SLAM · Pau, 64000</div>
+          </div>
+          <div class="hc-dispo"><span class="dp"></span>Disponible</div>
+        </div>
+        <div class="tech-grid2">
+          <div class="tp">
+            <!-- PHP logo -->
+            <svg class="tech-svg logo-php" viewBox="0 0 128 128"><path fill="#8993be" d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64 64-28.7 64-64S99.3 0 64 0zm0 8c30.9 0 56 25.1 56 56s-25.1 56-56 56S8 94.9 8 64 33.1 8 64 8z"/><text x="64" y="74" text-anchor="middle" font-size="38" font-weight="700" fill="#8993be" font-family="Arial">PHP</text></svg>
+            <span class="tp-name">PHP / POO</span>
+          </div>
+          <div class="tp">
+            <!-- MySQL logo -->
+            <svg class="tech-svg logo-mysql" viewBox="0 0 24 24"><path fill="#4479a1" d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.274.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.182-.153zM5.77 18.935c-.112 0-.184.021-.235.084v.055c.096.129.18.261.309.354.115.09.229.175.356.269.04-.043.06-.065.06-.12.003-.12-.048-.207-.097-.286-.05-.081-.14-.14-.218-.198l-.175-.158zm4.918-7.37c.107.053.218.108.327.161.05.022.101.044.143.066l.052.023.013.006.013.005.013.006.026.013.013.007.026.014.026.013.013.007.027.013.026.013.013.007.026.013.027.013.026.013.026.014.013.006.026.014.013.007c.027.014.053.027.08.04.04.02.08.04.12.053.13.053.26.107.39.147l.027.008.012.003.014.003.027.008.013.004.013.003.027.007.013.004.013.003.026.006.014.003.013.003.026.006.014.002.013.003.026.006.014.002.013.003.027.005.013.002.014.003.026.005.014.001.013.002.026.004.027.004.013.001.014.002.026.003.013.001.027.002.026.002.014.001.013.001.026.001h.054l.027.001h.107l.027-.001h.013l.027-.001.026-.001.014-.001.013-.001.026-.002.027-.002.013-.001.026-.003.014-.001.013-.002.026-.003.027-.005.013-.002.014-.003.026-.005.013-.001.014-.002.026-.004.013-.002.027-.005.013-.001.026-.004.027-.005.013-.002.014-.003.026-.006.013-.003.013-.003.027-.007.013-.003.014-.003.026-.007.013-.003.027-.009.013-.003.013-.004.026-.008.027-.008.013-.004.014-.005.026-.009.013-.004.013-.004.027-.01.013-.004.027-.01.013-.004.013-.005.026-.01.013-.004.013-.005.027-.011.013-.004.013-.005.026-.011.013-.005.013-.005.027-.011.012-.005.014-.005.026-.011.013-.005.013-.005.026-.012.014-.005.012-.005.027-.012.013-.005.013-.005.026-.012.027-.013.013-.006.013-.005.026-.012.013-.006.013-.006.026-.012.027-.013.013-.005.013-.006.026-.013.013-.005.013-.006.027-.012.013-.006.013-.006.026-.012.013-.006.013-.006.026-.013.014-.006.012-.006.027-.013.013-.006.013-.006.026-.013.014-.006.012-.006.027-.013.013-.006.013-.006.026-.013.014-.006.012-.006.027-.013c-.26-3.036-3.3-4.006-6.77-4.254l-.54-.035-.013-.001-.027-.001h-.053l-.027-.001H10.2l-.027.001h-.054l-.026.001-.014.001-.012.001-.027.002-.013.001-.027.002-.013.001-.013.002-.026.002-.013.002-.027.003-.013.002-.013.002-.026.003-.027.004-.013.002-.013.002-.026.004-.013.002-.027.005-.013.002-.013.002-.026.005-.014.002-.012.003-.027.005-.013.003-.013.003-.026.005-.013.003-.013.003-.027.006-.013.003-.013.003-.026.006-.013.003-.013.003-.027.006-.013.003-.013.004-.026.007-.013.003-.013.004-.026.007-.013.004-.013.004-.027.008-.013.003-.013.004-.026.008-.013.004-.013.004-.027.009-.012.004-.014.004-.026.009-.013.004-.013.005-.026.009-.013.004-.013.005-.027.01-.013.004-.013.005-.026.01-.013.005-.013.005-.026.01-.013.005-.013.005-.027.011-.013.005-.012.005-.027.011-.013.005-.013.005-.026.011-.013.005-.013.005-.026.012-.013.005-.013.006-.027.012-.013.006-.013.005-.026.012-.013.006-.013.006-.026.012-.013.006-.013.006-.027.012-.013.006-.013.007-.026.013-.013.006-.013.006-.026.013-.013.006-.013.007-.027.013-.013.006-.013.006-.026.013-.013.007-.013.006-.026.013-.013.007-.013.006-.027.013-.013.007-.013.006-.026.014-.013.007-.013.006-.026.014c.04 2.546.852 4.186 2.547 5.107zm-3.67-4.42c.012-.013.025-.027.038-.04.127-.134.267-.25.42-.344.152-.095.308-.17.47-.225.162-.055.326-.087.49-.096l.026-.001.013-.001h.082l.013.001.013.001.026.002.013.001.013.002.026.003.013.002.013.002.026.004.013.002.013.003.026.004.012.003.014.003.026.005.013.003.013.003.026.006.012.003.014.004.025.007.013.003.013.004.026.008.013.003.012.004.027.009.012.004.013.004.026.01.013.005.013.005.025.01.014.006.012.005.027.012.012.006.013.006.026.012.013.006.012.007.027.013.012.006.013.007.026.013.013.007.012.006.027.014.012.007.013.007.026.013.013.007.012.007.027.015.012.007.013.007.026.015.013.008.012.007.026.015.013.008.013.008.025.016.014.008.012.008.026.017.012.008.013.009.026.017.013.009.012.008.027.018.012.009.013.009.025.018.014.01.012.009.026.019.013.01.012.01.027.02.012.01.013.01.025.02.014.011.012.01.026.022.012.01.013.011.026.022.012.011.013.011.026.022.012.011.013.011.025.022.013.012.012.011.027.023.012.012.012.012.026.024.013.012.012.012.026.024.013.012.012.012.026.025.012.013.013.013.026.025.012.013.012.013.026.025.013.013.012.014.025.026.013.013.012.014.026.026.013.014.012.013.026.027.012.014.013.014.026.027.012.014.013.014.025.028.013.015.012.014.026.029.013.014.012.015.026.029.013.015.012.015.025.029.013.015.013.015.026.03.012.015.013.016.026.031.012.016.013.016.026.032.012.016.013.016.025.032.013.017.012.016.026.033.013.017.012.017.026.034.012.017.013.017.026.034c.04-.027.067-.054.1-.08C9.68 11.65 9.4 10.95 8.6 10.7l-.04-.013-.012-.003-.014-.003-.026-.007-.013-.004-.012-.003-.027-.007-.013-.004-.013-.004-.026-.008-.013-.004-.012-.004-.027-.009-.012-.004-.013-.005-.026-.01-.013-.005-.012-.005-.027-.011-.012-.005-.013-.005-.026-.011-.013-.006-.012-.006-.027-.012-.012-.006-.013-.006-.026-.013-.013-.007-.012-.006-.026-.013-.013-.007-.013-.007-.025-.014-.013-.007-.013-.007-.026-.015-.013-.008-.012-.008-.027-.016-.012-.008-.013-.009-.026-.017-.013-.009-.012-.008-.027-.018-.012-.01-.013-.009-.026-.018-.012-.01-.013-.01-.026-.02-.012-.01-.013-.01-.026-.02-.012-.01-.013-.011-.025-.021-.013-.011-.013-.011-.026-.022-.012-.011-.013-.012-.026-.023-.013-.012-.012-.012-.026-.024-.013-.013-.012-.012-.026-.025-.012-.013-.013-.013-.026-.026-.013-.013-.012-.014-.025-.027-.013-.014-.013-.014-.025-.028-.013-.014-.012-.014-.026-.029-.013-.015-.012-.015-.025-.03-.013-.015-.013-.016-.026-.031-.012-.016-.013-.016-.025-.032-.013-.017-.013-.017-.025-.034-.013-.017-.012-.017-.026-.035-.013-.018-.012-.018-.026-.036c-.95 1.16-1.343 2.647-.947 4.066z"/></svg>
+            <span class="tp-name">MySQL</span>
+          </div>
+          <div class="tp">
+            <!-- HTML5 -->
+            <svg class="tech-svg logo-html" viewBox="0 0 24 24"><path fill="#e34f26" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>
+            <span class="tp-name">HTML/CSS</span>
+          </div>
+          <div class="tp">
+            <!-- Git -->
+            <svg class="tech-svg logo-git" viewBox="0 0 24 24"><path fill="#f05032" d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.67 .45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>
+            <span class="tp-name">Git / GitHub</span>
+          </div>
+          <div class="tp">
+            <!-- VS Code -->
+            <svg class="tech-svg logo-vsc" viewBox="0 0 24 24"><path fill="#007acc" d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 19.986V4.014a1.5 1.5 0 0 0-.85-1.427zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>
+            <span class="tp-name">VS Code</span>
+          </div>
+          <div class="tp">
+            <!-- Canva SVG -->
+            <svg class="tech-svg" viewBox="0 0 24 24"><path fill="#00c4cc" d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.8 16.8c-.94 0-1.76-.48-2.24-1.2-.36.44-.92.72-1.54.72-1.08 0-1.96-.88-1.96-1.96 0-.26.05-.51.14-.74-.36-.5-.57-.11-.57-1.62 0-2.07 1.68-3.75 3.75-3.75.86 0 1.66.29 2.29.77a3.72 3.72 0 0 1 2.21-.71c2.07 0 3.75 1.68 3.75 3.75 0 .49-.1.95-.28 1.38.28.43.45.94.45 1.49 0 .24-.03.47-.07.68h.07c.34 0 .62.28.62.62s-.28.62-.62.62z"/></svg>
+            <span class="tp-name">Canva</span>
+          </div>
+        </div>
+        <div class="alt-box">
+          <div class="alt-icon">🎓</div>
+          <div class="alt-txt">
+            <strong>Alternance — Bachelor CDA · 2026</strong>
+            Concepteur Développeur d'Applications · CESI Bordeaux
+          </div>
+        </div>
+      </div>
+      <div class="ftag ft2">VLAN · NTP · PTP · Cisco · Webmin</div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ══════ PROJETS ══════ -->
+<section id="projets"><div class="ctr">
+  <div class="s-lbl">// Ateliers professionnels</div>
+  <h2>Mes projets</h2>
+  <p class="s-desc">4 projets documentés avec contexte métier, modèle de données, code source commenté et zones images à personnaliser.</p>
+  <div class="proj-stack">
+
+    <!-- ── P1 : Pic du Midi Boutique (1A S2) ── -->
+    <div class="pc reveal">
+      <div class="pc-bar">
+        <div class="pc-tags">
+          <span class="tag t-wp">WordPress</span><span class="tag t-solo">Individuel</span>
+          <span class="tag" style="background:rgba(255,255,255,.04);color:var(--txt2);border:1px solid var(--brd);">1ère année · S2</span>
+        </div>
+        <div class="pc-tools">
+          <span class="tool"><svg class="tech-svg logo-wp" viewBox="0 0 24 24"><path fill="#21759b" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zM3.251 12a8.749 8.749 0 0 1 1.28-4.581L9.807 21.3A8.766 8.766 0 0 1 3.251 12zm8.749 8.749a8.77 8.77 0 0 1-2.334-.318l2.477-7.194 2.538 6.953a8.787 8.787 0 0 1-2.681.559zm1.154-13.11c.504-.026.958-.078.958-.078.451-.052.398-.717-.053-.691 0 0-1.356.105-2.232.105-.822 0-2.204-.105-2.204-.105-.451-.026-.504.665-.053.691 0 0 .424.052.877.078l1.303 3.57-1.831 5.49-3.047-9.06c.504-.026.957-.078.957-.078.451-.052.398-.717-.053-.691 0 0-1.356.105-2.23.105-.157 0-.342-.004-.538-.01A8.755 8.755 0 0 1 12 3.251a8.738 8.738 0 0 1 5.988 2.367c-.038-.002-.075-.006-.115-.006-1.075 0-1.836.935-1.836 1.938 0 .9.518 1.661 1.071 2.558.416.717.902 1.634.902 2.96 0 .917-.351 1.977-.813 3.455l-1.066 3.556-3.861-11.48zm3.437 12.27 2.521-7.283c.471-1.175.628-2.114.628-2.954 0-.303-.02-.585-.055-.854A8.749 8.749 0 0 1 20.749 12a8.736 8.736 0 0 1-4.158 7.909z"/></svg>WordPress</span>
+          <span class="tool"><svg class="tech-svg logo-vsc" viewBox="0 0 24 24"><path fill="#007acc" d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 19.986V4.014a1.5 1.5 0 0 0-.85-1.427zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>Notepad++</span>
+        </div>
+      </div>
+      <div class="pc-main">
+        <div class="pc-info">
+          <div class="pc-n">01</div>
+          <div class="pc-title">Site Boutique Pic du Midi</div>
+          <div class="pc-sub">Site e-commerce WordPress · 1ère année Semestre 2</div>
+          <p class="pc-ctx">Le Pic du Midi de Bigorre, reconverti en site touristique depuis 1990, a besoin d'un outil de gestion pour sa boutique. Développement d'un site WordPress avec gestion des produits, des catégories et d'une interface e-commerce pour les visiteurs.</p>
+        </div>
+        <div class="pc-img">
+          <div class="img-ph" style="aspect-ratio:16/9;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <p>Capture du site Pic du Midi<br><span>→ src="images/picdumidi.png"</span></p>
+          </div>
+          <div class="img-cap">Interface boutique WordPress</div>
+        </div>
+      </div>
+      <div class="pc-cols">
+        <div class="pc-col">
+          <div class="col-lbl">Fonctionnalités</div>
+          <ul class="fl">
+            <li><span class="fa">→</span>Création et configuration du site WordPress</li>
+            <li><span class="fa">→</span>Gestion des pages et du contenu (articles, produits)</li>
+            <li><span class="fa">→</span>Interface utilisateur cohérente et responsive</li>
+            <li><span class="fa">→</span>Navigation fluide entre les sections</li>
+          </ul>
+        </div>
+        <div class="pc-col">
+          <div class="col-lbl">Captures d'écran</div>
+          <div class="img-ph" style="aspect-ratio:4/3;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+            <p>Page d'accueil / boutique<br><span>→ src="images/picdumidi-2.png"</span></p>
+          </div>
+        </div>
+        <div class="pc-col">
+          <div class="col-lbl">Outil utilisé</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:.8rem;background:var(--bg);border:1px solid var(--brd);border-radius:9px;">
+            <svg style="width:32px;height:32px;" viewBox="0 0 24 24"><path fill="#21759b" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zM3.251 12a8.749 8.749 0 0 1 1.28-4.581L9.807 21.3A8.766 8.766 0 0 1 3.251 12zm8.749 8.749a8.77 8.77 0 0 1-2.334-.318l2.477-7.194 2.538 6.953a8.787 8.787 0 0 1-2.681.559zm1.154-13.11c.504-.026.958-.078.958-.078.451-.052.398-.717-.053-.691 0 0-1.356.105-2.232.105-.822 0-2.204-.105-2.204-.105-.451-.026-.504.665-.053.691 0 0 .424.052.877.078l1.303 3.57-1.831 5.49-3.047-9.06c.504-.026.957-.078.957-.078.451-.052.398-.717-.053-.691 0 0-1.356.105-2.23.105-.157 0-.342-.004-.538-.01A8.755 8.755 0 0 1 12 3.251a8.738 8.738 0 0 1 5.988 2.367c-.038-.002-.075-.006-.115-.006-1.075 0-1.836.935-1.836 1.938 0 .9.518 1.661 1.071 2.558.416.717.902 1.634.902 2.96 0 .917-.351 1.977-.813 3.455l-1.066 3.556-3.861-11.48zm3.437 12.27 2.521-7.283c.471-1.175.628-2.114.628-2.954 0-.303-.02-.585-.055-.854A8.749 8.749 0 0 1 20.749 12a8.736 8.736 0 0 1-4.158 7.909z"/></svg>
+            <div><div style="font-weight:600;font-size:.85rem;">WordPress</div><div style="font-size:.75rem;color:var(--txt2);">CMS — gestion de contenu</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-foot">
+        <div class="pc-res"><strong>Documentation :</strong> <a href="https://www.canva.com/design/DAGnIPtZmq4/ylXl50vAeEJeFQY0Kgu83A/view" target="_blank" style="color:var(--acc);text-decoration:none;">Voir sur Canva →</a></div>
+        <div class="done done-ok"><div class="done-dot"></div>Terminé</div>
+      </div>
+    </div>
+
+    <!-- ── P3 : Journée Intégration (2A S1) ── -->
+    <div class="pc reveal">
+      <div class="pc-bar">
+        <div class="pc-tags">
+          <span class="tag t-php">PHP</span><span class="tag t-html">HTML</span><span class="tag t-css">CSS</span><span class="tag t-git">Git</span><span class="tag t-solo">Individuel</span>
+          <span class="tag" style="background:rgba(255,255,255,.04);color:var(--txt2);border:1px solid var(--brd);">2ème année · S1</span>
+        </div>
+        <div class="pc-tools">
+          <span class="tool"><svg class="tech-svg logo-php" viewBox="0 0 128 128"><text x="64" y="80" text-anchor="middle" font-size="60" font-weight="700" fill="#8993be" font-family="Arial">P</text></svg>PHP</span>
+          <span class="tool"><svg class="tech-svg logo-git" viewBox="0 0 24 24"><path fill="#f05032" d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.67 .45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>GitHub</span>
+          <span class="tool"><svg class="tech-svg logo-vsc" viewBox="0 0 24 24"><path fill="#007acc" d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 19.986V4.014a1.5 1.5 0 0 0-.85-1.427zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>VS Code</span>
+          <span class="tool">GLPI</span>
+        </div>
+      </div>
+      <div class="pc-main">
+        <div class="pc-info">
+          <div class="pc-n">02</div>
+          <div class="pc-title">Projet Journée Intégration</div>
+          <div class="pc-sub">Maintenance applicative · Méthode Agile · 2ème année S1</div>
+          <p class="pc-ctx">Application web de gestion de la journée d'intégration des étudiants SIO1, développée en mode Agile. J'ai traité 4 demandes d'interventions via GLPI : analyse des tickets, identification des erreurs, corrections en branches Git dédiées, tests et fusion. L'application exploite plusieurs sources de données (BDD, XML, JSON) via une architecture MVC avec gestion sécurisée des accès.</p>
+        </div>
+        <div class="pc-img">
+          <div class="img-ph" style="aspect-ratio:16/9;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <p>Capture de l'application<br><span>→ src="images/integration.png"</span></p>
+          </div>
+          <div class="img-cap">Interface de gestion de la journée d'intégration</div>
+        </div>
+      </div>
+      <div class="pc-cols">
+        <div class="pc-col">
+          <div class="col-lbl">Modèle logique de données</div>
+          <div class="mld">
+            <span class="mt">Etudiants</span> (<span class="mpk">id</span>, nom, prenom, email)<br>
+            <span class="mt">Activite</span> (<span class="mpk">id</span>, libelle, horaire)<br>
+            <span class="mt">Equipe</span> (<span class="mpk">id</span>, nom, <span class="mfk">#idActivite</span>)<br>
+            <span class="mt">Participer</span> (<span class="mfk">#idEtudiant</span>, <span class="mfk">#idEquipe</span>)<br>
+            <br><span class="mc">// Sources : BDD + XML + JSON</span>
+          </div>
+        </div>
+        <div class="pc-col">
+          <div class="col-lbl">Interventions GLPI traitées</div>
+          <ul class="fl">
+            <li><span class="fa fok">✓</span>Ticket 1 — Correction affichage XML</li>
+            <li><span class="fa fok">✓</span>Ticket 2 — Sécurisation accès JSON</li>
+            <li><span class="fa fok">✓</span>Ticket 3 — Bug formulaire inscription</li>
+            <li><span class="fa fok">✓</span>Ticket 4 — Refactoring requêtes PDO</li>
+            <li><span class="fa fok">✓</span>Branches Git + résolution conflits</li>
+          </ul>
+        </div>
+        <div class="pc-col">
+          <div class="col-lbl">Captures d'écran</div>
+          <div class="code-imgs" style="padding:0;background:transparent;border:none;display:flex;flex-direction:column;gap:8px;">
+            <div class="img-ph" style="aspect-ratio:16/9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M10.5 20H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H20a2 2 0 0 1 2 2v3"/><circle cx="18" cy="18" r="3"/><path d="m22 22-1.5-1.5"/></svg>
+              <p>Tickets GLPI / branches Git<br><span>→ src="images/glpi.png"</span></p>
+            </div>
+            <div class="img-ph" style="aspect-ratio:16/9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <p>Code PHP corrigé<br><span>→ src="images/code-int.png"</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-code">
+        <div class="cb">
+          <div class="cb-head"><div class="dots"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div></div><span class="fn2">Exemple de correction — requête sécurisée PDO</span></div>
+<pre><span class="cm">// AVANT (vulnérable à l'injection SQL)</span>
+<span class="va">$sql</span> = <span class="str">"SELECT * FROM etudiants WHERE id = "</span> . <span class="va">$_GET</span>[<span class="str">'id'</span>];
+
+<span class="cm">// APRÈS (correction appliquée — requête préparée)</span>
+<span class="va">$sql</span> = <span class="str">"SELECT * FROM etudiants WHERE id = :id"</span>;
+<span class="va">$stmt</span> = <span class="va">$pdo</span>-><span class="fn">prepare</span>(<span class="va">$sql</span>);
+<span class="va">$stmt</span>-><span class="fn">bindParam</span>(<span class="str">':id'</span>, <span class="va">$_GET</span>[<span class="str">'id'</span>], PDO::<span class="cls">PARAM_INT</span>);
+<span class="va">$stmt</span>-><span class="fn">execute</span>();</pre>
+        </div>
+        <!-- Zone schéma BDD -->
+        <div style="padding:1rem 1.4rem;border-top:1px solid var(--brd);">
+          <div class="col-lbl" style="margin-bottom:.6rem;">Schéma de la base de données</div>
+          <div class="schema-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+            <p>Schéma / diagramme de base de données (BDD, XML, JSON)<br><span>→ src="images/schema-integration.png"</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="pc-foot">
+        <div class="pc-res"><strong>Documentation :</strong> <a href="https://www.canva.com/design/DAG60cIg19I/1RH2P3aAlO-9uI0U8AvVFQ/edit" target="_blank" style="color:var(--acc);text-decoration:none;">Voir sur Canva →</a></div>
+        <div class="done done-ok"><div class="done-dot"></div>Terminé</div>
+      </div>
+    </div>
+
+    <!-- ── P3 : Gestion Commande V2 (2A S1) ── -->
+    <div class="pc reveal">
+      <div class="pc-bar">
+        <div class="pc-tags">
+          <span class="tag t-php">PHP</span><span class="tag t-sql">MySQL</span><span class="tag t-solo">Individuel</span>
+          <span class="tag" style="background:rgba(255,255,255,.04);color:var(--txt2);border:1px solid var(--brd);">2ème année · S1</span>
+        </div>
+        <div class="pc-tools">
+          <span class="tool"><svg class="tech-svg logo-php" viewBox="0 0 128 128"><text x="64" y="80" text-anchor="middle" font-size="60" font-weight="700" fill="#8993be" font-family="Arial">P</text></svg>PHP/POO</span>
+          <span class="tool"><svg class="tech-svg logo-mysql" viewBox="0 0 24 24"><path fill="#4479a1" d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.274.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.182-.153z"/><path fill="#4479a1" d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm5.492 7.708c-.4.056-.832.215-1.166.515l-.013.027c.39.027.83.075 1.166.2.29.104.58.262.75.495.03.035.047.074.064.113.173.418.173.916-.026 1.323-.048.1-.108.192-.178.27-.155.177-.358.302-.57.388a2.66 2.66 0 0 1-.818.193c-.36.03-.75.015-1.1-.062-.298-.064-.614-.19-.862-.4-.25-.21-.41-.503-.374-.813.035-.31.252-.59.53-.75.278-.16.603-.22.92-.22.41 0 .843.064 1.19.24.087.044.167.097.244.155-.015-.077-.033-.153-.065-.226-.133-.298-.43-.479-.743-.563-.21-.055-.436-.076-.66-.076-.352 0-.7.05-1.027.16-.318.108-.622.274-.865.5-.248.226-.434.512-.517.824-.084.312-.066.65.05.958.116.308.32.582.576.8.512.428 1.184.642 1.866.73.342.044.69.06 1.035.033a4.49 4.49 0 0 0 .97-.19c.303-.098.588-.237.847-.41.26-.174.49-.383.677-.627.186-.244.33-.52.408-.814.078-.294.085-.604.025-.9a2.57 2.57 0 0 0-.37-.817c-.187-.254-.43-.463-.703-.623-.273-.16-.573-.27-.882-.337a4.98 4.98 0 0 0-1.024-.098z"/></svg>MySQL</span>
+          <span class="tool"><svg class="tech-svg logo-vsc" viewBox="0 0 24 24"><path fill="#007acc" d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 19.986V4.014a1.5 1.5 0 0 0-.85-1.427zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>VS Code</span>
+        </div>
+      </div>
+      <div class="pc-main">
+        <div class="pc-info">
+          <div class="pc-n">03</div>
+          <div class="pc-title">Gestion Commande V2</div>
+          <div class="pc-sub">Application web complète MVC + DAO · 2ème année S1</div>
+          <p class="pc-ctx">Application web complète de gestion du cycle commercial d'une entreprise : clients, catalogue produits, commandes et stocks. Architecture MVC avec pattern DAO, 4 modules principaux (Clients, Produits, Commandes, Utilisateurs), authentification et gestion des rôles admin/utilisateur sur une base MySQL à 5 tables interconnectées.</p>
+        </div>
+        <div class="pc-img">
+          <div class="img-ph" style="aspect-ratio:16/9;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <p>Interface de gestion des commandes<br><span>→ src="images/commandes.png"</span></p>
+          </div>
+          <div class="img-cap">Dashboard de gestion — Vue commandes</div>
+        </div>
+      </div>
+      <div class="pc-cols">
+        <div class="pc-col">
+          <div class="col-lbl">Modèle logique de données</div>
+          <div class="mld">
+            <span class="mt">Clients</span> (<span class="mpk">id</span>, nom, prenom, email, adresse)<br>
+            <span class="mt">Produits</span> (<span class="mpk">id</span>, libelle, prix, stock)<br>
+            <span class="mt">Commandes</span> (<span class="mpk">id</span>, date, <span class="mfk">#idClient</span>, statut)<br>
+            <span class="mt">LigneCmd</span> (<span class="mfk">#idCmd</span>, <span class="mfk">#idProduit</span>, qte)<br>
+            <span class="mt">Utilisateurs</span> (<span class="mpk">id</span>, login, mdp, role)<br>
+            <span class="mc">// 5 tables · rôles admin/user</span>
+          </div>
+        </div>
+        <div class="pc-col">
+          <div class="col-lbl">Fonctionnalités</div>
+          <ul class="fl">
+            <li><span class="fa fok">✓</span>CRUD complet Clients / Produits / Commandes</li>
+            <li><span class="fa fok">✓</span>Authentification + gestion des rôles</li>
+            <li><span class="fa fok">✓</span>Architecture MVC + pattern DAO</li>
+            <li><span class="fa fok">✓</span>Séparation couches (Modèle, Vue, Contrôleur)</li>
+            <li><span class="fa fok">✓</span>Interface moderne et intuitive</li>
+          </ul>
+        </div>
+        <div class="pc-col">
+          <div class="col-lbl">Captures d'écran</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="img-ph" style="aspect-ratio:16/9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              <p>Page produits / liste<br><span>→ src="images/produits.png"</span></p>
+            </div>
+            <div class="img-ph" style="aspect-ratio:16/9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+              <p>Page authentification<br><span>→ src="images/login.png"</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-code">
+        <div class="cb">
+          <div class="cb-head"><div class="dots"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div></div><span class="fn2">Architecture MVC + DAO — Structure du projet</span></div>
+<pre><span class="cm">/*
+ * ARCHITECTURE MVC (Modèle - Vue - Contrôleur)
+ * ─────────────────────────────────────────────
+ * modeles/       → Classes PHP représentant les entités (Clients, Produits…)
+ * dao/           → Accès base de données via PDO (requêtes préparées)
+ * controleurs/   → Logique métier, appel des DAO, transmission aux vues
+ * vues/          → Affichage HTML uniquement (aucune logique)
+ */</span>
+
+<span class="cm">// ── Modèle : Commande.php ──────────────────────────────────────────</span>
+<span class="kw">class</span> <span class="cls">Commande</span> {
+    <span class="kw">private</span> <span class="va">$id</span>, <span class="va">$date</span>, <span class="va">$statut</span>, <span class="va">$idClient</span>;
+
+    <span class="kw">public function</span> <span class="fn">__construct</span>(<span class="va">$date</span>, <span class="va">$statut</span>, <span class="va">$idClient</span>, <span class="va">$id</span>=<span class="nb">null</span>) {
+        <span class="va">$this</span>->id = <span class="va">$id</span>;
+        <span class="va">$this</span>->date = <span class="va">$date</span>;
+        <span class="va">$this</span>->statut = <span class="va">$statut</span>;
+        <span class="va">$this</span>->idClient = <span class="va">$idClient</span>;
+    }
+    <span class="cm">// Getters / Setters</span>
+    <span class="kw">public function</span> <span class="fn">getId</span>()      { <span class="kw">return</span> <span class="va">$this</span>->id; }
+    <span class="kw">public function</span> <span class="fn">getDate</span>()    { <span class="kw">return</span> <span class="va">$this</span>->date; }
+    <span class="kw">public function</span> <span class="fn">getStatut</span>()  { <span class="kw">return</span> <span class="va">$this</span>->statut; }
+}
+
+<span class="cm">// ── DAO : CommandesDAO.php ─────────────────────────────────────────</span>
+<span class="kw">class</span> <span class="cls">CommandesDAO</span> <span class="kw">extends</span> <span class="cls">BaseDAO</span> {
+
+    <span class="cm">/**
+     * Retourne toutes les commandes d'un client avec les lignes associées
+     * @param  int   $idClient  Identifiant du client en base
+     * @return array            Tableau associatif [jour, libelle, qte, prix]
+     */</span>
+    <span class="kw">public function</span> <span class="fn">getByClient</span>(<span class="va">$idClient</span>) {
+        <span class="va">$sql</span> = <span class="str">"SELECT c.id, c.date, c.statut,
+                       p.libelle, lc.qte, p.prix
+                FROM   commandes c
+                JOIN   ligne_commande lc ON lc.idCommande = c.id
+                JOIN   produits p        ON p.id = lc.idProduit
+                WHERE  c.idClient = :id
+                ORDER  BY c.date DESC"</span>;
+        <span class="va">$stmt</span> = <span class="va">$this</span>-><span class="fn">pdo</span>()-><span class="fn">prepare</span>(<span class="va">$sql</span>);
+        <span class="va">$stmt</span>-><span class="fn">execute</span>([<span class="str">':id'</span> => <span class="va">$idClient</span>]);
+        <span class="kw">return</span> <span class="va">$stmt</span>-><span class="fn">fetchAll</span>(PDO::<span class="cls">FETCH_ASSOC</span>);
+    }
+
+    <span class="cm">/**
+     * Crée une nouvelle commande en base de données
+     * @param  Commande $cmd  Objet Commande à insérer
+     * @return bool           true si succès
+     */</span>
+    <span class="kw">public function</span> <span class="fn">ajouter</span>(<span class="cls">Commande</span> <span class="va">$cmd</span>) {
+        <span class="va">$sql</span> = <span class="str">"INSERT INTO commandes (date, statut, idClient)
+                VALUES (:date, :statut, :idClient)"</span>;
+        <span class="va">$stmt</span> = <span class="va">$this</span>-><span class="fn">pdo</span>()-><span class="fn">prepare</span>(<span class="va">$sql</span>);
+        <span class="kw">return</span> <span class="va">$stmt</span>-><span class="fn">execute</span>([
+            <span class="str">':date'</span>     => <span class="va">$cmd</span>-><span class="fn">getDate</span>(),
+            <span class="str">':statut'</span>   => <span class="va">$cmd</span>-><span class="fn">getStatut</span>(),
+            <span class="str">':idClient'</span> => <span class="va">$cmd</span>-><span class="fn">getIdClient</span>()
+        ]);
+    }
+}</pre>
+        </div>
+        <div class="code-imgs">
+          <div class="img-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+            <p>Capture de ton code source (modèle/DAO)<br><span>→ src="images/code-gestion.png"</span></p>
+          </div>
+          <div class="img-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+            <p>Interface authentification / rôles<br><span>→ src="images/login-gestion.png"</span></p>
+          </div>
+        </div>
+        <!-- Zone schéma BDD -->
+        <div style="padding:1rem 1.4rem;border-top:1px solid var(--brd);">
+          <div class="col-lbl" style="margin-bottom:.6rem;">Schéma de la base de données</div>
+          <div class="schema-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+            <p>Schéma / diagramme de base de données<br><span>→ src="images/schema-gestion.png"</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="pc-foot">
+        <div class="pc-res"><strong>Documentation :</strong> <a href="https://www.canva.com/design/DAG5Z9j_qjY/Z5ipzlf5JfDPwDTFF35s3Q/edit" target="_blank" style="color:var(--acc);text-decoration:none;">Voir sur Canva →</a></div>
+        <div class="done done-ok"><div class="done-dot"></div>Terminé</div>
+      </div>
+    </div>
+
+    <!-- ── P5 : Site Fâ + ECommerce ── -->
+    <div class="pc reveal">
+      <div class="pc-bar">
+        <div class="pc-tags">
+          <span class="tag t-php">PHP</span><span class="tag t-sql">MySQL</span><span class="tag t-git">Git</span><span class="tag t-grp">Groupe</span>
+          <span class="tag" style="background:rgba(255,255,255,.04);color:var(--txt2);border:1px solid var(--brd);">2ème année · S1–S2</span>
+        </div>
+        <div class="pc-tools">
+          <span class="tool"><svg class="tech-svg logo-php" viewBox="0 0 128 128"><text x="64" y="80" text-anchor="middle" font-size="60" font-weight="700" fill="#8993be" font-family="Arial">P</text></svg>PHP 8</span>
+          <span class="tool"><svg class="tech-svg logo-git" viewBox="0 0 24 24"><path fill="#f05032" d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.67 .45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>GitHub</span>
+          <span class="tool">SCRUM</span>
+          <span class="tool">SQL Triggers</span>
+        </div>
+      </div>
+      <div class="pc-main">
+        <div class="pc-info">
+          <div class="pc-n">04</div>
+          <div class="pc-title">Site Fâ + ECommerce</div>
+          <div class="pc-sub">MVC · SCRUM · Cybersécurité · SQL Triggers · 2ème année</div>
+          <p class="pc-ctx"><strong style="color:var(--txt);">Site Fâ</strong> — Application web PHP 8 MVC pour fluidifier la gestion des entrées et ateliers du site gallo-romain de Fâ. Méthode SCRUM, Product Backlog, versionnage Git, analyse des risques de sécurité et tests unitaires. <strong style="color:var(--txt);">ECommerce</strong> — Sécurisation par triggers SQL pour l'intégrité des données : déclencheur <code style="color:var(--teal);">empecheSoldeNegatif</code> (BEFORE UPDATE + SIGNAL SQLSTATE), plafonnement des virements et blocage utilisateurs à risque.</p>
+        </div>
+        <div class="pc-img">
+          <div class="img-ph" style="aspect-ratio:16/9;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+            <p>Interface du site Fâ<br><span>→ src="images/fa.png"</span></p>
+          </div>
+          <div class="img-cap">Application billetterie site de Fâ</div>
+        </div>
+      </div>
+      <div class="pc-cols">
+        <div class="pc-col">
+          <div class="col-lbl">Site Fâ — MLD</div>
+          <div class="mld">
+            <span class="mt">Visiteurs</span> (<span class="mpk">id</span>, nom, prenom, email)<br>
+            <span class="mt">Atelier</span> (<span class="mpk">id</span>, libelle, horaire, nbPlace)<br>
+            <span class="mt">Prix</span> (<span class="mpk">id</span>, prixAdultes, prixEnfants)<br>
+            <span class="mt">Acheter</span> (<span class="mfk">#idVisit</span>, <span class="mfk">#idAtelier</span>, nbBillets)
+          </div>
+        </div>
+        <div class="pc-col">
+          <div class="col-lbl">ECommerce — Trigger SQL</div>
+          <div class="mld" style="font-size:.66rem;">
+            <span class="kw">DELIMITER</span> //<br>
+            <span class="kw">CREATE TRIGGER</span> <span class="cls">empecheSoldeNegatif</span><br>
+            <span class="kw">BEFORE UPDATE ON</span> comptes<br>
+            <span class="kw">FOR EACH ROW BEGIN</span><br>
+            &nbsp;<span class="kw">IF</span> NEW.solde &lt; <span class="nb">0</span> <span class="kw">THEN</span><br>
+            &nbsp;&nbsp;<span class="fn">SIGNAL SQLSTATE</span> <span class="str">'45000'</span><br>
+            &nbsp;&nbsp;<span class="kw">SET</span> MESSAGE_TEXT=<span class="str">'Solde insuffisant'</span>;<br>
+            &nbsp;<span class="kw">END IF</span>;<br>
+            <span class="kw">END</span>//
+          </div>
+        </div>
+        <div class="pc-col">
+          <div class="col-lbl">Captures d'écran</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="img-ph" style="aspect-ratio:16/9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M12 17V7"/></svg>
+              <p>Product Backlog SCRUM<br><span>→ src="images/backlog.png"</span></p>
+            </div>
+            <div class="img-ph" style="aspect-ratio:16/9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <p>Tests sécurité / résultats<br><span>→ src="images/secu.png"</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-code">
+        <div class="cb">
+          <div class="cb-head"><div class="dots"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div></div><span class="fn2">VisiteursDAO.php — Architecture MVC + DAO commentée (Site Fâ)</span></div>
+<pre><span class="cm">// ── Modèle : Visiteur.php ─────────────────────────────────────────</span>
+<span class="kw">class</span> <span class="cls">Visiteur</span> {
+    <span class="kw">private</span> <span class="va">$id</span>, <span class="va">$nom</span>, <span class="va">$prenom</span>, <span class="va">$email</span>, <span class="va">$tel</span>;
+
+    <span class="kw">public function</span> <span class="fn">__construct</span>(<span class="va">$nom</span>, <span class="va">$prenom</span>, <span class="va">$email</span>, <span class="va">$tel</span>, <span class="va">$id</span>=<span class="nb">null</span>) {
+        <span class="va">$this</span>->nom = <span class="va">$nom</span>;
+        <span class="va">$this</span>->prenom = <span class="va">$prenom</span>;
+        <span class="va">$this</span>->email = <span class="va">$email</span>;
+        <span class="va">$this</span>->tel = <span class="va">$tel</span>;
+        <span class="va">$this</span>->id = <span class="va">$id</span>;
+    }
+    <span class="kw">public function</span> <span class="fn">getNom</span>()    { <span class="kw">return</span> <span class="va">$this</span>->nom; }
+    <span class="kw">public function</span> <span class="fn">getPrenom</span>() { <span class="kw">return</span> <span class="va">$this</span>->prenom; }
+    <span class="kw">public function</span> <span class="fn">getEmail</span>()  { <span class="kw">return</span> <span class="va">$this</span>->email; }
+    <span class="kw">public function</span> <span class="fn">getTel</span>()    { <span class="kw">return</span> <span class="va">$this</span>->tel; }
+}
+
+<span class="cm">// ── DAO : VisiteursDAO.php ────────────────────────────────────────</span>
+<span class="kw">class</span> <span class="cls">VisiteursDAO</span> <span class="kw">extends</span> <span class="cls">BaseDAO</span> {
+
+    <span class="cm">/**
+     * Insère un visiteur en base de données (requête préparée)
+     * @param  Visiteur $v  Objet visiteur à enregistrer
+     * @return bool         true si l'insertion a réussi
+     */</span>
+    <span class="kw">public function</span> <span class="fn">ajouter</span>(<span class="cls">Visiteur</span> <span class="va">$v</span>) {
+        <span class="va">$sql</span> = <span class="str">"INSERT INTO visiteurs (nom, prenom, email, tel)
+                VALUES (:nom, :prenom, :email, :tel)"</span>;
+        <span class="va">$stmt</span> = <span class="va">$this</span>-><span class="fn">pdo</span>()-><span class="fn">prepare</span>(<span class="va">$sql</span>);
+        <span class="kw">return</span> <span class="va">$stmt</span>-><span class="fn">execute</span>([
+            <span class="str">':nom'</span>    => <span class="va">$v</span>-><span class="fn">getNom</span>(),
+            <span class="str">':prenom'</span> => <span class="va">$v</span>-><span class="fn">getPrenom</span>(),
+            <span class="str">':email'</span>  => <span class="va">$v</span>-><span class="fn">getEmail</span>(),
+            <span class="str">':tel'</span>    => <span class="va">$v</span>-><span class="fn">getTel</span>()
+        ]);
+    }
+}
+
+<span class="cm">// ── Contrôleur : VisiteursControleur.php ─────────────────────────</span>
+<span class="kw">class</span> <span class="cls">VisiteursControleur</span> {
+
+    <span class="cm">/** Action : enregistrer un nouvel achat */</span>
+    <span class="kw">public function</span> <span class="fn">enregistrer</span>() {
+        <span class="va">$visiteur</span> = <span class="kw">new</span> <span class="cls">Visiteur</span>(
+            <span class="va">$_POST</span>[<span class="str">'nom'</span>], <span class="va">$_POST</span>[<span class="str">'prenom'</span>],
+            <span class="va">$_POST</span>[<span class="str">'email'</span>], <span class="va">$_POST</span>[<span class="str">'tel'</span>]
+        );
+        <span class="va">$dao</span> = <span class="kw">new</span> <span class="cls">VisiteursDAO</span>();
+        <span class="va">$dao</span>-><span class="fn">ajouter</span>(<span class="va">$visiteur</span>);
+        <span class="cm">// Redirection vers la vue confirmation</span>
+        <span class="fn">header</span>(<span class="str">"Location: index.php?controleur=confirmation"</span>);
+    }
+}</pre>
+        </div>
+        <!-- Zone schéma BDD -->
+        <div style="padding:1rem 1.4rem;border-top:1px solid var(--brd);">
+          <div class="col-lbl" style="margin-bottom:.6rem;">Schéma de la base de données</div>
+          <div class="schema-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+            <p>Diagramme de classe / MCD du site Fâ<br><span>→ src="images/schema-fa.png"</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="pc-foot">
+        <div class="pc-res"><strong>GitHub ECommerce :</strong> <a href="https://github.com/SJPSIO/cyber-2-ecommerce-Annaelle972.git" target="_blank" style="color:var(--acc);text-decoration:none;">github.com → Annaelle972</a></div>
+        <div class="done done-ok"><div class="done-dot"></div>Terminé</div>
+      </div>
+    </div>
+
+  </div>
+</div></section>
+
+<div class="sep"></div>
+
+<!-- ══════ COMPETENCES ══════ -->
+<section id="competences"><div class="ctr">
+  <div class="cv-hdr">
+    <div>
+      <div class="s-lbl">// Curriculum vitae</div>
+      <h2>Compétences</h2>
+      <p class="s-desc">Compétences techniques acquises en BTS SIO SLAM et en entreprise, présentées avec honnêteté.</p>
+      <a class="cv-dl" href="#">Télécharger mon CV (PDF)</a>
+    </div>
+    <div class="edu-items">
+      <div class="edu-item">
+        <div class="edu-ico">🎓</div>
+        <div><div class="edu-title">BTS SIO — option SLAM</div><div class="edu-sub">2023–2025 · Bordeaux</div></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-ico">📚</div>
+        <div><div class="edu-title">Baccalauréat général</div><div class="edu-sub">Sciences Numériques · 2023</div></div>
+      </div>
+      <div class="edu-item hl">
+        <div class="edu-ico">🚀</div>
+        <div><div class="edu-title" style="color:var(--acc);">Bachelor CDA — CESI Bordeaux</div><div class="edu-sub">Concepteur Développeur d'Applications · Sept. 2025</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="skills-grid">
+    <div class="sk reveal">
+      <div class="sk-hdr"><div class="sk-ico ic-v"><svg style="width:20px;height:20px;" viewBox="0 0 128 128"><text x="64" y="80" text-anchor="middle" font-size="60" font-weight="700" fill="#8993be" font-family="Arial">P</text></svg></div><div class="sk-title">PHP / Back-end</div></div>
+      <div class="sr"><span class="sn">PHP 8 / POO</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Architecture MVC</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Pattern DAO + PDO</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Perl / CGI</span><span class="slv lv-mid">Notions</span></div>
+      <div class="sr"><span class="sn">Node.js</span><span class="slv lv-no">Non maîtrisé</span></div>
+    </div>
+    <div class="sk reveal">
+      <div class="sk-hdr"><div class="sk-ico ic-t"><svg style="width:20px;height:20px;" viewBox="0 0 24 24"><path fill="#e34f26" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg></div><div class="sk-title">HTML / CSS / JS</div></div>
+      <div class="sr"><span class="sn">HTML5 sémantique</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">CSS3 / Responsive</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">WordPress CMS</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">JavaScript ES6</span><span class="slv lv-mid">En cours</span></div>
+      <div class="sr"><span class="sn">React / Vue.js</span><span class="slv lv-no">Non maîtrisé</span></div>
+    </div>
+    <div class="sk reveal">
+      <div class="sk-hdr"><div class="sk-ico ic-r"><svg style="width:20px;height:20px;" viewBox="0 0 24 24"><path fill="#4479a1" d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.274.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.182-.153zM5.77 18.935c-.112 0-.184.021-.235.084v.055c.096.129.18.261.309.354.115.09.229.175.356.269.04-.043.06-.065.06-.12.003-.12-.048-.207-.097-.286-.05-.081-.14-.14-.218-.198l-.175-.158z"/><text x="12" y="17" text-anchor="middle" font-size="9" fill="#4479a1" font-family="Arial" font-weight="700">SQL</text></svg></div><div class="sk-title">Base de données</div></div>
+      <div class="sr"><span class="sn">MySQL / SQL</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Conception MCD / MLD</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Triggers / Procédures</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Jointures complexes</span><span class="slv lv-mid">En cours</span></div>
+      <div class="sr"><span class="sn">PostgreSQL / MongoDB</span><span class="slv lv-no">Non maîtrisé</span></div>
+    </div>
+    <div class="sk reveal">
+      <div class="sk-hdr"><div class="sk-ico ic-g"><svg style="width:20px;height:20px;" viewBox="0 0 24 24"><path fill="#f05032" d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.67 .45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg></div><div class="sk-title">Outils & Versionnage</div></div>
+      <div class="sr"><span class="sn">Git / GitHub</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">VS Code</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">GitHub Codespaces</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">WAMP / XAMPP</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Figma / Canva</span><span class="slv lv-ok">Maîtrisé</span></div>
+    </div>
+    <div class="sk reveal">
+      <div class="sk-hdr"><div class="sk-ico ic-n"><svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="sk-title">Cybersécurité</div></div>
+      <div class="sr"><span class="sn">RGPD / protection données</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">GLPI — tickets incidents</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Analyse de risques</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Snyk (SAST)</span><span class="slv lv-mid">En cours</span></div>
+      <div class="sr"><span class="sn">Pentest / CTF</span><span class="slv lv-no">Notions</span></div>
+    </div>
+    <div class="sk reveal">
+      <div class="sk-hdr"><div class="sk-ico ic-b"><svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="sk-title">Réseau & Infrastructure</div></div>
+      <div class="sr"><span class="sn">VLAN / switchs Cisco</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">NTP / PTP (Webmin)</span><span class="slv lv-ok">Maîtrisé</span></div>
+      <div class="sr"><span class="sn">Bases TCP/IP / DHCP</span><span class="slv lv-mid">En cours</span></div>
+      <div class="sr"><span class="sn">Linux / Perl / CGI</span><span class="slv lv-mid">Notions</span></div>
+      <div class="sr"><span class="sn">Méthode Agile / SCRUM</span><span class="slv lv-ok">Maîtrisé</span></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="sep"></div>
+
+<!-- ══════ STAGES ══════ -->
+<section id="stages"><div class="ctr">
+  <div class="s-lbl">// Expériences professionnelles</div>
+  <h2>Stages</h2>
+  <p class="s-desc">Deux périodes d'immersion en entreprise dans des environnements professionnels réels et variés.</p>
+  <div class="stage-stack">
+
+    <!-- Stage 2A : ARGITIK -->
+    <div class="stg reveal">
+      <div class="stg-bar">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <span class="period">Janv. – Fév. 2026</span>
+          <span class="stype st-dev">Développement Web</span>
+          <span class="tag t-grp">En binôme</span>
+        </div>
+        <div class="pc-tools">
+          <span class="tool"><svg class="tech-svg logo-php" viewBox="0 0 128 128"><text x="64" y="80" text-anchor="middle" font-size="60" font-weight="700" fill="#8993be" font-family="Arial">P</text></svg>PHP</span>
+          <span class="tool"><svg class="tech-svg logo-mysql" viewBox="0 0 24 24"><text x="12" y="15" text-anchor="middle" font-size="8" fill="#4479a1" font-family="Arial" font-weight="700">SQL</text></svg>MySQL</span>
+          <span class="tool"><svg class="tech-svg logo-figma" viewBox="0 0 24 24"><path fill="#f24e1e" d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491z"/></svg>Figma</span>
+          <span class="tool"><svg class="tech-svg logo-vsc" viewBox="0 0 24 24"><path fill="#007acc" d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 19.986V4.014a1.5 1.5 0 0 0-.85-1.427zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>VS Code</span>
+        </div>
+      </div>
+      <div class="stg-main">
+        <div class="stg-info">
+          <div class="co-row">
+            <div class="co-logo" style="background:#fff;">
+              <img src="https://static.wixstatic.com/media/f1f600_abb3daede43f48f7bf261b84d9327626~mv2.jpg/v1/fill/w_182,h_139,al_c,q_80/ARGITIK-LOGO-OFFICIEL-BLANC_edited.jpg" alt="Argitik" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=font-size:1.2rem>⚡</span>'">
+            </div>
+            <div>
+              <div class="co-name">ARGITIK</div>
+              <div class="co-loc">Entreprise d'électricité · Bordeaux</div>
+            </div>
+          </div>
+          <div class="stg-role">Développeuse Web — Site de prise de rendez-vous</div>
+          <p class="stg-desc">Modernisation de la relation client d'une entreprise d'électricité par le développement d'un site web complet de prise de rendez-vous en ligne. Travail en binôme sur l'intégralité du cycle de vie : analyse des besoins, maquettes Figma/Canva, modélisation BDD MySQL, développement PHP MVC et documentation pour l'hébergement.</p>
+        </div>
+        <div class="stg-imgs">
+          <div class="img-ph" style="flex:1;min-height:120px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <p>Maquette Figma ou capture du site<br><span>→ src="images/argitik-site.png"</span></p>
+          </div>
+          <div class="img-ph" style="flex:1;min-height:80px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+            <p>Formulaire de rendez-vous<br><span>→ src="images/argitik-form.png"</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="stg-body">
+        <div class="stg-col">
+          <div class="col-lbl">Missions réalisées</div>
+          <ul class="ml">
+            <li><span class="mi">→</span>Analyse des besoins clients et rédaction des spécifications</li>
+            <li><span class="mi">→</span>Création des maquettes sur Figma et Canva</li>
+            <li><span class="mi">→</span>Modélisation et implémentation BDD MySQL</li>
+            <li><span class="mi">→</span>Développement backend PHP (architecture MVC)</li>
+            <li><span class="mi">→</span>Frontend HTML/CSS/JS — formulaire de RDV avancé</li>
+            <li><span class="mi">→</span>Documentation technique + guide d'hébergement</li>
+          </ul>
+        </div>
+        <div class="stg-col">
+          <div class="col-lbl">Compétences développées</div>
+          <div class="tools-row" style="margin-bottom:.8rem;">
+            <span class="tool">PHP MVC</span><span class="tool">MySQL</span><span class="tool">Canva</span><span class="tool">HTML/CSS</span><span class="tool">JS</span><span class="tool">Travail en équipe</span><span class="tool">Documentation</span>
+          </div>
+          <div class="img-ph" style="aspect-ratio:16/9;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <p>Documentation / MLD produit<br><span>→ src="images/argitik-doc.png"</span></p>
+          </div>
+          <div class="col-lbl" style="margin-top:1rem;margin-bottom:.5rem;">Schéma de la base de données</div>
+          <div class="schema-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+            <p>Modèle de données / diagramme BDD Argitik<br><span>→ src="images/schema-argitik.png"</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 1A : FEBUS OPTICS -->
+    <div class="stg reveal">
+      <div class="stg-bar">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <span class="period">1ère année · 2024</span>
+          <span class="stype st-inf">Infrastructure & Dev Système</span>
+        </div>
+        <div class="pc-tools">
+          <span class="tool"><svg class="tech-svg logo-perl" viewBox="0 0 24 24"><text x="12" y="16" text-anchor="middle" font-size="10" fill="#8898d8" font-family="monospace" font-weight="700">pl</text></svg>Perl</span>
+          <span class="tool"><svg class="tech-svg logo-linux" viewBox="0 0 24 24"><text x="12" y="16" text-anchor="middle" font-size="9" fill="#fcc624" font-family="Arial" font-weight="700">Tux</text></svg>Linux</span>
+          <span class="tool">VLAN</span><span class="tool">Cisco</span><span class="tool">Webmin</span>
+        </div>
+      </div>
+      <div class="stg-main">
+        <div class="stg-info">
+          <div class="co-row">
+            <div class="co-logo" style="background:#fff;">
+              <img src="https://static.wixstatic.com/media/f1f600_a7bae04a6b114b0ba0eeb6d0a093fe04~mv2.png" alt="Febus Optics" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=font-size:1.2rem>🔭</span>'">
+            </div>
+            <div>
+              <div class="co-name">FEBUS OPTICS</div>
+              <div class="co-loc">Entreprise optronique · Bordeaux</div>
+            </div>
+          </div>
+          <div class="stg-role">Développement système & Infrastructure réseau</div>
+          <p class="stg-desc">Stage alliant développement système et infrastructure réseau. Développement d'un module Perl/CGI pour l'interface d'administration Webmin : gestion graphique du basculement NTP/PTP. En parallèle, refonte de l'infrastructure réseau avec création et déploiement de VLAN sur des switchs Cisco, brassage physique en baie et mise en place d'un système d'étiquetage réseau.</p>
+        </div>
+        <div class="stg-imgs">
+          <div class="img-ph" style="flex:1;min-height:120px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4M12 17V7"/></svg>
+            <p>Interface Webmin développée<br><span>→ src="images/webmin.png"</span></p>
+          </div>
+          <div class="img-ph" style="flex:1;min-height:80px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <p>Baie réseau / VLAN Cisco<br><span>→ src="images/reseau.png"</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="stg-body">
+        <div class="stg-col">
+          <div class="col-lbl">Missions réalisées</div>
+          <ul class="ml">
+            <li><span class="mi">→</span>Module Webmin en Perl/CGI pour NTP/PTP</li>
+            <li><span class="mi">→</span>Scripts d'automatisation lecture/édition des config</li>
+            <li><span class="mi">→</span>Création et déploiement de VLAN sur switchs Cisco</li>
+            <li><span class="mi">→</span>Brassage physique en baie informatique</li>
+            <li><span class="mi">→</span>Étiquetage réseau et plan d'adressage IP</li>
+          </ul>
+        </div>
+        <div class="stg-col">
+          <div class="col-lbl">Compétences développées</div>
+          <div class="tools-row" style="margin-bottom:.8rem;">
+            <span class="tool">Perl</span><span class="tool">CGI</span><span class="tool">Linux</span><span class="tool">VLAN</span><span class="tool">Cisco</span><span class="tool">NTP/PTP</span><span class="tool">Webmin</span>
+          </div>
+          <div class="img-ph" style="aspect-ratio:16/9;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <p>Rapport de stage<br><span>Disponible en PDF</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div></section>
+
+<div class="sep"></div>
+
+<!-- ══════ VEILLE ══════ -->
+<section id="veille"><div class="ctr">
+  <div class="s-lbl">// Veille technologique</div>
+  <h2>Veille</h2>
+  <p class="s-desc">Deux sujets de veille approfondis avec méthodologie structurée et compte rendus professionnels.</p>
+  <div class="vl-grid">
+
+    <!-- Veille 1A : Cybersécurité -->
+    <div class="vc reveal">
+      <div class="vc-top">
+        <div class="vc-meta"><span class="vc-yr">Avril 2025 · 1ère année</span><span class="vc-cat vc-secu">Cybersécurité</span></div>
+        <div class="vc-title-row">
+          <div class="vc-ic" style="background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);">
+            <!-- Shield lock SVG -->
+            <svg style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><rect x="9" y="11" width="6" height="5" rx="1"/><path d="M12 11v-2a2 2 0 1 0-4 0"/><circle cx="12" cy="13.5" r=".8" fill="var(--coral)"/></svg>
+          </div>
+          <div class="vc-h">Protection des données en entreprise</div>
+        </div>
+        <p class="vc-d">Menaces numériques en mutation : ransomwares, phishing, fuites de données. Veille automatisée avec Google Alerts et Feedly (CERT-FR, Cisco Security, GitHub Advisory). Analyse de l'IA dans les attaques de phishing et des vulnérabilités critiques (Moodle, Zoom, FAULT+PROBE).</p>
+      </div>
+      <div class="vc-body">
+        <div class="src-lbl">Outils de veille</div>
+        <div class="srcs" style="margin-bottom:.8rem;">
+          <!-- Google logo -->
+          <span class="src" style="display:flex;align-items:center;gap:5px;">
+            <svg style="width:12px;height:12px;" viewBox="0 0 24 24"><path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34a853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fbbc05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#ea4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Google Alerts
+          </span>
+          <!-- Feedly -->
+          <span class="src" style="display:flex;align-items:center;gap:5px;">
+            <svg style="width:12px;height:12px;" viewBox="0 0 24 24"><path fill="#2bb24c" d="M24 12L12 0 0 12l4 4 8-8 8 8zm0 8l-4-4-8 8-8-8-4 4L12 24l12-12z"/></svg>
+            Feedly
+          </span>
+          <!-- CERT-FR (shield) -->
+          <span class="src" style="display:flex;align-items:center;gap:5px;">
+            <svg style="width:12px;height:12px;" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            CERT-FR
+          </span>
+          <span class="src">Cisco Security</span>
+          <!-- GitHub -->
+          <span class="src" style="display:flex;align-items:center;gap:5px;">
+            <svg style="width:12px;height:12px;" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub Advisory
+          </span>
+        </div>
+        <div class="src-lbl" style="margin-top:.5rem;">Sujets identifiés</div>
+        <div class="srcs">
+          <span class="src">IA dans le phishing</span><span class="src">Failles Moodle</span><span class="src">FAULT+PROBE</span><span class="src">RGPD entreprise</span>
+        </div>
+      </div>
+      <div class="vc-img">
+        <svg style="width:24px;height:24px;opacity:.3;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <p>Capture de ton compte rendu / interface Feedly<br><span>→ src="images/veille1.png"</span></p>
+      </div>
+      <div style="padding:.5rem 1.5rem 1.2rem;"><a href="https://aa6b9c30-39d9-4614-8b25-068cf63e09ae.filesusr.com/ugd/f1f600_d75295a1edc64ef888a918d396abc681.pdf" target="_blank" style="font-family:var(--mono);font-size:.68rem;color:var(--acc);text-decoration:none;display:flex;align-items:center;gap:6px;"><svg style="width:13px;height:13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Télécharger le compte rendu PDF</a></div>
+    </div>
+
+    <!-- Veille 2A : Snyk -->
+    <div class="vc reveal">
+      <div class="vc-top">
+        <div class="vc-meta"><span class="vc-yr">2024–2025 · 2ème année</span><span class="vc-cat vc-dev">Développement · Sécurité</span></div>
+        <div class="vc-title-row">
+          <div class="vc-ic" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);">
+            <!-- Snyk-style bug+shield -->
+            <svg style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="vc-h">Snyk — Sécurisation du code source (SAST)</div>
+        </div>
+        <p class="vc-d">Snyk est un outil SAST (Static Application Security Testing). Analyse du code PHP (injections SQL, vulnérabilités), surveillance des bibliothèques open source, intégration dans VS Code. Évolution : IA pour corrections automatiques (Snyk DeepCode).</p>
+      </div>
+      <div class="vc-body">
+        <div class="src-lbl">Fonctionnalités Snyk analysées</div>
+        <div class="srcs" style="margin-bottom:.8rem;">
+          <!-- Code icon -->
+          <span class="src" style="display:flex;align-items:center;gap:5px;">
+            <svg style="width:11px;height:11px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Code Analysis
+          </span>
+          <!-- Package icon -->
+          <span class="src" style="display:flex;align-items:center;gap:5px;">
+            <svg style="width:11px;height:11px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 10 6.5v7L12 22 2 15.5v-7L12 2z"/><line x1="12" y1="22" x2="12" y2="9"/></svg>
+            Open Source Security
+          </span>
+          <!-- VSCode icon -->
+          <span class="src" style="display:flex;align-items:center;gap:5px;">
+            <svg style="width:11px;height:11px;" viewBox="0 0 24 24"><path fill="#007acc" d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 19.986V4.014a1.5 1.5 0 0 0-.85-1.427zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>
+            Extension VS Code
+          </span>
+          <!-- AI chip icon -->
+          <span class="src" style="display:flex;align-items:center;gap:5px;">
+            <svg style="width:11px;height:11px;" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+            Snyk DeepCode AI
+          </span>
+        </div>
+        <div class="src-lbl" style="margin-top:.5rem;">Lien officiel</div>
+        <div class="srcs">
+          <a href="https://snyk.io/fr/" target="_blank" class="src" style="color:var(--teal);text-decoration:none;display:flex;align-items:center;gap:5px;">
+            <svg style="width:11px;height:11px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            snyk.io/fr
+          </a>
+        </div>
+      </div>
+      <div class="vc-img">
+        <svg style="width:24px;height:24px;opacity:.3;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        <p>Capture de l'interface Snyk / détection de faille<br><span>→ src="images/snyk.png"</span></p>
+      </div>
+      <div style="padding:.5rem 1.5rem 1.2rem;font-family:var(--mono);font-size:.68rem;color:var(--txt3);">Veille en cours de finalisation</div>
+    </div>
+
+  </div>
+</div></section>
+
+<div class="sep"></div>
+
+<!-- ══════ CONTACT INFO + ALTERNANCE ══════ -->
+<section id="contact"><div class="ctr">
+  <div class="s-lbl">// Me retrouver</div>
+  <h2>Contact</h2>
+  <p class="s-desc">Disponible pour un contrat d'alternance dès 2026. Retrouvez-moi sur les réseaux ou écrivez-moi directement.</p>
+  <div class="ci-cards">
+    <a class="ci-card" href="tel:0675341259">
+      <div class="ci-card-ico" style="background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);">
+        <svg style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.71 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.97-.97a2 2 0 0 1 2.11-.45c.91.35 1.85.58 2.81.71a2 2 0 0 1 1.72 2.02z"/></svg>
+      </div>
+      <div><div class="ci-card-title">Téléphone</div><div class="ci-card-val">06 75 34 12 59</div></div>
+    </a>
+    <a class="ci-card" href="mailto:annaelle.champiau@outlook.fr">
+      <div class="ci-card-ico" style="background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);">
+        <svg style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div><div class="ci-card-title">Email</div><div class="ci-card-val">annaelle.champiau@outlook.fr</div></div>
+    </a>
+    <div class="ci-card">
+      <div class="ci-card-ico" style="background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);">
+        <svg style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div><div class="ci-card-title">Localisation</div><div class="ci-card-val">Pau, 64000 — Pyrénées-Atlantiques</div></div>
+    </div>
+    <a class="ci-card" href="#" target="_blank">
+      <div class="ci-card-ico" style="background:rgba(0,119,181,.12);border:1px solid rgba(0,119,181,.22);">
+        <svg style="width:22px;height:22px;" viewBox="0 0 24 24"><path fill="#0077b5" d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2" fill="#0077b5"/></svg>
+      </div>
+      <div><div class="ci-card-title">LinkedIn</div><div class="ci-card-val">Annaëlle Champiau</div></div>
+    </a>
+    <a class="ci-card" href="#" target="_blank">
+      <div class="ci-card-ico" style="background:rgba(36,41,47,.25);border:1px solid rgba(255,255,255,.1);">
+        <svg style="width:22px;height:22px;" viewBox="0 0 24 24"><path fill="var(--txt)" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </div>
+      <div><div class="ci-card-title">GitHub</div><div class="ci-card-val">@annaellechampiau</div></div>
+    </a>
+    <div class="ci-card ci-alt">
+      <div class="ci-card-ico" style="background:linear-gradient(135deg,var(--acc2),var(--teal));border:none;">
+        <svg style="width:22px;height:22px;" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <div><div class="ci-card-title" style="color:var(--acc);">Alternance 2026 — Bachelor CDA</div><div class="ci-card-val">CESI Bordeaux · 3 sem. entreprise / 1 école · 12 mois</div></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="sep"></div>
+
+<!-- ══════ FORMULAIRE DE CONTACT ══════ -->
+<section id="contact-form"><div class="ctr">
+  <div class="cf-grid">
+    <div>
+      <div class="s-lbl">// Écrire un message</div>
+      <div class="ct-big">Parlons de votre <span>projet</span></div>
+      <p class="ct-desc">Vous recrutez pour une alternance en développement web ? Discutons-en ! Je réponds sous 48h.</p>
+      <div style="display:flex;flex-direction:column;gap:.9rem;margin-top:1.5rem;">
+        <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--txt2);">
+          <svg style="width:16px;height:16px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Réponse garantie sous 48h
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--txt2);">
+          <svg style="width:16px;height:16px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Disponible pour un entretien dès maintenant
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--txt2);">
+          <svg style="width:16px;height:16px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          CV et portfolio disponibles sur demande
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--txt2);">
+          <svg style="width:16px;height:16px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Mobilité : Pau et environs, télétravail possible
+        </div>
+      </div>
+    </div>
+    <div class="form-box reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cf-nom">Nom</label>
+          <input type="text" id="cf-nom" placeholder="Votre nom">
+        </div>
+        <div class="form-group">
+          <label for="cf-prenom">Prénom</label>
+          <input type="text" id="cf-prenom" placeholder="Votre prénom">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" placeholder="votre@email.com">
+      </div>
+      <div class="form-group">
+        <label for="cf-entreprise">Entreprise (optionnel)</label>
+        <input type="text" id="cf-entreprise" placeholder="Nom de votre entreprise">
+      </div>
+      <div class="form-group">
+        <label for="cf-sujet">Sujet</label>
+        <select id="cf-sujet">
+          <option value="">Choisissez un sujet</option>
+          <option value="alternance">Proposition d'alternance</option>
+          <option value="stage">Proposition de stage</option>
+          <option value="projet">Collaboration sur un projet</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" placeholder="Décrivez votre projet, votre offre ou votre question…"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">
+        <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Envoyer le message
+      </button>
+      <div class="form-success" id="form-success">
+        <svg style="width:18px;height:18px;margin-right:6px;" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Message envoyé ! Je vous répondrai sous 48h.
+      </div>
+      <p style="font-size:.72rem;color:var(--txt3);margin-top:.8rem;font-family:var(--mono);">* Ce formulaire génère un email via mailto. Vos données ne sont pas stockées.</p>
+    </div>
+  </div>
+</div></section>
+
+<footer>
+  <span>© 2026 Annaëlle Champiau — BTS SIO SLAM · Pau, 64000</span>
+  <span style="font-family:var(--mono);font-size:.68rem;">Portfolio v5.0</span>
+</footer>
+
+<script>
+/* ── CURSOR — pointer indicator ── */
+const curArrow=document.getElementById('cur-arrow');
+const curRing=document.getElementById('cur-ring');
+const clickSfx = new Audio('ton-chemin/wii-click.mp3');
+let mx=window.innerWidth/2,my=window.innerHeight/2;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  curArrow.style.left=(mx+12)+'px'; curArrow.style.top=(my+12)+'px';
+  curRing.style.left=mx+'px'; curRing.style.top=my+'px';
+});
+
+// Grab state on interactive elements — shows arrow indicator
+document.querySelectorAll('a,button,.pc,.stg,.vc,.sk,.hc,.btn-pri,.btn-sec,input,textarea,select,.img-ph,.schema-ph').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    curArrow.classList.add('show');
+  });
+  el.addEventListener('mouseleave',()=>{
+    curArrow.classList.remove('show');
+  });
+});
+
+// Click ripple
+document.addEventListener('mousedown',e=>{
+  curRing.style.left=e.clientX+'px'; curRing.style.top=e.clientY+'px';
+  curRing.style.width='0'; curRing.style.height='0';
+  curRing.classList.remove('pop');
+  void curRing.offsetWidth;
+  curRing.classList.add('pop');
+  cur.classList.add('click');
+  setTimeout(()=>cur.classList.remove('click'),130);
+  clickSfx.currentTime = 0;
+  clickSfx.play().catch(() => {});
+});
+
+// Fade on inactivity
+let ct;
+document.addEventListener('mousemove',()=>{
+  cur.style.opacity='1';
+  laser.style.opacity='0.5';
+  if(curArrow.classList.contains('show')) curArrow.style.opacity='1';
+  clearTimeout(ct);
+  ct=setTimeout(()=>{cur.style.opacity='0';curArrow.style.opacity='0';laser.classList.add('hidden');},4000);
+});
+
+/* ── THEME TOGGLE ── */
+const DARK_ICON='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+const LIGHT_ICON='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+let isLight=false;
+function toggleTheme(){
+  isLight=!isLight;
+  document.body.classList.toggle('light',isLight);
+  const icon=document.querySelector('#theme-btn svg');
+  icon.innerHTML=isLight?LIGHT_ICON:DARK_ICON;
+  icon.style.transform=isLight?'rotate(180deg)':'rotate(0deg)';
+  localStorage.setItem('theme',isLight?'light':'dark');
+}
+(function(){
+  const saved=localStorage.getItem('theme');
+  if(saved==='light'){isLight=true;document.body.classList.add('light');const icon=document.querySelector('#theme-btn svg');if(icon){icon.innerHTML=LIGHT_ICON;}}
+})();
+
+/* ── PROGRESS BAR ── */
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{const p=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100;prog.style.width=p+'%';},{passive:true});
+
+/* ── REVEAL ON SCROLL ── */
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.07});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*.08)+'s';io.observe(el);});
+
+/* ── NAV ACTIVE ── */
+const secs=document.querySelectorAll('section[id]');
+const nls=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cs='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-160)cs=s.id;});
+  nls.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cs?'var(--txt)':'';});
+},{passive:true});
+
+/* ── MOBILE MENU ── */
+function toggleMenu(){document.getElementById('mobMenu').classList.toggle('open');}
+function closeMenu(){document.getElementById('mobMenu').classList.remove('open');}
+
+/* ── PARALLAX ── */
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY*.04;
+  const hr=document.querySelector('.hero-right');
+  if(hr)hr.style.transform=`translateY(${y}px)`;
+},{passive:true});
+
+/* ── CARD TILT ── */
+document.querySelectorAll('.hc').forEach(c=>{
+  c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect(),x=(e.clientX-r.left-r.width/2)/(r.width/2),y=(e.clientY-r.top-r.height/2)/(r.height/2);
+    c.style.transform=`perspective(900px) rotateX(${-y*3.5}deg) rotateY(${x*3.5}deg)`;
+  });
+  c.addEventListener('mouseleave',()=>{c.style.transform='perspective(900px) rotateX(0) rotateY(0)';});
+});
+
+/* ── CONTACT FORM ── */
+function submitForm(){
+  const nom=document.getElementById('cf-nom').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const sujet=document.getElementById('cf-sujet').value;
+  const msg=document.getElementById('cf-message').value.trim();
+  if(!nom||!email||!msg){
+    alert('Merci de remplir au moins le nom, l\'email et le message.');
+    return;
+  }
+  const s=encodeURIComponent('[Portfolio] '+(sujet||'Message')+' de '+nom);
+  const b=encodeURIComponent('Nom : '+nom+'\nEmail : '+email+'\n\n'+msg);
+  window.location.href='mailto:annaelle.champiau@outlook.fr?subject='+s+'&body='+b;
+  setTimeout(()=>{document.getElementById('form-success').style.display='block';},800);
+}
+
+
+</script>
+</body>
+</html>
