@@ -64,7 +64,7 @@ Dans GitHub Codespaces, il est plus pratique d’utiliser un petit serveur local
       └── chatbot.html        ← HTML du bouton flottant et fenêtre chat
    ```
 
-Fix rapide (En cas de probleme de push) : 
+Fix rapide (En cas de probleme de push) : a
 
 ```bash
 git config pull.rebase true
