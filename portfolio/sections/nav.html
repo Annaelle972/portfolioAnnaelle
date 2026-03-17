@@ -1,0 +1,158 @@
+<!-- ══════ NAV ══════
+     fichier : sections/nav.html
+     Modifier ici pour changer la navigation
+     ════════════════════════════════════════ -->
+<nav>
+
+  <!-- Logo -->
+  <a class="nav-logo" href="#">
+    <span class="logo-dot"></span>Annaëlle Champiau
+  </a>
+
+  <!-- Liens desktop avec dropdowns -->
+  <ul class="nav-links">
+
+    <!-- Projets ▾ -->
+    <li class="nav-has-drop">
+      <a href="#projets" class="nav-parent">
+        Projets
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+      <div class="nav-drop">
+        <a href="#proj-picdumidi"  class="nd-item">
+          <span class="nd-ico">🏔</span>
+          <span class="nd-info">
+            <span class="nd-title">Boutique Pic du Midi</span>
+            <span class="nd-sub">WordPress · 1ère année</span>
+          </span>
+        </a>
+        <a href="#proj-integration" class="nd-item">
+          <span class="nd-ico">🎓</span>
+          <span class="nd-info">
+            <span class="nd-title">Journée Intégration</span>
+            <span class="nd-sub">PHP/MVC · Agile · GLPI</span>
+          </span>
+        </a>
+        <a href="#proj-commande" class="nd-item">
+          <span class="nd-ico">📦</span>
+          <span class="nd-info">
+            <span class="nd-title">Gestion Commande V2</span>
+            <span class="nd-sub">PHP POO · MVC · DAO · MySQL</span>
+          </span>
+        </a>
+        <a href="#proj-fa" class="nd-item">
+          <span class="nd-ico">🏛</span>
+          <span class="nd-info">
+            <span class="nd-title">Site Fâ + ECommerce</span>
+            <span class="nd-sub">PHP 8 · SCRUM · SQL Triggers</span>
+          </span>
+        </a>
+      </div>
+    </li>
+
+    <!-- CV -->
+    <li><a href="#competences">CV</a></li>
+
+    <!-- Timeline -->
+    <li><a href="#timeline">Parcours</a></li>
+
+    <!-- Stages ▾ -->
+    <li class="nav-has-drop">
+      <a href="#stages" class="nav-parent">
+        Stages
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+      <div class="nav-drop">
+        <a href="#stage-argitik" class="nd-item">
+          <span class="nd-ico">⚡</span>
+          <span class="nd-info">
+            <span class="nd-title">ARGITIK</span>
+            <span class="nd-sub">PHP MVC · MySQL · 2ème année</span>
+          </span>
+        </a>
+        <a href="#stage-febus" class="nd-item">
+          <span class="nd-ico">🔭</span>
+          <span class="nd-info">
+            <span class="nd-title">FEBUS OPTICS</span>
+            <span class="nd-sub">Perl/CGI · VLAN Cisco · 1ère année</span>
+          </span>
+        </a>
+      </div>
+    </li>
+
+    <!-- Veille ▾ -->
+    <li class="nav-has-drop">
+      <a href="#veille" class="nav-parent">
+        Veille
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+      <div class="nav-drop">
+        <a href="#veille-secu" class="nd-item">
+          <span class="nd-ico">🛡</span>
+          <span class="nd-info">
+            <span class="nd-title">Cybersécurité</span>
+            <span class="nd-sub">Protection données · 1ère année</span>
+          </span>
+        </a>
+        <a href="#veille-snyk" class="nd-item">
+          <span class="nd-ico">🔍</span>
+          <span class="nd-info">
+            <span class="nd-title">Snyk SAST</span>
+            <span class="nd-sub">Sécurisation code · 2ème année</span>
+          </span>
+        </a>
+      </div>
+    </li>
+
+    <!-- Contact -->
+    <li><a href="#contact">Contact</a></li>
+
+  </ul>
+
+  <!-- CTA + thème -->
+  <a class="nav-cta" href="#contact-form">Me contacter</a>
+  <button id="theme-btn" onclick="toggleTheme()" title="Changer le thème" aria-label="Changer thème clair/sombre">
+    <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <!-- Hamburger mobile -->
+  <div class="nav-hamburger" id="hbg" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+
+</nav>
+
+<!-- Menu mobile -->
+<div class="mob-menu" id="mobMenu">
+
+  <div class="mob-group">
+    <a href="#projets" onclick="closeMenu()" class="mob-head">Projets</a>
+    <a href="#proj-picdumidi"   onclick="closeMenu()" class="mob-sub">🏔 Boutique Pic du Midi</a>
+    <a href="#proj-integration" onclick="closeMenu()" class="mob-sub">🎓 Journée Intégration</a>
+    <a href="#proj-commande"    onclick="closeMenu()" class="mob-sub">📦 Gestion Commande V2</a>
+    <a href="#proj-fa"          onclick="closeMenu()" class="mob-sub">🏛 Site Fâ + ECommerce</a>
+  </div>
+
+  <div class="mob-group">
+    <a href="#competences" onclick="closeMenu()" class="mob-head">CV &amp; Compétences</a>
+  </div>
+
+  <div class="mob-group">
+    <a href="#stages" onclick="closeMenu()" class="mob-head">Stages</a>
+    <a href="#stage-argitik" onclick="closeMenu()" class="mob-sub">⚡ ARGITIK</a>
+    <a href="#stage-febus"   onclick="closeMenu()" class="mob-sub">🔭 FEBUS OPTICS</a>
+  </div>
+
+  <div class="mob-group">
+    <a href="#veille" onclick="closeMenu()" class="mob-head">Veille</a>
+    <a href="#veille-secu"  onclick="closeMenu()" class="mob-sub">🛡 Cybersécurité</a>
+    <a href="#veille-snyk"  onclick="closeMenu()" class="mob-sub">🔍 Snyk SAST</a>
+  </div>
+
+  <div class="mob-group">
+    <a href="#contact" onclick="closeMenu()" class="mob-head">Contact</a>
+  </div>
+
+</div>

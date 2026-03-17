@@ -1,0 +1,73 @@
+
+<!-- Bouton flottant -->
+<button id="chat-btn" onclick="toggleChat()" aria-label="Ouvrir le chat">
+  <div id="chat-notif">1</div>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+  </svg>
+</button>
+
+<!-- Fenêtre chat -->
+<div id="chat-window">
+  <div id="chat-head">
+    <div class="chat-av">
+      <!-- Robot SVG avec antennes et yeux animés -->
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Antennes -->
+        <line x1="10" y1="5" x2="9" y2="2" stroke="#a78bfa" stroke-width="1.2" stroke-linecap="round"/>
+        <circle class="ant" cx="9" cy="1.5" r="1.2" fill="#a78bfa"/>
+        <line x1="18" y1="5" x2="19" y2="2" stroke="#2dd4bf" stroke-width="1.2" stroke-linecap="round"/>
+        <circle class="ant2" cx="19" cy="1.5" r="1.2" fill="#2dd4bf"/>
+        <!-- Tête -->
+        <rect x="6" y="5" width="16" height="12" rx="3" fill="#1e1e30" stroke="#a78bfa" stroke-width="1"/>
+        <!-- Yeux -->
+        <ellipse class="eye"  cx="11" cy="11" rx="2.5" ry="3" fill="#a78bfa"/>
+        <ellipse class="eye2" cx="17" cy="11" rx="2.5" ry="3" fill="#2dd4bf"/>
+        <!-- Reflets yeux -->
+        <circle cx="12.2" cy="9.8" r=".7" fill="rgba(255,255,255,0.6)"/>
+        <circle cx="18.2" cy="9.8" r=".7" fill="rgba(255,255,255,0.6)"/>
+        <!-- Bouche -->
+        <rect x="10" y="15.5" width="8" height="1.2" rx=".6" fill="#a78bfa" opacity=".7"/>
+        <!-- Corps -->
+        <rect x="8" y="18" width="12" height="7" rx="2" fill="#1e1e30" stroke="#a78bfa" stroke-width=".8"/>
+        <!-- Boutons corps -->
+        <circle cx="12" cy="21.5" r="1" fill="#2dd4bf"/>
+        <circle cx="16" cy="21.5" r="1" fill="#a78bfa"/>
+        <!-- Bras -->
+        <rect x="3" y="19" width="4" height="2" rx="1" fill="#1e1e30" stroke="#a78bfa" stroke-width=".7"/>
+        <rect x="21" y="19" width="4" height="2" rx="1" fill="#1e1e30" stroke="#a78bfa" stroke-width=".7"/>
+      </svg>
+    </div>
+    <div class="chat-head-info">
+      <div class="chat-head-name">Bot IA — Portfolio Annaëlle</div>
+      <div class="chat-head-status">En ligne · Répond en quelques secondes</div>
+    </div>
+    <button onclick="toggleChat()" style="background:none;border:none;cursor:none;color:var(--txt2);padding:4px;" aria-label="Fermer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div id="chat-msgs">
+    <div class="msg bot">
+      <div class="msg-av" id="welcome-av"></div>
+      <div class="msg-bubble">Bonjour ! Je suis le bot du portfolio d'Annaëlle. Je peux répondre à vos questions sur ses projets, compétences, stages et alternance 👋</div>
+    </div>
+  </div>
+
+  <!-- Suggestions rapides -->
+  <div id="chat-suggest">
+    <button class="sug-btn" onclick="sendSuggestion(this)">Ses projets</button>
+    <button class="sug-btn" onclick="sendSuggestion(this)">Alternance 2026</button>
+    <button class="sug-btn" onclick="sendSuggestion(this)">Ses compétences</button>
+    <button class="sug-btn" onclick="sendSuggestion(this)">Ses stages</button>
+  </div>
+
+  <div id="chat-footer">
+    <input id="chat-input" type="text" placeholder="Posez votre question…" maxlength="300"
+      onkeydown="if(event.key==='Enter')sendMsg()">
+    <button id="chat-send" onclick="sendMsg()" aria-label="Envoyer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>

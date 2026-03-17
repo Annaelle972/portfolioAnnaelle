@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compétences BTS SIO — Annaëlle Dupont</title>
+<meta name="description" content="Référentiel de compétences BTS SIO SLAM d'Annaëlle Dupont.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* Legend */
+  .legend { display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:2rem; }
+  .legend-item { display:flex; align-items:center; gap:.5rem; font-size:.78rem; color:var(--text-soft); }
+  .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .dot-stages    { background:#2563eb; }
+  .dot-ateliers  { background:#7c3aed; }
+  .dot-transv    { background:#059669; }
+  .dot-secu      { background:#dc2626; }
+
+  /* Competence block with source pills */
+  .comp-source { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.75rem; }
+  .source-pill {
+    font-family:var(--font-mono); font-size:.55rem;
+    padding:.18rem .6rem; border-radius:99px;
+    letter-spacing:.07em; text-transform:uppercase;
+  }
+  .sp-stage   { background:rgba(37,99,235,.1); border:1px solid rgba(37,99,235,.2); color:#2563eb; }
+  .sp-atelier { background:rgba(124,58,237,.1); border:1px solid rgba(124,58,237,.2); color:#7c3aed; }
+  .sp-perso   { background:rgba(5,150,105,.1); border:1px solid rgba(5,150,105,.2); color:#059669; }
+
+  /* Category header */
+  .cat-header {
+    padding:1.8rem 0 .6rem;
+    display:flex; align-items:center; gap:1rem;
+    margin-bottom:1.5rem;
+  }
+  .cat-num {
+    font-family:var(--font-display); font-size:3rem; font-weight:300;
+    color:var(--border-h); line-height:1; flex-shrink:0; letter-spacing:-.04em;
+  }
+  .cat-title { font-family:var(--font-display); font-size:1.4rem; font-weight:600; color:var(--text); }
+  .cat-desc { font-size:.85rem; color:var(--text-soft); margin-top:.2rem; }
+  .cat-line { flex:1; height:1px; background:var(--border); min-width:20px; }
+</style>
+</head>
+<body>
+<script src="nav-fragment.js"></script>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-breadcrumb"><a href="index.html">Accueil</a> › Compétences</p>
+    <h1 class="page-title">Compé<em>tences</em></h1>
+    <p class="page-subtitle">Référentiel des compétences BTS SIO SLAM — acquises en stages, ateliers professionnels et projets personnels.</p>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- Légende -->
+<section class="section" style="padding-bottom:0">
+  <div class="container">
+    <div class="legend reveal">
+      <div class="legend-item"><span class="legend-dot dot-stages"></span>Acquise en stage</div>
+      <div class="legend-item"><span class="legend-dot dot-ateliers"></span>Acquise en atelier professionnel</div>
+      <div class="legend-item"><span class="legend-dot dot-transv"></span>Projet personnel</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BLOC A — SUPPORT & MISE À DISPOSITION ═══ -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="cat-header reveal">
+      <span class="cat-num">A</span>
+      <div>
+        <h2 class="cat-title">Support et mise à disposition de services informatiques</h2>
+        <p class="cat-desc">Gestion du patrimoine, incidents, présence en ligne, travail en mode projet</p>
+      </div>
+      <div class="cat-line"></div>
+    </div>
+
+    <div class="comp-grid reveal">
+
+      <div class="card comp-card card--lift d1">
+        <div class="comp-num">A1.1</div>
+        <div class="comp-title">Gestion du patrimoine informatique</div>
+        <div class="comp-sub">Support &amp; maintenance</div>
+        <ul class="comp-list">
+          <li>Mise en place et vérification des niveaux d'habilitation associés à un service</li>
+          <li>Vérification du respect des règles d'utilisation des ressources numériques</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage Visual&amp;KO</span>
+          <span class="source-pill sp-atelier">GLPI</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d2">
+        <div class="comp-num">A1.2</div>
+        <div class="comp-title">Réponse aux incidents et demandes</div>
+        <div class="comp-sub">Assistance &amp; évolution</div>
+        <ul class="comp-list">
+          <li>Collecte, suivi et orientation des demandes</li>
+          <li>Traitement des demandes concernant les applicatifs</li>
+          <li>Traitement des demandes concernant les services réseau et système</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage Mecadaq</span>
+          <span class="source-pill sp-atelier">GLPI</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d3">
+        <div class="comp-num">A1.3</div>
+        <div class="comp-title">Développement de la présence en ligne</div>
+        <div class="comp-sub">Web &amp; communication</div>
+        <ul class="comp-list">
+          <li>Participation à l'évolution d'un site Web exploitant les données de l'organisation</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-atelier">PicDuMidi</span>
+          <span class="source-pill sp-atelier">Immo'Bill</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d1">
+        <div class="comp-num">A1.4</div>
+        <div class="comp-title">Travail en mode projet</div>
+        <div class="comp-sub">Gestion &amp; planification</div>
+        <ul class="comp-list">
+          <li>Analyse des objectifs et des modalités d'organisation d'un projet</li>
+          <li>Planification des activités</li>
+          <li>Évaluation des indicateurs de suivi et analyse des écarts</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage Visual&amp;KO</span>
+          <span class="source-pill sp-atelier">Netcar MVC</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d2">
+        <div class="comp-num">A1.5</div>
+        <div class="comp-title">Mise à disposition d'un service informatique</div>
+        <div class="comp-sub">Déploiement &amp; accompagnement</div>
+        <ul class="comp-list">
+          <li>Test d'intégration et d'acceptation d'un service</li>
+          <li>Déploiement d'un service</li>
+          <li>Accompagnement des utilisateurs dans la mise en place</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage Mecadaq</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d3">
+        <div class="comp-num">A1.6</div>
+        <div class="comp-title">Organisation du développement professionnel</div>
+        <div class="comp-sub">Apprentissage &amp; veille</div>
+        <ul class="comp-list">
+          <li>Mise en place de son environnement d'apprentissage personnel</li>
+          <li>Mise en œuvre d'outils et de stratégie de veille informationnelle</li>
+          <li>Gestion de son identité professionnelle</li>
+          <li>Développement de son projet professionnel</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-perso">Veille Node.js</span>
+          <span class="source-pill sp-perso">Ce portfolio</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BLOC B — DÉVELOPPEMENT APPLICATIF ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="cat-header reveal">
+      <span class="cat-num">B</span>
+      <div>
+        <h2 class="cat-title">Développement de solutions applicatives</h2>
+        <p class="cat-desc">Conception, développement, maintenance, gestion des données</p>
+      </div>
+      <div class="cat-line"></div>
+    </div>
+
+    <div class="comp-grid reveal">
+
+      <div class="card comp-card card--lift d1">
+        <div class="comp-num">B2.1</div>
+        <div class="comp-title">Conception et développement d'une solution applicative</div>
+        <div class="comp-sub">Développement principal</div>
+        <ul class="comp-list">
+          <li>Analyse d'un besoin exprimé et de son contexte juridique</li>
+          <li>Participation à la conception de l'architecture applicative</li>
+          <li>Modélisation d'une solution applicative</li>
+          <li>Exploitation des ressources du cadre applicatif (framework)</li>
+          <li>Développement, utilisation ou adaptation de composants logiciels</li>
+          <li>Exploitation des technologies Web et mobile</li>
+          <li>Utilisation de composants d'accès aux données</li>
+          <li>Intégration continue des versions</li>
+          <li>Réalisation des tests de validation</li>
+          <li>Rédaction des documentations technique et d'utilisation</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-atelier">Immo'Bill</span>
+          <span class="source-pill sp-atelier">Visiteurs Android</span>
+          <span class="source-pill sp-atelier">Netcar MVC</span>
+          <span class="source-pill sp-stage">Stage ABC</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d2">
+        <div class="comp-num">B2.2</div>
+        <div class="comp-title">Maintenance corrective ou évolutive</div>
+        <div class="comp-sub">Qualité &amp; correction</div>
+        <ul class="comp-list">
+          <li>Évaluation de la qualité du site statique</li>
+          <li>Analyse et correction d'un dysfonctionnement</li>
+          <li>Élaboration et réalisation de tests des éléments mis à jour</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage Visual&amp;KO</span>
+          <span class="source-pill sp-atelier">PicDuMidi</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d3">
+        <div class="comp-num">B2.3</div>
+        <div class="comp-title">Gestion des données</div>
+        <div class="comp-sub">Bases de données &amp; SQL</div>
+        <ul class="comp-list">
+          <li>Exploitation de données à l'aide d'un langage de requêtes</li>
+          <li>Développement de fonctionnalités applicatives au sein d'un SGBD</li>
+          <li>Conception ou adaptation d'une base de données</li>
+          <li>Administration et déploiement d'une base de données</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-atelier">Immo'Bill</span>
+          <span class="source-pill sp-atelier">PicDuMidi</span>
+          <span class="source-pill sp-stage">Stage Mecadaq</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BLOC C — CYBERSÉCURITÉ ═══ -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="cat-header reveal">
+      <span class="cat-num">C</span>
+      <div>
+        <h2 class="cat-title">Cybersécurité des services informatiques</h2>
+        <p class="cat-desc">Protection des données, identité numérique, sécurisation des équipements</p>
+      </div>
+      <div class="cat-line"></div>
+    </div>
+
+    <div class="comp-grid reveal">
+
+      <div class="card comp-card card--lift d1" style="border-top:2px solid #dc2626">
+        <div class="comp-num">C3.1</div>
+        <div class="comp-title">Protection des données personnelles</div>
+        <div class="comp-sub">RGPD &amp; conformité</div>
+        <ul class="comp-list">
+          <li>Recensement des traitements sur les données personnelles</li>
+          <li>Identification des risques liés à la collecte et au traitement</li>
+          <li>Application de la réglementation RGPD</li>
+          <li>Sensibilisation des utilisateurs à la protection des données</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage ABC</span>
+          <span class="source-pill sp-atelier">Immo'Bill</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d2" style="border-top:2px solid #dc2626">
+        <div class="comp-num">C3.2</div>
+        <div class="comp-title">Préservation de l'identité numérique</div>
+        <div class="comp-sub">Preuve électronique</div>
+        <ul class="comp-list">
+          <li>Protection de l'identité numérique d'une organisation</li>
+          <li>Déploiement de moyens appropriés de preuve électronique</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage Visual&amp;KO</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d3" style="border-top:2px solid #dc2626">
+        <div class="comp-num">C3.3</div>
+        <div class="comp-title">Sécurisation des équipements et usages</div>
+        <div class="comp-sub">Menaces &amp; défenses</div>
+        <ul class="comp-list">
+          <li>Information des utilisateurs sur les risques</li>
+          <li>Identification des menaces et mise en œuvre des défenses appropriées</li>
+          <li>Gestion des accès et des privilèges</li>
+          <li>Vérification de l'efficacité de la protection</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage Mecadaq</span>
+          <span class="source-pill sp-atelier">GLPI</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d1" style="border-top:2px solid #dc2626">
+        <div class="comp-num">C3.4</div>
+        <div class="comp-title">Garantie de la disponibilité, intégrité, confidentialité</div>
+        <div class="comp-sub">Cyber-résilience</div>
+        <ul class="comp-list">
+          <li>Caractérisation des risques liés à l'utilisation malveillante d'un service</li>
+          <li>Recensement des conséquences d'une perte de disponibilité</li>
+          <li>Identification des obligations légales d'archivage</li>
+          <li>Organisation de la collecte et conservation de la preuve électronique</li>
+          <li>Application des procédures légales de protection</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage ABC</span>
+        </div>
+      </div>
+
+      <div class="card comp-card card--lift d2" style="border-top:2px solid #dc2626;grid-column:span 2">
+        <div class="comp-num">C3.5</div>
+        <div class="comp-title">Cybersécurisation d'une solution applicative</div>
+        <div class="comp-sub">Sécurité du développement</div>
+        <ul class="comp-list" style="columns:2;gap:1.5rem">
+          <li>Vérification des éléments contribuant à la qualité d'un développement</li>
+          <li>Prise en compte de la sécurité dans un projet de développement</li>
+          <li>Mise en œuvre et vérification de la conformité à un référentiel de sécurité</li>
+          <li>Prévention des attaques (injections SQL, XSS, CSRF…)</li>
+          <li>Analyse des connexions (logs)</li>
+          <li>Analyse d'incidents de sécurité, contre-mesures</li>
+        </ul>
+        <div class="comp-source">
+          <span class="source-pill sp-stage">Stage ABC</span>
+          <span class="source-pill sp-atelier">Immo'Bill</span>
+          <span class="source-pill sp-perso">Ce portfolio</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="shared.js"></script>
+</body>
+</html>
