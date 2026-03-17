@@ -63,3 +63,18 @@ Dans GitHub Codespaces, il est plus pratique d’utiliser un petit serveur local
       ├── contact.html        ← Infos contact + formulaire
       └── chatbot.html        ← HTML du bouton flottant et fenêtre chat
    ```
+
+Fix rapide (En cas de probleme de push) : 
+
+```bash
+git config pull.rebase true
+git pull origin main
+Ça rebase tes changements locaux au-dessus des remote (histoire linéaire, propre pour GitHub Pages).
+​
+
+Alternative merge (si tu préfères garder historique) :
+
+bash
+git config pull.ff only
+git pull --no-rebase origin main
+```
