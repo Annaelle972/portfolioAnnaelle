@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veille Cybersécurité — Annaëlle Dupont</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.threat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+@media(max-width:700px){ .threat-grid{ grid-template-columns:1fr; } }
+.threat-card{ padding:1.4rem; border-top:2px solid var(--red); }
+.threat-name{ font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--text); margin-bottom:.4rem; }
+.threat-desc{ font-size:.82rem; color:var(--text-soft); line-height:1.7; margin-bottom:.8rem; }
+.owasp-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.7rem; }
+@media(max-width:600px){ .owasp-grid{ grid-template-columns:1fr; } }
+.owasp-item{ display:flex; gap:.8rem; align-items:flex-start; padding:.8rem; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-3); }
+.owasp-num{ font-family:var(--font-mono); font-size:.62rem; color:var(--red); font-weight:500; flex-shrink:0; min-width:2rem; }
+.owasp-text{ font-size:.82rem; color:var(--text-soft); line-height:1.6; }
+.owasp-text strong{ color:var(--text); display:block; margin-bottom:.2rem; }
+.source-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+@media(max-width:600px){ .source-grid{ grid-template-columns:1fr; } }
+.source-card{ padding:1.2rem; }
+.source-name{ font-size:.88rem; font-weight:600; color:var(--text); margin-bottom:.3rem; display:flex; align-items:center; gap:.5rem; }
+.source-desc{ font-size:.8rem; color:var(--text-soft); line-height:1.65; }
+.source-feeds{ margin-top:.7rem; list-style:none; }
+.source-feeds li{ font-family:var(--font-mono); font-size:.62rem; color:var(--text-muted); padding:.2rem 0; display:flex; gap:.5rem; }
+.source-feeds li::before{ content:'—'; color:var(--accent); }
+</style>
+</head>
+<body>
+<script src="nav-fragment.js"></script>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-breadcrumb"><a href="index.html">Accueil</a> › Veille Technologique</p>
+    <div class="project-header">
+      <div class="project-logo" style="border-color:rgba(248,113,113,.2)">
+        <svg width="48" height="48"><use href="#logo-cyber"/></svg>
+      </div>
+      <div>
+        <div class="project-meta">
+          <span class="tag tag-red">Cybersécurité</span>
+          <span class="tag tag-gray">OWASP</span>
+          <span class="tag tag-violet">1ère année BTS</span>
+        </div>
+        <h1 class="page-title" style="margin-bottom:.4rem">Veille — <em>Cybersécurité</em></h1>
+        <p class="project-desc-intro">
+          Étude menée en 1ère année de BTS SIO SLAM sur les cybermenaces actuelles, les bonnes pratiques de sécurisation
+          du web et le référentiel OWASP Top 10 — avec applications concrètes au développement PHP.
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="section" style="padding-bottom:0">
+  <div class="container">
+    <div class="veille-intro-grid reveal">
+      <div class="card veille-stat"><div class="veille-stat-num">OWASP</div><div class="veille-stat-label">Référentiel mondial des 10 risques critiques</div></div>
+      <div class="card veille-stat"><div class="veille-stat-num">+38%</div><div class="veille-stat-label">Augmentation des cyberattaques en 2023 (ANSSI)</div></div>
+      <div class="card veille-stat"><div class="veille-stat-num">RGPD</div><div class="veille-stat-label">Réglementation européenne sur les données personnelles</div></div>
+      <div class="card veille-stat"><div class="veille-stat-num">0-day</div><div class="veille-stat-label">Vulnérabilités inconnues exploitées avant correction</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-label reveal">Introduction</div>
+    <h2 class="section-heading reveal">Qu'est-ce que la <em>cybersécurité</em> ?</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem" class="reveal d1">
+      <div>
+        <div class="context-block">
+          <p>
+            La <strong>cybersécurité</strong> désigne l'ensemble des pratiques, outils et technologies visant à protéger
+            les systèmes informatiques, les réseaux et les données contre les attaques, les accès non autorisés
+            et les dommages.
+          </p>
+          <p>
+            Dans le contexte du développement web, elle couvre la protection des applications contre
+            les injections SQL, les attaques XSS, le vol de session, les accès non autorisés et la
+            fuite de données personnelles réglementée par le RGPD.
+          </p>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="border-left:3px solid var(--red);background:var(--bg-2)">
+          <p style="font-family:var(--font-display);font-size:1rem;font-style:italic;color:var(--text-soft);line-height:1.85">
+            "La sécurité n'est pas un état final mais un processus continu — chaque ligne de code est une surface d'attaque potentielle."
+          </p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem">
+          <span class="tag tag-red">Injection SQL</span>
+          <span class="tag tag-red">XSS</span>
+          <span class="tag tag-red">CSRF</span>
+          <span class="tag tag-violet">RGPD</span>
+          <span class="tag tag-gray">Pentest</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">OWASP Top 10</div>
+    <h2 class="section-heading reveal">Les 10 risques <em>critiques</em></h2>
+    <p class="section-sub reveal d1">Le référentiel OWASP (Open Web Application Security Project) liste chaque année les 10 vulnérabilités web les plus répandues.</p>
+    <div class="owasp-grid reveal d2" style="margin-top:1.8rem">
+      <div class="owasp-item"><span class="owasp-num">A01</span><div class="owasp-text"><strong>Broken Access Control</strong>Contrôles d'accès insuffisants permettant des accès non autorisés aux ressources.</div></div>
+      <div class="owasp-item"><span class="owasp-num">A02</span><div class="owasp-text"><strong>Cryptographic Failures</strong>Mauvaise gestion de la cryptographie — données sensibles en clair, algorithmes obsolètes.</div></div>
+      <div class="owasp-item"><span class="owasp-num">A03</span><div class="owasp-text"><strong>Injection (SQL, XSS…)</strong>Données non validées interprétées comme des commandes. Ex : <code>'; DROP TABLE users;--</code></div></div>
+      <div class="owasp-item"><span class="owasp-num">A04</span><div class="owasp-text"><strong>Insecure Design</strong>Absence de modélisation des menaces et de principes de sécurité dès la conception.</div></div>
+      <div class="owasp-item"><span class="owasp-num">A05</span><div class="owasp-text"><strong>Security Misconfiguration</strong>Configurations par défaut non modifiées, serveurs exposés, messages d'erreur trop verbeux.</div></div>
+      <div class="owasp-item"><span class="owasp-num">A06</span><div class="owasp-text"><strong>Vulnerable Components</strong>Bibliothèques et dépendances non mises à jour contenant des vulnérabilités connues.</div></div>
+      <div class="owasp-item"><span class="owasp-num">A07</span><div class="owasp-text"><strong>Auth Failures</strong>Authentification fragile — mots de passe faibles, sessions non invalidées, brute force possible.</div></div>
+      <div class="owasp-item"><span class="owasp-num">A08</span><div class="owasp-text"><strong>Integrity Failures</strong>Désérialisation non sécurisée, pipelines CI/CD non protégés, mises à jour non vérifiées.</div></div>
+      <div class="owasp-item"><span class="owasp-num">A09</span><div class="owasp-text"><strong>Logging Failures</strong>Absence de journalisation — impossibilité de détecter les intrusions ou d'en analyser les causes.</div></div>
+      <div class="owasp-item"><span class="owasp-num">A10</span><div class="owasp-text"><strong>Server-Side Request Forgery</strong>L'application envoie des requêtes vers des ressources internes à la demande d'un attaquant.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-label reveal">Principales menaces</div>
+    <h2 class="section-heading reveal">Types d'<em>attaques</em></h2>
+    <div class="threat-grid reveal d1" style="margin-top:1.5rem">
+      <div class="card threat-card card--lift">
+        <h3 class="threat-name">Injection SQL</h3>
+        <p class="threat-desc">Insertion de code SQL malveillant dans des formulaires pour lire, modifier ou supprimer des données en base.</p>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--accent)">✓ Prévention : requêtes préparées PDO</p>
+      </div>
+      <div class="card threat-card card--lift">
+        <h3 class="threat-name">Cross-Site Scripting (XSS)</h3>
+        <p class="threat-desc">Injection de scripts JavaScript dans des pages web pour voler des cookies de session ou rediriger l'utilisateur.</p>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--accent)">✓ Prévention : htmlspecialchars(), CSP</p>
+      </div>
+      <div class="card threat-card card--lift">
+        <h3 class="threat-name">CSRF</h3>
+        <p class="threat-desc">Forcer le navigateur d'un utilisateur authentifié à effectuer des actions non voulues sur une application.</p>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--accent)">✓ Prévention : tokens CSRF, SameSite</p>
+      </div>
+      <div class="card threat-card card--lift">
+        <h3 class="threat-name">Phishing</h3>
+        <p class="threat-desc">Usurpation d'identité par e-mail ou site frauduleux pour obtenir des identifiants ou informations bancaires.</p>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--accent)">✓ Prévention : sensibilisation, SPF/DKIM</p>
+      </div>
+      <div class="card threat-card card--lift">
+        <h3 class="threat-name">Ransomware</h3>
+        <p class="threat-desc">Chiffrement des données d'une organisation avec demande de rançon pour en retrouver l'accès.</p>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--accent)">✓ Prévention : sauvegardes, MFA</p>
+      </div>
+      <div class="card threat-card card--lift">
+        <h3 class="threat-name">DDoS</h3>
+        <p class="threat-desc">Saturation d'un serveur par un déluge de requêtes pour le rendre inaccessible aux utilisateurs légitimes.</p>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--accent)">✓ Prévention : WAF, rate limiting</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">Avantages / Limites</div>
+    <h2 class="section-heading reveal">Bonne pratique vs <em>réalité</em></h2>
+    <div class="pros-cons reveal d1" style="margin-top:1.5rem">
+      <div class="pros-block">
+        <div class="pros-title">Bonnes pratiques</div>
+        <ul class="pros-list">
+          <li>Requêtes préparées (PDO/MySQLi) contre les injections</li>
+          <li>Encodage systématique des sorties HTML (XSS)</li>
+          <li>HTTPS obligatoire — chiffrement des échanges</li>
+          <li>Principe du moindre privilège pour les comptes</li>
+          <li>Mise à jour régulière des dépendances</li>
+          <li>Authentification multi-facteurs (MFA)</li>
+        </ul>
+      </div>
+      <div class="cons-block">
+        <div class="cons-title">Défis &amp; limites</div>
+        <ul class="cons-list">
+          <li>Sécurité vs ergonomie — arbitrages constants</li>
+          <li>Zero-day : menaces inconnues non anticipables</li>
+          <li>Ingénierie sociale : le facteur humain reste le maillon faible</li>
+          <li>Coût des audits de sécurité pour les petites structures</li>
+          <li>Obsolescence rapide des recommandations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-label reveal">Méthodologie</div>
+    <h2 class="section-heading reveal">Outils &amp; sources de <em>veille</em></h2>
+    <div class="source-grid reveal d1" style="margin-top:1.5rem">
+      <div class="card source-card">
+        <div class="source-name"><svg width="15" height="15" color="var(--accent)"><use href="#ic-shield"/></svg>ANSSI</div>
+        <p class="source-desc">Agence nationale de la sécurité des systèmes d'information — rapports, bulletins et recommandations officiels.</p>
+        <ul class="source-feeds">
+          <li>Bulletins d'alertes</li>
+          <li>Guides de bonnes pratiques</li>
+          <li>Rapports annuels sur la cybermenace</li>
+        </ul>
+      </div>
+      <div class="card source-card">
+        <div class="source-name"><svg width="15" height="15" color="var(--accent)"><use href="#ic-eye"/></svg>OWASP Foundation</div>
+        <p class="source-desc">Organisation mondiale à but non lucratif — référentiels, outils de test et documentation sur la sécurité applicative.</p>
+        <ul class="source-feeds">
+          <li>OWASP Top 10</li>
+          <li>OWASP Testing Guide</li>
+          <li>OWASP Cheat Sheets</li>
+        </ul>
+      </div>
+      <div class="card source-card">
+        <div class="source-name"><svg width="15" height="15" color="var(--accent)"><use href="#ic-rss"/></svg>CERT-FR / Feedly</div>
+        <p class="source-desc">Agrégation des alertes du CERT-FR et des actualités cybersécurité via Feedly pour un suivi quotidien.</p>
+        <ul class="source-feeds">
+          <li>Alertes CVE</li>
+          <li>Incidents notables</li>
+          <li>Blog Krebs on Security</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="sibling-nav">
+  <div></div>
+  <a href="competences.html" class="btn btn-outline btn-sm">Voir les compétences</a>
+  <div style="text-align:right">
+    <div class="sibling-label">Veille suivante</div>
+    <a class="sibling-link" href="veille-snyk.html">Snyk <svg width="14" height="14"><use href="#ic-arrow"/></svg></a>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+</body>
+</html>

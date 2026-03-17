@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage ARGITIK — Annaëlle Dupont</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<script src="nav-fragment.js"></script>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-breadcrumb">
+      <a href="index.html">Accueil</a> ›
+      <a href="index.html#stages">Stages</a> ›
+      ARGITIK
+    </p>
+    <div class="project-header">
+      <div class="project-logo">
+        <svg width="48" height="48"><use href="#logo-argitik"/></svg>
+      </div>
+      <div>
+        <div class="project-meta">
+          <span class="tag tag-gold">Stage</span>
+          <span class="tag tag-green">PHP</span>
+          <span class="tag tag-teal">MySQL</span>
+          <span class="tag tag-violet">Cybersécurité</span>
+          <span class="tag tag-gray">Agile</span>
+        </div>
+        <h1 class="page-title" style="margin-bottom:.4rem">Stage <em>ARGITIK</em></h1>
+        <p class="project-desc-intro">
+          Stage chez ARGITIK, entreprise de services numériques (ESN) spécialisée dans le développement
+          d'applications web et mobiles. Missions de développement applicatif, sécurisation et déploiement.
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="section">
+<div class="container">
+
+  <div class="project-section reveal">
+    <h2 class="project-section-title">Contexte de l'entreprise</h2>
+    <div class="context-block">
+      <p>
+        ARGITIK est une entreprise de services du numérique (ESN) intervenant sur des projets de développement web
+        et mobile pour des clients variés (PME, collectivités, startups). L'équipe technique pratique une méthodologie
+        Agile avec des sprints réguliers et des revues de code systématiques.
+      </p>
+      <p>
+        Au sein de l'équipe de développement, j'ai pris part à un projet client en PHP/MySQL tout en effectuant
+        des tâches de sécurisation et de documentation. Ce contexte ESN m'a permis de travailler en équipe
+        sur une base de code existante et d'apprendre à respecter des conventions de développement strictes.
+      </p>
+    </div>
+  </div>
+
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">Outils &amp; Technologies</h2>
+    <div class="tools-grid">
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>PHP 8 — développement back-end</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>MySQL / PostgreSQL</div>
+      <div class="tool-chip"><svg width="20" height="20" color="#f05032"><use href="#logo-git"/></svg>Git / GitHub — collaboration</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-shield"/></svg>PHPUnit — tests unitaires</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-layers"/></svg>Scrum / Jira — Agile</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-eye"/></svg>OWASP — sécurisation</div>
+    </div>
+  </div>
+
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">Mission &amp; Problématique</h2>
+    <div class="card" style="border-left:3px solid var(--accent);background:var(--bg-2)">
+      <p style="font-size:.92rem;color:var(--text-soft);line-height:1.9">
+        Comment contribuer efficacement à un projet client existant en PHP/MySQL tout en améliorant
+        sa sécurité (vulnérabilités OWASP) et en rédigeant des tests unitaires manquants ?
+        L'enjeu était de livrer des fonctionnalités testées et documentées dans le cadre des sprints Agile.
+      </p>
+    </div>
+  </div>
+
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">Missions réalisées</h2>
+    <ul class="feat-list">
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div><strong>Développement de fonctionnalités</strong> — Ajout d'un module de gestion des tickets client (PHP/MySQL) : création, affectation, suivi et clôture des demandes.</div>
+      </li>
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div><strong>Correction de vulnérabilités OWASP</strong> — Audit de sécurité partiel : identification et correction de 6 failles (injections SQL via PDO, XSS via htmlspecialchars, CSRF tokens manquants).</div>
+      </li>
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div><strong>Tests unitaires PHPUnit</strong> — Mise en place de tests unitaires sur les fonctions critiques du module de ticketing, couverture portée de 0% à ~60%.</div>
+      </li>
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div><strong>Participation aux sprints Agile</strong> — Daily standup quotidien, estimation des user stories, revue de sprint et démo client en fin de cycle.</div>
+      </li>
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div><strong>Conformité RGPD</strong> — Recensement des traitements de données personnelles, mise en place du consentement pour les formulaires et ajout des mentions légales.</div>
+      </li>
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div><strong>Déploiement &amp; accompagnement</strong> — Tests d'intégration avant mise en production, déploiement sur serveur de recette, formation des utilisateurs finaux.</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">Résultats &amp; Apprentissages</h2>
+    <div class="result-grid">
+      <div class="card result-box">
+        <div class="result-num">6</div>
+        <div class="result-label">Failles OWASP corrigées</div>
+      </div>
+      <div class="card result-box">
+        <div class="result-num">60%</div>
+        <div class="result-label">Couverture tests unitaires</div>
+      </div>
+      <div class="card result-box">
+        <div class="result-num">Agile</div>
+        <div class="result-label">Méthodo Scrum appliquée</div>
+      </div>
+    </div>
+    <div class="context-block">
+      <p>
+        Ce stage en ESN m'a plongée dans un contexte professionnel exigeant, où la qualité du code,
+        la sécurité et la collaboration sont des priorités absolues. J'ai considérablement progressé
+        sur la sécurité applicative (OWASP), les tests automatisés (PHPUnit) et le travail en équipe
+        avec la méthode Agile/Scrum. La contrainte de livraison par sprint m'a appris à gérer
+        mes priorités et à communiquer sur mes avancements.
+      </p>
+    </div>
+  </div>
+
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">Compétences BTS SIO validées</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+      <span class="tag tag-blue">B2.1 — Développement applicatif</span>
+      <span class="tag tag-violet">B2.2 — Maintenance corrective</span>
+      <span class="tag tag-teal">B2.3 — Gestion des données</span>
+      <span class="tag tag-gold">A1.4 — Mode projet</span>
+      <span class="tag tag-green">A1.5 — Mise à disposition</span>
+      <span class="tag tag-red">C3.1 — Protection données personnelles</span>
+      <span class="tag tag-red">C3.4 — Disponibilité, intégrité, confidentialité</span>
+      <span class="tag tag-red">C3.5 — Cybersécurisation applicative</span>
+    </div>
+  </div>
+
+</div>
+</section>
+</main>
+
+<div class="sibling-nav">
+  <div style="text-align:left">
+    <div class="sibling-label">Stage précédent</div>
+    <a class="sibling-link" href="stage-febus.html">
+      <svg width="14" height="14" style="transform:rotate(180deg)"><use href="#ic-arrow"/></svg>
+      FEBUS OPTICS
+    </a>
+  </div>
+  <a href="competences.html" class="btn btn-outline btn-sm">Voir les compétences</a>
+  <div style="text-align:right">
+    <div class="sibling-label">Stage suivant</div>
+    <div class="sibling-title">—</div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+</body>
+</html>

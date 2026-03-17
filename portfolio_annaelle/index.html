@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annaëlle Dupont — Portfolio BTS SIO SLAM</title>
+<meta name="description" content="Portfolio de développeuse web BTS SIO SLAM — Annaëlle Dupont, Marseille.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── HERO ── */
+.hero{
+  min-height:100svh; display:flex; align-items:center;
+  padding-top:85px; position:relative; overflow:hidden; background:var(--bg);
+}
+.hero::before{
+  content:''; position:absolute; top:-15%; right:55%;
+  width:800px; height:800px; border-radius:50%;
+  background:radial-gradient(circle,rgba(52,211,153,.06) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero::after{
+  content:''; position:absolute; bottom:-20%; right:-5%;
+  width:500px; height:500px; border-radius:50%;
+  background:radial-gradient(circle,rgba(45,212,191,.05) 0%,transparent 65%);
+  pointer-events:none;
+}
+/* Dotgrid décoration */
+.hero-dotgrid{
+  position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(rgba(52,211,153,.12) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 60% 60% at 80% 50%,black 0%,transparent 100%);
+}
+.hero-inner{
+  max-width:1200px; margin:0 auto; padding:0 2rem;
+  display:grid; grid-template-columns:1fr 400px; gap:4rem; align-items:center;
+  position:relative; z-index:2; width:100%;
+}
+@media(max-width:900px){ .hero-inner{ grid-template-columns:1fr; gap:3rem; } }
+
+.hero-eyebrow{
+  font-family:var(--font-mono); font-size:.6rem;
+  color:var(--accent); letter-spacing:.28em; text-transform:uppercase;
+  display:flex; align-items:center; gap:.7rem; margin-bottom:1.5rem;
+}
+.hero-eyebrow::before{ content:''; width:28px; height:1px; background:var(--accent); }
+
+.hero-title{
+  font-family:var(--font-display); font-weight:700;
+  font-size:clamp(3.2rem,7.5vw,6rem);
+  letter-spacing:-.03em; line-height:.92;
+  color:var(--text); margin-bottom:1.8rem;
+}
+.hero-title .l1{ display:block; }
+.hero-title .l2{ display:block; font-style:italic; font-weight:400; color:var(--accent); }
+.hero-title .l3{ display:block; font-size:clamp(1.4rem,3.2vw,2.6rem); font-weight:400; color:var(--text-soft); margin-top:.3rem; }
+
+.hero-desc{ font-size:.98rem; color:var(--text-soft); line-height:1.9; max-width:480px; margin-bottom:2.2rem; }
+
+.hero-ctas{ display:flex; flex-wrap:wrap; gap:.85rem; margin-bottom:2.8rem; }
+
+.hero-badges{ display:flex; flex-wrap:wrap; gap:.45rem; }
+
+/* Carte droite */
+.hero-card{
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:1.8rem;
+  box-shadow:var(--shadow-lg); position:relative; overflow:hidden;
+}
+.hero-card::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--teal),var(--accent));
+}
+.hero-card-label{
+  font-family:var(--font-mono); font-size:.56rem; color:var(--text-muted);
+  letter-spacing:.22em; text-transform:uppercase; margin-bottom:1.4rem;
+}
+.hero-stat{
+  display:flex; align-items:baseline; gap:.7rem;
+  padding:.85rem 0; border-bottom:1px solid var(--border);
+}
+.hero-stat:last-of-type{ border-bottom:none; }
+.hs-num{ font-family:var(--font-display); font-size:2.2rem; font-weight:700; color:var(--accent); line-height:1; }
+.hs-label{ font-size:.82rem; color:var(--text-soft); line-height:1.4; }
+.hero-avail{
+  margin-top:1.4rem;
+  background:rgba(52,211,153,.07); border:1px solid rgba(52,211,153,.18);
+  border-radius:var(--radius-sm); padding:.8rem 1rem;
+  display:flex; align-items:center; gap:.75rem;
+  font-size:.82rem; color:var(--text-soft);
+}
+.avail-dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px var(--accent); flex-shrink:0; animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse{ 50%{opacity:.25} }
+
+/* Grille projets */
+.cards-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; margin-top:2.5rem; }
+@media(max-width:900px){ .cards-grid{ grid-template-columns:1fr 1fr; } }
+@media(max-width:560px){ .cards-grid{ grid-template-columns:1fr; } }
+
+.pcard{
+  border-radius:var(--radius); padding:1.6rem;
+  text-decoration:none; display:block;
+  background:var(--surface); border:1px solid var(--border);
+  transition:border-color var(--dur),transform var(--dur),box-shadow var(--dur);
+  position:relative; overflow:hidden;
+}
+.pcard::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(52,211,153,.04) 0%,transparent 60%);
+  opacity:0; transition:opacity .3s;
+}
+.pcard:hover{ border-color:var(--border-h); transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+.pcard:hover::after{ opacity:1; }
+
+.pcard-logo{ width:44px; height:44px; margin-bottom:1.1rem; }
+.pcard-num{ font-family:var(--font-mono); font-size:.56rem; color:var(--text-muted); letter-spacing:.14em; margin-bottom:.5rem; }
+.pcard-title{ font-family:var(--font-display); font-weight:700; font-size:1.05rem; color:var(--text); margin-bottom:.4rem; line-height:1.2; }
+.pcard-desc{ font-size:.8rem; color:var(--text-soft); line-height:1.75; margin-bottom:.9rem; }
+.pcard-tags{ display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.9rem; }
+.pcard-arrow{ font-family:var(--font-mono); font-size:.58rem; color:var(--accent); letter-spacing:.12em; text-transform:uppercase; display:flex; align-items:center; gap:.4rem; }
+
+/* Stack */
+.stack-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:2rem; }
+@media(max-width:700px){ .stack-grid{ grid-template-columns:repeat(2,1fr); } }
+.stack-item{ text-align:center; padding:1.4rem 1rem; }
+.stack-logo{ margin:0 auto .75rem; display:flex; align-items:center; justify-content:center; }
+.stack-name{ font-family:var(--font-display); font-weight:700; font-size:1rem; color:var(--text); margin-bottom:.2rem; }
+.stack-sub{ font-size:.73rem; color:var(--text-muted); font-family:var(--font-mono); }
+
+/* Bar highlights */
+.highlights{
+  background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  padding:1.1rem 0;
+}
+.highlights-inner{
+  max-width:1200px; margin:0 auto; padding:0 2rem;
+  display:flex; flex-wrap:wrap; gap:2rem; align-items:center; justify-content:space-between;
+}
+.hi{ display:flex; align-items:center; gap:.75rem; }
+.hi-icon{ color:var(--accent); flex-shrink:0; }
+.hi-text{ font-size:.82rem; color:var(--text-soft); }
+.hi-text strong{ color:var(--text); }
+
+/* animations hero */
+.hero-eyebrow,.hero-title,.hero-desc,.hero-ctas,.hero-badges{
+  opacity:0; transform:translateY(28px);
+  animation:fu .7s var(--ease) forwards;
+}
+.hero-title  { animation-delay:.1s; }
+.hero-desc   { animation-delay:.2s; }
+.hero-ctas   { animation-delay:.3s; }
+.hero-badges { animation-delay:.4s; }
+.hero-card   { opacity:0; transform:translateX(28px); animation:sl .7s .25s var(--ease) forwards; }
+@keyframes fu{ to{opacity:1;transform:none} }
+@keyframes sl{ to{opacity:1;transform:none} }
+</style>
+</head>
+<body>
+<script src="nav-fragment.js"></script>
+
+<section class="hero">
+  <div class="hero-dotgrid" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Portfolio BTS SIO SLAM</p>
+      <h1 class="hero-title">
+        <span class="l1">Annaëlle</span>
+        <span class="l2">Dupont</span>
+        <span class="l3">Développeuse Web &amp; Applications</span>
+      </h1>
+      <p class="hero-desc">
+        Passionnée par le développement back-end, la sécurité applicative et les interfaces qui fonctionnent vraiment.
+        Je conçois des solutions robustes — du PHP à l'interface utilisateur — avec la cybersécurité comme contrainte de conception.
+      </p>
+      <div class="hero-ctas">
+        <a href="cv.html" class="btn btn-primary">
+          <svg width="14" height="14"><use href="#ic-pdf"/></svg>
+          Voir le CV
+        </a>
+        <a href="contact.html" class="btn btn-outline">
+          <svg width="14" height="14"><use href="#ic-mail"/></svg>
+          Me contacter
+        </a>
+      </div>
+      <div class="hero-badges">
+        <span class="tag tag-green">PHP 8</span>
+        <span class="tag tag-blue">JavaScript</span>
+        <span class="tag tag-teal">MySQL</span>
+        <span class="tag tag-gray">HTML/CSS</span>
+        <span class="tag tag-violet">Android</span>
+        <span class="tag tag-gray">Git</span>
+        <span class="tag tag-gold">RGPD</span>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <p class="hero-card-label">En quelques chiffres</p>
+      <div class="hero-stat">
+        <span class="hs-num">4</span>
+        <span class="hs-label">Ateliers<br>professionnels</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hs-num">2</span>
+        <span class="hs-label">Stages en<br>entreprise</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hs-num">2</span>
+        <span class="hs-label">Veillee<br>technologiques</span>
+      </div>
+      <div class="hero-avail">
+        <span class="avail-dot"></span>
+        <span>Disponible en alternance<br><strong style="color:var(--text)">dès septembre 2025</strong> · Marseille</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="highlights">
+  <div class="highlights-inner">
+    <div class="hi"><svg width="18" height="18" class="hi-icon"><use href="#ic-code"/></svg><span class="hi-text"><strong>PHP · JS · SQL</strong> — stack principale</span></div>
+    <div class="hi"><svg width="18" height="18" class="hi-icon"><use href="#ic-shield"/></svg><span class="hi-text"><strong>OWASP · RGPD</strong> — sécurité intégrée</span></div>
+    <div class="hi"><svg width="18" height="18" class="hi-icon"><use href="#logo-android"/></svg><span class="hi-text"><strong>Android · API REST</strong> — mobile</span></div>
+    <div class="hi"><svg width="18" height="18" class="hi-icon"><use href="#ic-pin"/></svg><span class="hi-text"><strong>Marseille</strong> — mobilité PACA</span></div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- Ateliers professionnels -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">Ateliers professionnels</div>
+    <h2 class="section-heading reveal">4 projets <em>réalisés</em></h2>
+    <p class="section-sub reveal d1">Développement full-stack, bases de données, mobile Android et gestion de projet.</p>
+
+    <div class="cards-grid">
+      <a href="atelier-picdumidi.html" class="pcard reveal d1">
+        <div class="pcard-logo"><svg width="44" height="44"><use href="#logo-pic"/></svg></div>
+        <p class="pcard-num">01 — Atelier Pro</p>
+        <h3 class="pcard-title">PicDuMidi<em style="font-style:italic;color:var(--accent)">Boutique</em></h3>
+        <p class="pcard-desc">Module de reporting e-commerce — statistiques de ventes, filtres dynamiques et indicateurs par catégorie.</p>
+        <div class="pcard-tags"><span class="tag tag-green">PHP</span><span class="tag tag-teal">MySQL</span><span class="tag tag-gray">WordPress</span></div>
+        <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
+      </a>
+
+      <a href="atelier-integration.html" class="pcard reveal d2">
+        <div class="pcard-logo"><svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="rgba(52,211,153,.12)"/><use href="#ic-layers" x="12" y="12" width="20" height="20" color="#34d399"/></svg></div>
+        <p class="pcard-num">02 — Atelier Pro</p>
+        <h3 class="pcard-title">Inté<em style="font-style:italic;color:var(--accent)">gration</em></h3>
+        <p class="pcard-desc">Intégration web — conception et intégration de pages HTML/CSS conformes à des maquettes fournies.</p>
+        <div class="pcard-tags"><span class="tag tag-blue">HTML5</span><span class="tag tag-violet">CSS3</span><span class="tag tag-gray">Bootstrap</span></div>
+        <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
+      </a>
+
+      <a href="atelier-commande.html" class="pcard reveal d3">
+        <div class="pcard-logo"><svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="rgba(96,165,250,.12)"/><use href="#ic-db" x="12" y="12" width="20" height="20" color="#60a5fa"/></svg></div>
+        <p class="pcard-num">03 — Atelier Pro</p>
+        <h3 class="pcard-title">Gestion <em style="font-style:italic;color:var(--accent)">Commande</em></h3>
+        <p class="pcard-desc">Application de gestion de commandes — traitement, suivi et historique via interface PHP/MySQL.</p>
+        <div class="pcard-tags"><span class="tag tag-green">PHP</span><span class="tag tag-teal">MySQL</span><span class="tag tag-gold">MVC</span></div>
+        <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
+      </a>
+
+      <a href="atelier-fa.html" class="pcard reveal d1">
+        <div class="pcard-logo"><svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="rgba(167,139,250,.12)"/><use href="#ic-code" x="12" y="12" width="20" height="20" color="#a78bfa"/></svg></div>
+        <p class="pcard-num">04 — Atelier Pro</p>
+        <h3 class="pcard-title">Pro<em style="font-style:italic;color:var(--accent)">jet Fâ</em></h3>
+        <p class="pcard-desc">Application web complète — développement d'une solution de gestion avec architecture MVC et base de données.</p>
+        <div class="pcard-tags"><span class="tag tag-green">PHP</span><span class="tag tag-teal">MySQL</span><span class="tag tag-violet">MVC</span></div>
+        <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
+      </a>
+
+      <!-- Stages -->
+      <a href="stage-febus.html" class="pcard reveal d2">
+        <div class="pcard-logo"><svg width="44" height="44"><use href="#logo-febus"/></svg></div>
+        <p class="pcard-num">01 — Stage</p>
+        <h3 class="pcard-title">FEBUS <em style="font-style:italic;color:var(--accent)">OPTICS</em></h3>
+        <p class="pcard-desc">Développement web, support informatique, gestion du patrimoine et des incidents en entreprise industrielle.</p>
+        <div class="pcard-tags"><span class="tag tag-gold">Stage</span><span class="tag tag-green">PHP</span><span class="tag tag-gray">GLPI</span></div>
+        <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
+      </a>
+
+      <a href="stage-argitik.html" class="pcard reveal d3">
+        <div class="pcard-logo"><svg width="44" height="44"><use href="#logo-argitik"/></svg></div>
+        <p class="pcard-num">02 — Stage</p>
+        <h3 class="pcard-title"><em style="font-style:italic;color:var(--accent)">ARGITIK</em></h3>
+        <p class="pcard-desc">Développement applicatif, déploiement, cybersécurité et accompagnement des utilisateurs en contexte professionnel.</p>
+        <div class="pcard-tags"><span class="tag tag-gold">Stage</span><span class="tag tag-violet">Cybersécurité</span><span class="tag tag-teal">MySQL</span></div>
+        <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Stack -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-label reveal">Compétences techniques</div>
+    <h2 class="section-heading reveal">Ma <em>stack</em></h2>
+
+    <div class="stack-grid">
+      <div class="card stack-item reveal d1 card--lift">
+        <div class="stack-logo"><svg width="36" height="16"><use href="#logo-php"/></svg></div>
+        <div class="stack-name">PHP 8</div>
+        <div class="stack-sub">Back-end · PDO · MVC</div>
+      </div>
+      <div class="card stack-item reveal d2 card--lift">
+        <div class="stack-logo"><svg width="24" height="24"><use href="#logo-js"/></svg></div>
+        <div class="stack-name">JavaScript</div>
+        <div class="stack-sub">Vanilla · DOM · Async</div>
+      </div>
+      <div class="card stack-item reveal d3 card--lift">
+        <div class="stack-logo"><svg width="36" height="16"><use href="#logo-mysql"/></svg></div>
+        <div class="stack-name">MySQL</div>
+        <div class="stack-sub">SQL · BDD · Requêtes</div>
+      </div>
+      <div class="card stack-item reveal d4 card--lift">
+        <div class="stack-logo"><svg width="24" height="24"><use href="#logo-html"/></svg></div>
+        <div class="stack-name">HTML / CSS</div>
+        <div class="stack-sub">Responsive · Intégration</div>
+      </div>
+      <div class="card stack-item reveal d1 card--lift">
+        <div class="stack-logo"><svg width="28" height="28" color="#539E46"><use href="#logo-nodejs"/></svg></div>
+        <div class="stack-name">Node.js</div>
+        <div class="stack-sub">Veille · Back-end JS</div>
+      </div>
+      <div class="card stack-item reveal d2 card--lift">
+        <div class="stack-logo"><svg width="28" height="28" color="#f05032"><use href="#logo-git"/></svg></div>
+        <div class="stack-name">Git</div>
+        <div class="stack-sub">GitHub · Versionning</div>
+      </div>
+      <div class="card stack-item reveal d3 card--lift">
+        <div class="stack-logo"><svg width="28" height="28" color="#a3cad9"><use href="#logo-android"/></svg></div>
+        <div class="stack-name">Android</div>
+        <div class="stack-sub">Java · API REST · SDK</div>
+      </div>
+      <div class="card stack-item reveal d4 card--lift">
+        <div class="stack-logo"><svg width="28" height="28" color="var(--red)"><use href="#ic-shield"/></svg></div>
+        <div class="stack-name">Cybersécurité</div>
+        <div class="stack-sub">OWASP · RGPD · Snyk</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Veillee -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">Veille technologique</div>
+    <h2 class="section-heading reveal">2 veillee <em>menées</em></h2>
+    <div class="cards-grid" style="grid-template-columns:1fr 1fr;max-width:700px">
+      <a href="veille-cybersecurite.html" class="pcard reveal d1">
+        <div class="pcard-logo"><svg width="44" height="44"><use href="#logo-cyber"/></svg></div>
+        <p class="pcard-num">Veille 01</p>
+        <h3 class="pcard-title">Cybersé<em style="font-style:italic;color:var(--accent)">curité</em></h3>
+        <p class="pcard-desc">Étude des menaces actuelles, bonnes pratiques de sécurisation, OWASP Top 10 et protection des données.</p>
+        <div class="pcard-tags"><span class="tag tag-red">Sécurité</span><span class="tag tag-gray">OWASP</span></div>
+        <div class="pcard-arrow">Lire la veille <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
+      </a>
+      <a href="veille-snyk.html" class="pcard reveal d2">
+        <div class="pcard-logo"><svg width="44" height="44"><use href="#logo-snyk"/></svg></div>
+        <p class="pcard-num">Veille 02</p>
+        <h3 class="pcard-title"><em style="font-style:italic;color:var(--accent)">Snyk</em></h3>
+        <p class="pcard-desc">Présentation de l'outil Snyk — analyse de vulnérabilités dans les dépendances, intégration CI/CD et DevSecOps.</p>
+        <div class="pcard-tags"><span class="tag tag-green">DevSecOps</span><span class="tag tag-gray">CI/CD</span></div>
+        <div class="pcard-arrow">Lire la veille <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section--alt">
+  <div class="container" style="text-align:center;max-width:620px">
+    <div class="section-label reveal" style="justify-content:center">Disponible</div>
+    <h2 class="section-heading reveal" style="text-align:center">Alternance dès<br><em>septembre 2025</em></h2>
+    <p class="section-sub reveal d1" style="margin:0 auto 2rem;text-align:center">3 semaines entreprise / 1 semaine école — Marseille, mobilité PACA. Réponse garantie sous 24h.</p>
+    <div class="reveal d2" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="contact.html" class="btn btn-primary"><svg width="14" height="14"><use href="#ic-mail"/></svg>Me contacter</a>
+      <a href="cv.html" class="btn btn-outline"><svg width="14" height="14"><use href="#ic-pdf"/></svg>Télécharger le CV</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<script src="shared.js"></script>
+</body>
+</html>

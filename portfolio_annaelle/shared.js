@@ -7,7 +7,7 @@
   const key = 'pf-theme';
   const stored = localStorage.getItem(key);
   const sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  const theme = stored || sys;
+  const theme = stored || 'dark';
   document.documentElement.setAttribute('data-theme', theme);
 
   document.addEventListener('DOMContentLoaded', () => {
