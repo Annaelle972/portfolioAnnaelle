@@ -643,3 +643,123 @@ body::before{
 
 /* Dropdown */
 [data-theme="light"] .dropdown-menu a::before{ background:#0ea5e9; }
+
+/* ════════════════════════════════════════════════════
+   ANIMATIONS CYBER
+════════════════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes blink-cursor{
+  0%,49%{ opacity:1; } 50%,100%{ opacity:0; }
+}
+@keyframes pulse-dot-green{
+  0%  { box-shadow:0 0 0 0 rgba(52,211,153,.55); }
+  70% { box-shadow:0 0 0 9px rgba(52,211,153,0); }
+  100%{ box-shadow:0 0 0 0 rgba(52,211,153,0); }
+}
+@keyframes pulse-dot-blue{
+  0%  { box-shadow:0 0 0 0 rgba(14,165,233,.55); }
+  70% { box-shadow:0 0 0 9px rgba(14,165,233,0); }
+  100%{ box-shadow:0 0 0 0 rgba(14,165,233,0); }
+}
+@keyframes float-hero{
+  0%,100%{ transform:translateY(0)    scale(1);    }
+  50%    { transform:translateY(-22px) scale(1.05); }
+}
+@keyframes shimmer-card{
+  0%  { transform:translateX(-130%) skewX(-14deg); }
+  100%{ transform:translateX(240%)  skewX(-14deg); }
+}
+@keyframes scan-line{
+  0%  { top:-3px; opacity:0; }
+  4%  { opacity:1; }
+  96% { opacity:1; }
+  100%{ top:calc(100vh + 3px); opacity:0; }
+}
+@keyframes orbit{
+  to{ transform:rotate(360deg); }
+}
+@keyframes orbit-rev{
+  to{ transform:rotate(-360deg); }
+}
+@keyframes glitch-brand{
+  0%,87%,100%{ text-shadow:none; }
+  88%{ text-shadow: 2px 0 rgba(14,165,233,.8), -2px 0 rgba(109,40,217,.8); }
+  89%{ text-shadow:-2px 0 rgba(14,165,233,.8),  2px 0 rgba(109,40,217,.8); }
+  90%{ text-shadow: 1px 0 rgba(109,40,217,.8), -1px 0 rgba(14,165,233,.8); }
+  91%{ text-shadow:none; }
+}
+@keyframes section-label-in{
+  from{ width:0; opacity:0; }
+  to  { width:22px; opacity:1; }
+}
+@keyframes nav-link-slide{
+  from{ transform:scaleX(0); }
+  to  { transform:scaleX(1); }
+}
+
+/* ── Page hero: orbe flottant ── */
+.page-hero::after{ animation:float-hero 8s ease-in-out infinite; }
+
+/* ── Timeline dots: pulsation (dark) ── */
+.timeline-item::before{ animation:pulse-dot-green 2.8s ease-out infinite; }
+
+/* ── Section label: trait animé à l'entrée + curseur clignotant ── */
+.section-label::before{ animation:section-label-in .5s var(--ease) both; }
+.section-label::after{
+  content:'_'; font-family:var(--font-mono); font-size:.65rem;
+  color:var(--accent); margin-left:.15em;
+  animation:blink-cursor 1s step-end infinite;
+}
+
+/* ── Cards: shimmer au survol ── */
+.card{ position:relative; overflow:hidden; }
+.card::before{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.06) 50%,transparent 62%);
+  transform:translateX(-130%) skewX(-14deg);
+}
+.card:hover::before{ animation:shimmer-card .55s ease forwards; }
+
+/* ── Nav link: trait slide-in sous le lien actif ── */
+.nav-link{ position:relative; }
+.nav-link.active::after{
+  content:''; position:absolute; bottom:2px; left:.75rem; right:.75rem;
+  height:1.5px; background:var(--accent); border-radius:99px;
+  animation:nav-link-slide .25s var(--ease) both;
+  transform-origin:left center;
+}
+
+/* ════ LIGHT MODE ════ */
+
+/* Scan line CRT style */
+[data-theme="light"] body::after{
+  content:''; position:fixed; left:0; right:0; z-index:2; pointer-events:none;
+  height:2px;
+  background:linear-gradient(90deg,transparent 0%,rgba(14,165,233,.55) 50%,transparent 100%);
+  box-shadow:0 0 14px 3px rgba(14,165,233,.15);
+  animation:scan-line 9s linear infinite;
+}
+
+/* Timeline dots: pulsation cyber (light) */
+[data-theme="light"] .timeline-item::before{ animation:pulse-dot-blue 2.8s ease-out infinite; }
+
+/* Nav brand: glitch périodique (light) */
+[data-theme="light"] .nav-brand{ animation:glitch-brand 9s ease-in-out infinite; }
+
+/* CV avatar: anneau orbital secondaire (light) */
+[data-theme="light"] .cv-avatar{ overflow:visible; }
+[data-theme="light"] .cv-avatar::before{
+  content:''; position:absolute; inset:-10px; border-radius:50%;
+  border:1px solid transparent; border-right-color:rgba(109,40,217,.38);
+  animation:orbit-rev 14s linear infinite;
+  pointer-events:none;
+}
+[data-theme="light"] .cv-avatar::after{
+  animation:orbit 8s linear infinite;
+}
+
+/* Card: shimmer teinté bleu (light) */
+[data-theme="light"] .card::before{
+  background:linear-gradient(105deg,transparent 38%,rgba(14,165,233,.07) 50%,transparent 62%);
+}
