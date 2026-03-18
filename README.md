@@ -43,33 +43,25 @@ Dans GitHub Codespaces, il est plus pratique d’utiliser un petit serveur local
 6. Architecture du projet :
 
    ```
-   portfolio_organise/
-├── index.html                  ← page d'accueil
-├── assets/
-│   ├── css/
-│   │   └── shared.css
-│   ├── js/
-│   │   ├── shared.js
-│   │   └── nav-fragment.js
-│   └── images/
-│       ├── cursor.png / .svg / 32.png
-│       └── fleche.png
-├── pages/
-│   ├── competences.html
-│   ├── contact.html
-│   ├── cv.html
-│   ├── ateliers/
-│   │   ├── atelier-commande.html
-│   │   ├── atelier-fa.html
-│   │   ├── atelier-integration.html
-│   │   └── atelier-picdumidi.html
-│   ├── stages/
-│   │   ├── stage-argitik.html
-│   │   └── stage-febus.html
-│   └── veilles/
-│       ├── veille-cybersecurite.html
-│       └── veille-snyk.html
-├── README.md / LICENSE / .gitignore
+   portfolio/
+   ├── index.html              ← Point d'entrée principal
+   ├── README.md
+   │
+   ├── css/
+   │   ├── style.css           ← Styles globaux (variables, nav, hero, sections, responsive)
+   │   └── chatbot.css         ← Styles du chatbot IA
+   │
+   ├── js/
+   │   ├── main.js             ← Curseur Wii, thème clair/sombre, animations, nav, formulaire
+   │   └── chatbot.js          ← Réponses du bot, navigation par section, avatar robot
+   │
+   └── sections/
+      ├── projets.html        ← Les 4 projets (Pic du Midi, Intégration, Commande, Fâ)
+      ├── competences.html    ← CV, formation, grille de compétences
+      ├── stages.html         ← Stage FEBUS OPTICS + Stage ARGITIK
+      ├── veille.html         ← Veille Cybersécurité + Veille Snyk
+      ├── contact.html        ← Infos contact + formulaire
+      └── chatbot.html        ← HTML du bouton flottant et fenêtre chat
    ```
 
 Fix rapide (En cas de probleme de push) : a
