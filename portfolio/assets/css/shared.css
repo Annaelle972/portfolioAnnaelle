@@ -1,41 +1,47 @@
 /* ════════════════════════════════════════════════════
-   Portfolio Annaëlle Dupont — shared.css v2
-   Thème : émeraude/menthe sur fond anthracite profond
+   Portfolio Annaëlle Dupont — shared.css v3
+   Thème dark : HACKER / CYBERPUNK — néon matrix
 ════════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-/* ── Tokens ── */
+/* ── Tokens DARK (hacker par défaut) ── */
 :root {
-  --bg:          #0b0f0e;
-  --bg-2:        #111815;
-  --bg-3:        #182320;
-  --surface:     #141c1a;
-  --border:      rgba(52,211,153,.08);
-  --border-h:    rgba(52,211,153,.25);
-  --text:        #e8f0ec;
-  --text-soft:   #8aa898;
-  --text-muted:  #4d6b5e;
-  --accent:      #34d399;   /* émeraude vive */
-  --accent-dim:  rgba(52,211,153,.1);
-  --accent-h:    #6ee7b7;
-  --violet:      #a78bfa;
-  --teal:        #2dd4bf;
-  --gold:        #fbbf24;
-  --red:         #f87171;
-  --nav-bg:      rgba(11,15,14,.92);
-  --shadow-sm:   0 1px 6px rgba(0,0,0,.5);
-  --shadow-md:   0 8px 32px rgba(0,0,0,.5);
-  --shadow-lg:   0 24px 80px rgba(0,0,0,.6);
-  --radius:      12px;
-  --radius-sm:   7px;
+  --bg:          #07070f;   /* noir profond teinté bleu */
+  --bg-2:        #0b0b17;
+  --bg-3:        #10101f;
+  --surface:     #0d0d1c;
+  --border:      rgba(0,255,65,.10);
+  --border-h:    rgba(0,255,65,.42);
+  --text:        #b8ffc8;   /* vert terminal clair */
+  --text-soft:   #52965a;
+  --text-muted:  #234528;
+  --accent:      #00ff41;   /* vert matrix */
+  --accent-dim:  rgba(0,255,65,.07);
+  --accent-h:    #33ff69;
+  --violet:      #bf00ff;   /* violet néon */
+  --teal:        #00d4ff;   /* cyan néon */
+  --gold:        #ffcc00;   /* jaune néon */
+  --red:         #ff003c;   /* rouge néon */
+  --nav-bg:      rgba(7,7,15,.96);
+  --shadow-sm:   0 0 12px rgba(0,255,65,.08),  0 1px 4px rgba(0,0,0,.9);
+  --shadow-md:   0 0 32px rgba(0,255,65,.12),  0 4px 20px rgba(0,0,0,.9);
+  --shadow-lg:   0 0 64px rgba(0,255,65,.18),  0 8px 40px rgba(0,0,0,.95);
+  --radius:      3px;       /* angles vifs = terminal */
+  --radius-sm:   2px;
   --ease:        cubic-bezier(.4,0,.2,1);
   --ease-spring: cubic-bezier(.34,1.56,.64,1);
-  --dur:         .22s;
-  --font-display:'Cormorant Garamond', serif;
-  --font-body:   'Sora', sans-serif;
+  --dur:         .15s;
+  --font-display:'JetBrains Mono', monospace;  /* mono partout en dark */
+  --font-body:   'JetBrains Mono', monospace;
   --font-mono:   'JetBrains Mono', monospace;
 }
 [data-theme="light"] {
+  /* ── Fonts : retrouver le style professionnel en light ── */
+  --font-display:'Cormorant Garamond', serif;
+  --font-body:   'Sora', sans-serif;
+  --font-mono:   'JetBrains Mono', monospace;
+  --radius:      12px;
+  --radius-sm:   7px;
   /* ── Fond ivoire-bleu : papier de terminal ── */
   --bg:          #f0f5ff;
   --bg-2:        #e6edf9;
@@ -762,4 +768,299 @@ body::before{
 /* Card: shimmer teinté bleu (light) */
 [data-theme="light"] .card::before{
   background:linear-gradient(105deg,transparent 38%,rgba(14,165,233,.07) 50%,transparent 62%);
+}
+
+/* ════════════════════════════════════════════════════
+   ██╗  ██╗ █████╗  ██████╗██╗  ██╗███████╗██████╗
+   ██║  ██║██╔══██╗██╔════╝██║ ██╔╝██╔════╝██╔══██╗
+   ███████║███████║██║     █████╔╝ █████╗  ██████╔╝
+   ██╔══██║██╔══██║██║     ██╔═██╗ ██╔══╝  ██╔══██╗
+   ██║  ██║██║  ██║╚██████╗██║  ██╗███████╗██║  ██║
+   DARK MODE — SYSTÈME EN COURS D'INTRUSION...
+════════════════════════════════════════════════════ */
+
+/* ── [1] Scanlines CRT + bruit dark ── */
+html:not([data-theme="light"]) body::before{
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,255,65,.018) 0px,
+      rgba(0,255,65,.018) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.9;
+}
+
+/* Liseré lumineux bas de nav (dark) */
+html:not([data-theme="light"]) .site-nav::after{
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  box-shadow:0 0 12px 1px rgba(0,255,65,.3);
+  pointer-events:none;
+}
+html:not([data-theme="light"]) .site-nav{
+  border-bottom-color:rgba(0,255,65,.08);
+}
+
+/* ── [2] Neon glow sur tous les em / accent ── */
+html:not([data-theme="light"]) .section-heading em,
+html:not([data-theme="light"]) .page-title em,
+html:not([data-theme="light"]) .hero-title .l2{
+  text-shadow:
+    0 0 6px var(--accent),
+    0 0 18px var(--accent),
+    0 0 38px rgba(0,255,65,.35);
+}
+html:not([data-theme="light"]) .result-num,
+html:not([data-theme="light"]) .hs-num,
+html:not([data-theme="light"]) .veille-stat-num{
+  text-shadow:0 0 14px var(--accent), 0 0 28px rgba(0,255,65,.3);
+}
+
+/* ── [3] Cards — fenêtre terminal ── */
+html:not([data-theme="light"]) .card{
+  border-color:rgba(0,255,65,.10);
+  background:var(--surface);
+  box-shadow:inset 0 0 30px rgba(0,255,65,.02), 0 1px 4px rgba(0,0,0,.9);
+}
+html:not([data-theme="light"]) .card:hover{
+  border-color:rgba(0,255,65,.42);
+  box-shadow:
+    0 0 20px rgba(0,255,65,.12),
+    0 0 48px rgba(0,255,65,.06),
+    inset 0 0 20px rgba(0,255,65,.04);
+}
+/* Barre supérieure néon sur les cartes */
+html:not([data-theme="light"]) .card::after{
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0; transition:opacity .2s; pointer-events:none;
+}
+html:not([data-theme="light"]) .card:hover::after{ opacity:1; }
+
+/* ── [4] Boutons style néon ── */
+html:not([data-theme="light"]) .btn-primary{
+  background:transparent;
+  color:var(--accent);
+  border:1px solid var(--accent);
+  box-shadow:0 0 14px rgba(0,255,65,.18), inset 0 0 14px rgba(0,255,65,.04);
+  font-weight:700;
+}
+html:not([data-theme="light"]) .btn-primary:hover{
+  background:rgba(0,255,65,.08);
+  box-shadow:0 0 30px rgba(0,255,65,.4), inset 0 0 22px rgba(0,255,65,.1);
+  color:var(--accent);
+}
+html:not([data-theme="light"]) .btn-outline{
+  border-color:rgba(0,255,65,.2); color:var(--text-soft);
+}
+html:not([data-theme="light"]) .btn-outline:hover{
+  border-color:var(--accent); color:var(--accent);
+  box-shadow:0 0 20px rgba(0,255,65,.18);
+}
+html:not([data-theme="light"]) .btn-submit{
+  background:transparent; color:var(--accent);
+  border:1px solid var(--accent);
+  box-shadow:0 0 16px rgba(0,255,65,.18);
+}
+html:not([data-theme="light"]) .btn-submit:hover{
+  background:rgba(0,255,65,.08);
+  box-shadow:0 0 32px rgba(0,255,65,.4);
+}
+
+/* ── [5] Section labels style terminal ── */
+html:not([data-theme="light"]) .section-label{
+  color:var(--accent);
+}
+
+/* Nav links : > au survol style terminal */
+html:not([data-theme="light"]) .nav-link{
+  transition:color .15s, background .15s;
+}
+
+/* ── [6] Code blocks ultra-hacker ── */
+html:not([data-theme="light"]) .code-block{
+  background:#030308;
+  border-color:rgba(0,255,65,.15);
+  color:var(--accent);
+  box-shadow:inset 0 0 24px rgba(0,255,65,.04), 0 0 16px rgba(0,255,65,.06);
+}
+html:not([data-theme="light"]) .code-block::before{
+  background:linear-gradient(var(--violet),var(--accent));
+  box-shadow:0 0 12px rgba(0,255,65,.5);
+}
+html:not([data-theme="light"]) .code-block .kw { color:var(--violet); text-shadow:0 0 8px rgba(191,0,255,.5); }
+html:not([data-theme="light"]) .code-block .fn { color:var(--teal);   text-shadow:0 0 8px rgba(0,212,255,.4); }
+html:not([data-theme="light"]) .code-block .str{ color:var(--gold);   text-shadow:0 0 8px rgba(255,204,0,.4); }
+html:not([data-theme="light"]) .code-block .cm { color:var(--text-muted); }
+
+/* ── [7] Form terminal style ── */
+html:not([data-theme="light"]) .form-input,
+html:not([data-theme="light"]) .form-textarea{
+  background:#030308; border-color:rgba(0,255,65,.18); color:var(--accent);
+  caret-color:var(--accent);
+}
+html:not([data-theme="light"]) .form-input::placeholder,
+html:not([data-theme="light"]) .form-textarea::placeholder{ color:var(--text-muted); }
+html:not([data-theme="light"]) .form-input:focus,
+html:not([data-theme="light"]) .form-textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px rgba(0,255,65,.1), 0 0 20px rgba(0,255,65,.12);
+  background:#050510;
+}
+
+/* ── [8] Skills néon ── */
+html:not([data-theme="light"]) .skill-fill{
+  background:linear-gradient(90deg,var(--teal),var(--accent));
+  box-shadow:0 0 8px rgba(0,255,65,.45);
+}
+html:not([data-theme="light"]) .skill-track{ background:rgba(0,255,65,.06); }
+
+/* ── [9] Timeline néon ── */
+html:not([data-theme="light"]) .timeline-item::after{
+  background:linear-gradient(var(--accent),transparent); opacity:.25;
+}
+
+/* ── [10] Contact items ── */
+html:not([data-theme="light"]) .contact-item:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 20px rgba(0,255,65,.14);
+  background:rgba(0,255,65,.03);
+}
+
+/* ── [11] Pros block ── */
+html:not([data-theme="light"]) .pros-block{
+  background:rgba(0,255,65,.03); border-color:rgba(0,255,65,.16);
+}
+
+/* ── [12] Tags style néon ── */
+html:not([data-theme="light"]) .tag{ border-radius:1px; }
+html:not([data-theme="light"]) .tag-green{ background:rgba(0,255,65,.07); border-color:rgba(0,255,65,.28); color:#00ff41; }
+html:not([data-theme="light"]) .tag-blue { background:rgba(0,212,255,.07); border-color:rgba(0,212,255,.28); color:#00d4ff; }
+html:not([data-theme="light"]) .tag-violet{ background:rgba(191,0,255,.07); border-color:rgba(191,0,255,.28); color:#bf00ff; }
+html:not([data-theme="light"]) .tag-teal  { background:rgba(0,212,255,.07); border-color:rgba(0,212,255,.25); color:#00d4ff; }
+html:not([data-theme="light"]) .tag-gold  { background:rgba(255,204,0,.07);  border-color:rgba(255,204,0,.28);  color:#ffcc00; }
+html:not([data-theme="light"]) .tag-red   { background:rgba(255,0,60,.07);   border-color:rgba(255,0,60,.28);   color:#ff003c; }
+html:not([data-theme="light"]) .tag-gray  { background:rgba(0,255,65,.04);   border-color:rgba(0,255,65,.12);   color:var(--text-soft); }
+
+/* ── [13] Dropdown ── */
+html:not([data-theme="light"]) .dropdown-menu{
+  background:#0b0b18; border-color:rgba(0,255,65,.14);
+}
+html:not([data-theme="light"]) .dropdown-menu a::before{ background:var(--accent); }
+html:not([data-theme="light"]) .dropdown-menu a:hover{
+  color:var(--accent); background:rgba(0,255,65,.05);
+  box-shadow:inset 2px 0 0 var(--accent);
+}
+
+/* ── [14] Hero avail dot ── */
+html:not([data-theme="light"]) .hero-avail{
+  background:rgba(0,255,65,.05); border-color:rgba(0,255,65,.18);
+}
+html:not([data-theme="light"]) .avail-dot{ background:var(--accent); box-shadow:0 0 10px var(--accent), 0 0 20px rgba(0,255,65,.4); }
+
+/* ── [15] CV avatar néon ── */
+html:not([data-theme="light"]) .cv-avatar{
+  background:linear-gradient(135deg,var(--teal),var(--accent));
+  box-shadow:0 0 40px rgba(0,255,65,.25), 0 0 80px rgba(0,212,255,.1);
+  overflow:visible;
+}
+html:not([data-theme="light"]) .cv-avatar::after{ border-top-color:var(--accent); box-shadow:none; }
+
+/* ── [16] Source pills néon ── */
+html:not([data-theme="light"]) .sp-stage  { background:rgba(0,212,255,.07); border-color:rgba(0,212,255,.2); color:var(--teal); }
+html:not([data-theme="light"]) .sp-atelier{ background:rgba(191,0,255,.07); border-color:rgba(191,0,255,.2); color:var(--violet); }
+html:not([data-theme="light"]) .sp-perso  { background:rgba(0,255,65,.07);  border-color:rgba(0,255,65,.2);  color:var(--accent); }
+
+/* ── [17] Légende dots ── */
+html:not([data-theme="light"]) .dot-stages  { background:var(--teal); box-shadow:0 0 6px var(--teal); }
+html:not([data-theme="light"]) .dot-ateliers{ background:var(--violet); box-shadow:0 0 6px var(--violet); }
+html:not([data-theme="light"]) .dot-transv  { background:var(--accent); box-shadow:0 0 6px var(--accent); }
+
+/* ════════════════════════════════════════════════════
+   KEYFRAMES HACKER DARK
+════════════════════════════════════════════════════ */
+
+/* Glitch intense section heading */
+@keyframes hacker-glitch{
+  0%,82%,100%{ text-shadow:none; clip-path:none; transform:none; }
+  83%{ clip-path:inset(4% 0 92% 0);  transform:translate(-4px,0); text-shadow: 4px 0 #00ff41,-4px 0 #bf00ff; }
+  84%{ clip-path:inset(35% 0 58% 0); transform:translate( 4px,0); text-shadow:-4px 0 #00d4ff, 4px 0 #ff003c; }
+  85%{ clip-path:inset(68% 0 22% 0); transform:translate(-2px,0); text-shadow: 2px 0 #bf00ff,-2px 0 #00ff41; }
+  86%{ clip-path:none; transform:translate(2px,0); text-shadow:0 0 8px var(--accent); }
+  87%{ clip-path:inset(20% 0 70% 0); transform:translate(-3px,0); text-shadow: 3px 0 #00ff41,-3px 0 #00d4ff; }
+  88%{ clip-path:none; transform:none; text-shadow:0 0 6px var(--accent); }
+}
+
+/* Glitch logo nav dark */
+@keyframes glitch-brand-dark{
+  0%,88%,100%{ text-shadow:none; }
+  89%{ text-shadow: 3px 0 rgba(0,255,65,.8),  -3px 0 rgba(191,0,255,.8); }
+  90%{ text-shadow:-3px 0 rgba(0,212,255,.8),   3px 0 rgba(255,0,60,.8); }
+  91%{ text-shadow: 2px 0 rgba(191,0,255,.8), -2px 0 rgba(0,255,65,.8);  }
+  92%{ text-shadow:none; }
+}
+
+/* Neon pulse sur le titre hero */
+@keyframes neon-pulse-green{
+  0%,100%{ text-shadow:0 0 6px var(--accent), 0 0 14px var(--accent); }
+  50%    { text-shadow:0 0 12px var(--accent), 0 0 28px var(--accent), 0 0 50px rgba(0,255,65,.3); }
+}
+
+/* Flicker terminal */
+@keyframes flicker{
+  0%,93%,97%,100%{ opacity:1; }
+  94%,96%        { opacity:.6; }
+  95%            { opacity:.9; }
+}
+
+/* Boot line — barre scannant la page (dark) */
+@keyframes boot-scan{
+  0%  { top:-2px; opacity:0; }
+  3%  { opacity:1; }
+  97% { opacity:1; }
+  100%{ top:100vh; opacity:0; }
+}
+
+/* Applying animations (dark only) */
+html:not([data-theme="light"]) .section-heading{
+  animation:hacker-glitch 12s ease-in-out infinite;
+}
+html:not([data-theme="light"]) .page-title{
+  animation:hacker-glitch 15s ease-in-out infinite 2s;
+}
+html:not([data-theme="light"]) .nav-brand{
+  animation:glitch-brand-dark 10s ease-in-out infinite;
+}
+html:not([data-theme="light"]) .hero-title .l2{
+  animation:neon-pulse-green 4s ease-in-out infinite;
+}
+html:not([data-theme="light"]) .section-label{
+  animation:flicker 9s ease-in-out infinite;
+}
+
+/* Boot scan line sur body dark */
+html:not([data-theme="light"]) body::after{
+  content:''; position:fixed; left:0; right:0; z-index:998; pointer-events:none;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  box-shadow:0 0 18px 4px rgba(0,255,65,.22);
+  animation:boot-scan 12s linear infinite;
+}
+
+/* Anneau orbital dark sur cv-avatar */
+html:not([data-theme="light"]) .cv-avatar::before{
+  content:''; position:absolute; inset:-10px; border-radius:50%;
+  border:1px dashed transparent; border-top-color:rgba(0,212,255,.5);
+  animation:orbit-rev 16s linear infinite;
+  pointer-events:none;
+}
+
+/* Timeline néon dark */
+html:not([data-theme="light"]) .timeline-item::before{
+  animation:pulse-dot-green 2.6s ease-out infinite;
+  box-shadow:0 0 12px rgba(0,255,65,.5);
 }
