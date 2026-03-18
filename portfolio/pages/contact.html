@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Annaëlle Dupont · Portfolio BTS SIO SLAM</title>
+<meta name="description" content="Contactez Annaëlle Dupont, développeuse web disponible en alternance dès septembre 2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+  .availability-banner {
+    background:var(--accent-dim); border:1px solid rgba(37,99,235,.25);
+    border-radius:var(--radius); padding:1.2rem 1.5rem;
+    display:flex; align-items:center; gap:1rem; margin-bottom:2rem;
+  }
+  .avail-dot { width:10px; height:10px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); flex-shrink:0; animation:avail-pulse 2s ease-in-out infinite; }
+  @keyframes avail-pulse { 50%{opacity:.3} }
+  .avail-text { font-size:.88rem; color:var(--text-soft); line-height:1.6; }
+  .avail-text strong { color:var(--text); }
+
+  .faq-item { border-bottom:1px solid var(--border); padding:1rem 0; }
+  .faq-item:last-child { border-bottom:none; }
+  .faq-q { font-size:.9rem; font-weight:600; color:var(--text); margin-bottom:.35rem; }
+  .faq-a { font-size:.85rem; color:var(--text-soft); line-height:1.75; }
+</style>
+</head>
+<body>
+<script src="../assets/js/nav-fragment.js"></script>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-breadcrumb"><a href="../index.html">Accueil</a> › Contact</p>
+    <h1 class="page-title">Prenons <em>contact</em></h1>
+    <p class="page-subtitle">Disponible en alternance dès septembre 2025 — réponse garantie sous 24 heures.</p>
+  </div>
+</header>
+
+<main id="main">
+<section class="section">
+<div class="container">
+
+  <div class="contact-grid">
+
+    <!-- Informations -->
+    <div class="reveal">
+      <div class="availability-banner">
+        <span class="avail-dot" aria-hidden="true"></span>
+        <p class="avail-text">
+          <strong>Disponible en alternance dès septembre 2025.</strong><br>
+          Rythme : 3 semaines entreprise / 1 semaine école.<br>
+          Localisation : Marseille — mobilité PACA possible.
+        </p>
+      </div>
+
+      <h2 class="contact-info-title">Discutons de votre projet</h2>
+      <p class="contact-info-desc">
+        Que vous cherchiez une développeuse web passionnée pour une alternance, un stage ou un projet ponctuel,
+        je serai ravie d'échanger avec vous. Je m'implique autant sur la qualité du code que sur la compréhension du besoin métier.
+      </p>
+
+      <nav aria-label="Coordonnées de contact">
+        <a class="contact-item" href="mailto:annaelle@exemple.com">
+          <svg width="16" height="16" color="var(--accent)"><use href="#ic-mail"/></svg>
+          annaelle@exemple.com
+        </a>
+        <a class="contact-item" href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn (nouvel onglet)">
+          <svg width="16" height="16" color="var(--accent)"><use href="#ic-linkedin"/></svg>
+          LinkedIn — Annaëlle Dupont
+        </a>
+        <a class="contact-item" href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub (nouvel onglet)">
+          <svg width="16" height="16" color="var(--accent)"><use href="#ic-github"/></svg>
+          GitHub — @annaelle-dev
+        </a>
+        <a class="contact-item" href="#" aria-label="Télécharger le CV PDF">
+          <svg width="16" height="16" color="var(--accent)"><use href="#ic-pdf"/></svg>
+          Télécharger le CV (PDF)
+        </a>
+        <div class="contact-item">
+          <svg width="16" height="16" color="var(--accent)"><use href="#ic-pin"/></svg>
+          Marseille, France · Mobilité PACA
+        </div>
+      </nav>
+
+      <!-- FAQ -->
+      <div style="margin-top:2.5rem">
+        <p class="section-label" style="margin-bottom:1rem">Questions fréquentes</p>
+        <div class="faq-item">
+          <p class="faq-q">Quel type de contrat cherchez-vous ?</p>
+          <p class="faq-a">Alternance en priorité (contrat d'apprentissage ou professionnalisation), démarrage septembre 2025. Ouvert à d'autres modalités selon le projet.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">Quelles technologies maîtrisez-vous principalement ?</p>
+          <p class="faq-a">PHP 8 (back-end), MySQL/PostgreSQL (bases de données), HTML5/CSS3/JavaScript (front-end). Solides bases en cybersécurité et RGPD.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">Êtes-vous disponible pour une mission freelance ?</p>
+          <p class="faq-a">Potentiellement selon la nature du projet. Contactez-moi pour en discuter.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="reveal d2">
+      <div class="card" style="padding:2rem">
+        <form id="contact-form"
+              action="https://formspree.io/f/YOUR_FORM_ID"
+              method="POST"
+              aria-label="Formulaire de contact"
+              novalidate>
+
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true">
+
+          <div class="form-row" id="row-name">
+            <label class="form-label" for="f-name">Votre nom ou entreprise *</label>
+            <input class="form-input" type="text" id="f-name" name="name"
+                   placeholder="Votre nom..." autocomplete="name"
+                   required aria-required="true" aria-describedby="err-name">
+            <p class="form-error" id="err-name" role="alert">Ce champ est requis.</p>
+          </div>
+
+          <div class="form-row" id="row-email">
+            <label class="form-label" for="f-email">Adresse e-mail *</label>
+            <input class="form-input" type="email" id="f-email" name="email"
+                   placeholder="contact@exemple.com" autocomplete="email"
+                   required aria-required="true" aria-describedby="err-email">
+            <p class="form-error" id="err-email" role="alert">Adresse e-mail invalide.</p>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="f-subject">Sujet</label>
+            <input class="form-input" type="text" id="f-subject" name="subject"
+                   placeholder="Alternance, stage, projet…">
+          </div>
+
+          <div class="form-row" id="row-msg">
+            <label class="form-label" for="f-msg">Message *</label>
+            <textarea class="form-textarea" id="f-msg" name="message"
+                      placeholder="Décrivez votre besoin, votre entreprise, les missions envisagées…"
+                      required aria-required="true" aria-describedby="err-msg"
+                      style="min-height:130px"></textarea>
+            <p class="form-error" id="err-msg" role="alert">Le message ne peut pas être vide.</p>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            Envoyer le message
+          </button>
+
+          <p class="form-note" id="form-status" aria-live="polite" style="margin-top:.7rem;font-family:var(--font-mono);font-size:.62rem;text-align:center;color:var(--text-muted)"></p>
+          <p style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted);text-align:center;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem">
+            <svg width="12" height="12" color="var(--green)"><use href="#ic-shield"/></svg>
+            Données transmises de façon sécurisée. Aucun spam.
+          </p>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</section>
+</main>
+
+<script src="../assets/js/shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liens externes — Annaëlle Dupont</title>
+<meta name="description" content="Retrouvez Annaëlle Dupont sur GitHub, LinkedIn et téléchargez son CV.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+
+.menu-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-page::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(52,211,153,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.menu-dotgrid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(52,211,153,.1) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 100%);
+}
+
+/* Identité */
+.menu-identity {
+  text-align: center;
+  margin-bottom: 2.8rem;
+  position: relative; z-index: 2;
+}
+
+.menu-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border-h);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.2rem;
+  box-shadow: 0 0 0 6px rgba(52,211,153,.06);
+  animation: avatar-in .6s var(--ease-spring) both;
+}
+
+@keyframes avatar-in {
+  from { opacity: 0; transform: scale(.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.menu-name {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -.02em;
+  line-height: 1;
+  margin-bottom: .3rem;
+  animation: fade-up .5s .1s var(--ease) both;
+}
+.menu-name em { font-style: italic; color: var(--accent); }
+
+.menu-role {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--text-muted);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  animation: fade-up .5s .2s var(--ease) both;
+}
+
+.menu-avail {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .9rem;
+  background: rgba(52,211,153,.07);
+  border: 1px solid rgba(52,211,153,.18);
+  border-radius: 99px;
+  padding: .35rem .9rem;
+  font-size: .75rem;
+  color: var(--text-soft);
+  animation: fade-up .5s .3s var(--ease) both;
+}
+
+.avail-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse { 50% { opacity: .25; } }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Liens */
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+  width: 100%;
+  max-width: 420px;
+  position: relative; z-index: 2;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color var(--dur), transform var(--dur), box-shadow var(--dur);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-link::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(52,211,153,.04), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.menu-link:hover {
+  border-color: var(--border-h);
+  transform: translateY(-3px) translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+.menu-link:hover::before { opacity: 1; }
+
+.menu-link-icon {
+  width: 42px; height: 42px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  transition: background var(--dur), border-color var(--dur);
+}
+
+.menu-link-body { flex: 1; }
+
+.menu-link-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: .15rem;
+}
+
+.menu-link-desc {
+  font-size: .72rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: .04em;
+}
+
+.menu-link-arrow {
+  color: var(--border-h);
+  flex-shrink: 0;
+  transition: color var(--dur), transform var(--dur);
+}
+.menu-link:hover .menu-link-arrow {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* Couleurs par service */
+.menu-link--github:hover { border-color: rgba(255,255,255,.18); }
+.menu-link--github:hover .menu-link-icon { background: rgba(255,255,255,.06); }
+
+.menu-link--linkedin:hover { border-color: rgba(10,102,194,.4); }
+.menu-link--linkedin:hover .menu-link-icon { background: rgba(10,102,194,.1); }
+
+.menu-link--cv:hover { border-color: rgba(52,211,153,.4); }
+.menu-link--cv:hover .menu-link-icon { background: rgba(52,211,153,.1); }
+
+.menu-link--portfolio:hover { border-color: rgba(167,139,250,.35); }
+.menu-link--portfolio:hover .menu-link-icon { background: rgba(167,139,250,.08); }
+
+.menu-link--mail:hover { border-color: rgba(251,191,36,.35); }
+.menu-link--mail:hover .menu-link-icon { background: rgba(251,191,36,.08); }
+
+/* Animations cascade */
+.menu-link:nth-child(1) { animation: fade-up .5s .15s var(--ease) both; }
+.menu-link:nth-child(2) { animation: fade-up .5s .22s var(--ease) both; }
+.menu-link:nth-child(3) { animation: fade-up .5s .29s var(--ease) both; }
+.menu-link:nth-child(4) { animation: fade-up .5s .36s var(--ease) both; }
+.menu-link:nth-child(5) { animation: fade-up .5s .43s var(--ease) both; }
+
+/* Séparateur */
+.menu-sep {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  position: relative; z-index: 2;
+  animation: fade-up .5s .4s var(--ease) both;
+}
+.menu-sep::before,
+.menu-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.menu-sep-label {
+  font-family: var(--font-mono);
+  font-size: .56rem;
+  color: var(--text-muted);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Retour */
+.menu-back {
+  margin-top: 2.2rem;
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: .5rem;
+  transition: color var(--dur);
+  position: relative; z-index: 2;
+  animation: fade-up .5s .5s var(--ease) both;
+}
+.menu-back:hover { color: var(--accent); }
+.menu-back svg { transform: rotate(180deg); }
+
+</style>
+</head>
+<body>
+<script src="../assets/js/nav-fragment.js"></script>
+
+<main id="main" class="menu-page">
+  <div class="menu-dotgrid" aria-hidden="true"></div>
+
+  <!-- Identité -->
+  <div class="menu-identity">
+    <div class="menu-avatar" aria-hidden="true">
+      <svg width="44" height="44" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="22" r="14" fill="rgba(52,211,153,.15)" stroke="rgba(52,211,153,.35)" stroke-width="1.5"/>
+        <circle cx="30" cy="22" r="8" fill="rgba(52,211,153,.08)"/>
+        <path d="M13 52 Q15 40 30 37 Q45 40 47 52" fill="rgba(52,211,153,.18)"/>
+      </svg>
+    </div>
+    <h1 class="menu-name">Annaëlle <em>Dupont</em></h1>
+    <p class="menu-role">Développeuse Web · BTS SIO SLAM</p>
+    <span class="menu-avail">
+      <span class="avail-dot"></span>
+      Disponible en alternance dès septembre 2025
+    </span>
+  </div>
+
+  <!-- Liens -->
+  <div class="menu-links" role="list">
+
+    <a href="https://github.com/annaelle-dev"
+       target="_blank" rel="noopener noreferrer"
+       class="menu-link menu-link--github"
+       role="listitem"
+       aria-label="GitHub — voir les projets (nouvel onglet)">
+      <div class="menu-link-icon">
+        <svg width="22" height="22" color="#e8f0ec"><use href="#ic-github"/></svg>
+      </div>
+      <div class="menu-link-body">
+        <div class="menu-link-label">GitHub</div>
+        <div class="menu-link-desc">github.com/annaelle-dev</div>
+      </div>
+      <svg class="menu-link-arrow" width="16" height="16"><use href="#ic-ext"/></svg>
+    </a>
+
+    <a href="https://linkedin.com/in/annaelle-dupont"
+       target="_blank" rel="noopener noreferrer"
+       class="menu-link menu-link--linkedin"
+       role="listitem"
+       aria-label="LinkedIn — profil professionnel (nouvel onglet)">
+      <div class="menu-link-icon">
+        <svg width="22" height="22" color="#0a66c2"><use href="#ic-linkedin"/></svg>
+      </div>
+      <div class="menu-link-body">
+        <div class="menu-link-label">LinkedIn</div>
+        <div class="menu-link-desc">linkedin.com/in/annaelle-dupont</div>
+      </div>
+      <svg class="menu-link-arrow" width="16" height="16"><use href="#ic-ext"/></svg>
+    </a>
+
+    <a href="mailto:annaelle@exemple.com"
+       class="menu-link menu-link--mail"
+       role="listitem"
+       aria-label="Envoyer un e-mail">
+      <div class="menu-link-icon">
+        <svg width="22" height="22" color="#fbbf24"><use href="#ic-mail"/></svg>
+      </div>
+      <div class="menu-link-body">
+        <div class="menu-link-label">E-mail</div>
+        <div class="menu-link-desc">annaelle@exemple.com</div>
+      </div>
+      <svg class="menu-link-arrow" width="16" height="16"><use href="#ic-arrow"/></svg>
+    </a>
+
+    <div class="menu-sep" role="separator" aria-hidden="true">
+      <span class="menu-sep-label">Portfolio</span>
+    </div>
+
+    <a href="cv.html"
+       class="menu-link menu-link--cv"
+       role="listitem"
+       aria-label="Voir le CV en ligne">
+      <div class="menu-link-icon">
+        <svg width="22" height="22" color="var(--accent)"><use href="#ic-pdf"/></svg>
+      </div>
+      <div class="menu-link-body">
+        <div class="menu-link-label">Curriculum Vitae</div>
+        <div class="menu-link-desc">Voir le CV en ligne</div>
+      </div>
+      <svg class="menu-link-arrow" width="16" height="16"><use href="#ic-arrow"/></svg>
+    </a>
+
+    <a href="../index.html"
+       class="menu-link menu-link--portfolio"
+       role="listitem"
+       aria-label="Portfolio complet — projets, stages, veilles">
+      <div class="menu-link-icon">
+        <svg width="22" height="22" color="var(--violet)"><use href="#ic-layers"/></svg>
+      </div>
+      <div class="menu-link-body">
+        <div class="menu-link-label">Portfolio complet</div>
+        <div class="menu-link-desc">Projets · Stages · Veilles technologiques</div>
+      </div>
+      <svg class="menu-link-arrow" width="16" height="16"><use href="#ic-arrow"/></svg>
+    </a>
+
+  </div>
+
+  <a href="../index.html" class="menu-back">
+    <svg width="12" height="12"><use href="#ic-arrow"/></svg>
+    Retour à l'accueil
+  </a>
+
+</main>
+
+<script src="../assets/js/shared.js"></script>
+</body>
+</html>
