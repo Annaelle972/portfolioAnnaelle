@@ -648,12 +648,12 @@ body::before{
   background:rgba(79,70,229,.04); border-color:rgba(79,70,229,.14);
 }
 
-/* Scan line light (subtil, lent) */
+/* Lueur ambiante animée light — coin supérieur droit */
 [data-theme="light"] body::after{
-  content:''; position:fixed; left:0; right:0; z-index:2; pointer-events:none;
-  height:1px;
-  background:linear-gradient(90deg,transparent,rgba(79,70,229,.4),transparent);
-  animation:scan-line 14s linear infinite;
+  content:''; position:fixed; top:-20%; right:-10%; z-index:0; pointer-events:none;
+  width:700px; height:700px; border-radius:50%;
+  background:radial-gradient(circle,rgba(79,70,229,.07) 0%,rgba(99,102,241,.04) 40%,transparent 70%);
+  animation:ambient-drift 12s ease-in-out infinite;
 }
 
 /* ════════════════════════════════════════════════════
@@ -854,11 +854,10 @@ html:not([data-theme="light"]) .dot-transv  { background:var(--accent); box-shad
   0%,100%{ transform:translateY(0) scale(1); }
   50%    { transform:translateY(-20px) scale(1.04); }
 }
-@keyframes scan-line {
-  0%  { top:-2px; opacity:0; }
-  4%  { opacity:1; }
-  96% { opacity:1; }
-  100%{ top:calc(100vh + 2px); opacity:0; }
+@keyframes ambient-drift {
+  0%,100%{ transform:translate(0,0)    scale(1); }
+  33%    { transform:translate(-40px,30px) scale(1.1); }
+  66%    { transform:translate(30px,-20px) scale(.95); }
 }
 @keyframes orbit { to{ transform:rotate(360deg); } }
 @keyframes orbit-rev { to{ transform:rotate(-360deg); } }
@@ -945,13 +944,12 @@ html:not([data-theme="light"]) .dot-transv  { background:var(--accent); box-shad
 
 /* ── Animations dark mode uniquement ── */
 
-/* Boot scan line indigo */
+/* Lueur ambiante animée dark — orbe flottant en fond */
 html:not([data-theme="light"]) body::after{
-  content:''; position:fixed; left:0; right:0; z-index:999; pointer-events:none;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--accent),var(--teal),transparent);
-  box-shadow:0 0 10px 2px rgba(99,102,241,.18);
-  animation:boot-scan 16s linear infinite;
+  content:''; position:fixed; top:-15%; right:-8%; z-index:0; pointer-events:none;
+  width:800px; height:800px; border-radius:50%;
+  background:radial-gradient(circle,rgba(99,102,241,.07) 0%,rgba(34,211,238,.03) 45%,transparent 70%);
+  animation:ambient-drift 14s ease-in-out infinite;
 }
 
 /* Glitch logo nav — discret, rare */
@@ -986,3 +984,113 @@ html:not([data-theme="light"]) .card::before{
 
 /* Avail dot */
 .avail-dot{ animation:flicker-light 3s ease-in-out infinite; }
+
+/* ════════════════════════════════════════════════════
+   THÈME CLAIR — Animations & effets visuels enrichis
+════════════════════════════════════════════════════ */
+
+/* Keyframes light exclusifs */
+@keyframes border-glow-light {
+  0%,100%{ box-shadow:0 0 0 0 rgba(79,70,229,.0),  0 1px 3px rgba(15,23,42,.06); }
+  50%    { box-shadow:0 0 0 3px rgba(79,70,229,.10), 0 4px 16px rgba(79,70,229,.10); }
+}
+@keyframes float-card-light {
+  0%,100%{ transform:translateY(0); }
+  50%    { transform:translateY(-6px); }
+}
+@keyframes gradient-shift {
+  0%,100%{ background-position:0% 50%; }
+  50%    { background-position:100% 50%; }
+}
+@keyframes appear-left {
+  from{ opacity:0; transform:translateX(-12px); }
+  to  { opacity:1; transform:none; }
+}
+@keyframes pulse-accent-light {
+  0%,100%{ box-shadow:0 0 0 0 rgba(79,70,229,.0); }
+  50%    { box-shadow:0 0 0 6px rgba(79,70,229,.12); }
+}
+
+/* ── Titre hero light : dégradé animé ── */
+[data-theme="light"] .hero-title .l2,
+[data-theme="light"] .page-title em,
+[data-theme="light"] .section-heading em{
+  background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 40%,#0891b2 80%,#4f46e5 100%);
+  background-size:200% 200%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradient-shift 5s ease-in-out infinite;
+}
+
+/* ── Cards light : hover flottant + border pulse ── */
+[data-theme="light"] .card--lift:hover{
+  animation:float-card-light 3s ease-in-out infinite;
+  box-shadow:0 12px 40px rgba(79,70,229,.12), 0 2px 8px rgba(15,23,42,.06);
+}
+[data-theme="light"] .pcard:hover,
+[data-theme="light"] .card:hover{
+  border-color:rgba(79,70,229,.28);
+}
+
+/* ── Section labels : badge animé ── */
+[data-theme="light"] .section-label{
+  animation:appear-left .5s var(--ease) both;
+  background:linear-gradient(90deg,rgba(79,70,229,.07),transparent);
+  padding-left:.6rem; border-left:2px solid var(--accent);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* ── Nav links light : barre slide couleur ── */
+[data-theme="light"] .nav-link:hover,
+[data-theme="light"] .nav-link.active{
+  color:var(--accent); background:var(--accent-dim);
+}
+[data-theme="light"] .nav-link.active::after{
+  background:linear-gradient(90deg,var(--accent),var(--violet));
+}
+
+/* ── Bouton primaire light : shimmer continu ── */
+[data-theme="light"] .btn-primary{
+  background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#4f46e5 100%);
+  background-size:200% 200%;
+  animation:gradient-shift 4s ease-in-out infinite;
+  color:#fff; border:none;
+  box-shadow:0 2px 12px rgba(79,70,229,.22);
+}
+[data-theme="light"] .btn-primary:hover{
+  box-shadow:0 4px 24px rgba(79,70,229,.38);
+  transform:translateY(-2px);
+}
+
+/* ── Avail dot light : pulse indigo ── */
+[data-theme="light"] .avail-dot{
+  background:var(--accent);
+  box-shadow:0 0 8px rgba(79,70,229,.5);
+  animation:pulse-accent-light 2s ease-in-out infinite;
+}
+
+/* ── Stat numbers light : underline animé ── */
+[data-theme="light"] .hs-num,
+[data-theme="light"] .result-num,
+[data-theme="light"] .veille-stat-num{
+  background:linear-gradient(135deg,#4f46e5,#0891b2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* ── Timeline light : trait dégradé ── */
+[data-theme="light"] .timeline-item::after{
+  background:linear-gradient(var(--accent),var(--violet),transparent);
+  opacity:.3;
+}
+
+/* ── Deuxième orbe ambiante en bas à gauche ── */
+[data-theme="light"] .site-footer::before{
+  content:''; position:absolute; bottom:-60%; left:-10%;
+  width:500px; height:500px; border-radius:50%;
+  background:radial-gradient(circle,rgba(99,102,241,.06) 0%,transparent 65%);
+  pointer-events:none; z-index:0;
+  animation:ambient-drift 16s ease-in-out infinite reverse;
+}
