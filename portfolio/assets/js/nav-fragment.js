@@ -106,12 +106,12 @@ const sprite = `<svg aria-hidden="true" style="display:none" xmlns="http://www.w
 const nav = `<a href="#main" class="skip">Aller au contenu</a>
 <nav class="site-nav" role="navigation" aria-label="Navigation principale">
   <div class="nav-inner">
-    <a href="${root}index.html" class="nav-brand">Annaëlle <em>Dupont</em></a>
+    <a href="${root}../index.html" class="nav-brand">Annaëlle <em>Dupont</em></a>
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-menu" id="nav-menu" role="list">
-      <li><a class="nav-link" href="${root}index.html">Accueil</a></li>
+      <li><a class="nav-link" href="${root}../index.html">Accueil</a></li>
       <li><a class="nav-link" href="${root}pages/cv.html">Curriculum Vitae</a></li>
       <li class="nav-dropdown nav-item">
         <a class="nav-link" href="#" tabindex="0">Stages</a>
