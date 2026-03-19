@@ -13,7 +13,12 @@
       "WebFetch(domain:annaellechampiau.wixsite.com)",
       "WebFetch(domain:webcache.googleusercontent.com)",
       "Bash(xargs sed:*)",
-      "WebFetch(domain:www.febus-optics.com)"
+      "WebFetch(domain:www.febus-optics.com)",
+      "Bash(identify /workspaces/portfolioannaelle/portfolio/assets/images/joystick_cursor.png /workspaces/portfolioannaelle/portfolio/assets/images/joystick_cursor2.png)",
+      "Bash(python3 -c \":*)",
+      "Bash(ffmpeg -i /workspaces/portfolioannaelle/portfolio/assets/images/joystick_cursor.png -vf scale=32:32 /workspaces/portfolioannaelle/portfolio/assets/images/joystick_cursor_32.png -y)",
+      "Bash(ffmpeg -i /workspaces/portfolioannaelle/portfolio/assets/images/joystick_cursor2.png -vf scale=32:32 /workspaces/portfolioannaelle/portfolio/assets/images/joystick_cursor2_32.png -y)",
+      "Bash(pip install:*)"
     ]
   }
 }

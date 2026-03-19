@@ -6,6 +6,14 @@
 ════════════════════════════════════════════════════ */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
+/* ── Curseurs personnalisés ── */
+:root {
+  --cursor: url('../images/joystick_cursor_32.png'), auto;
+}
+[data-theme="light"] {
+  --cursor: url('../images/joystick_cursor2_32.png'), auto;
+}
+
 /* ── Tokens DARK — Cyberpunk élégant ── */
 :root {
   --bg:          #080c14;   /* bleu-noir profond */
@@ -76,6 +84,7 @@ body{
   font-family:var(--font-body); font-weight:400; line-height:1.7;
   transition:background .4s,color .4s;
   overflow-x:hidden;
+  cursor:var(--cursor);
 }
 
 /* Grain subtil */
@@ -155,21 +164,20 @@ body::before{
 
 .nav-right{ display:flex; align-items:center; gap:.75rem; flex-shrink:0; }
 
-.theme-toggle{ width:50px; height:26px; flex-shrink:0; position:relative; }
-.theme-toggle input{ opacity:0;width:0;height:0;position:absolute; }
-.theme-toggle label{
-  position:absolute; inset:0; border-radius:99px;
-  background:var(--bg-3); border:1px solid var(--border);
-  cursor:pointer; transition:background .4s;
-}
-.theme-toggle label::before{
-  content:''; position:absolute; top:4px; left:4px;
-  width:16px; height:16px; border-radius:50%;
-  background:var(--accent);
-  transition:transform .35s var(--ease-spring);
-  box-shadow:0 1px 5px rgba(0,0,0,.4);
-}
-.theme-toggle input:checked~label::before{ transform:translateX(24px); }
+/* ── Theme Switch (uiverse.io/JustCode14/red-dingo-61) ── */
+.switch{font-size:13px;position:relative;display:inline-block;width:4em;height:2.2em;border-radius:30px;box-shadow:0 0 10px rgba(0,0,0,.1);flex-shrink:0;}
+.switch input{opacity:0;width:0;height:0;}
+.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#2a2a2a;transition:.4s;border-radius:30px;overflow:hidden;}
+.slider:before{position:absolute;content:"";height:1.2em;width:1.2em;border-radius:20px;left:.5em;bottom:.5em;transition:.4s;transition-timing-function:cubic-bezier(.81,-.04,.38,1.5);box-shadow:inset 8px -4px 0px 0px #fff;}
+.switch input:checked+.slider{background-color:#00a6ff;}
+.switch input:checked+.slider:before{transform:translateX(1.8em);box-shadow:inset 15px -4px 0px 15px #ffcf48;}
+.star{background-color:#fff;border-radius:50%;position:absolute;width:5px;transition:all .4s;height:5px;}
+.star_1{left:2.5em;top:.5em;}
+.star_2{left:2.2em;top:1.2em;}
+.star_3{left:3em;top:.9em;}
+.switch input:checked~.slider .star{opacity:0;}
+.cloud{width:3.5em;position:absolute;bottom:-1.4em;left:-1.1em;opacity:0;transition:all .4s;}
+.switch input:checked~.slider .cloud{opacity:1;}
 
 .nav-toggle{
   display:none; flex-direction:column; gap:4px;
@@ -1217,49 +1225,7 @@ html:not([data-theme="light"]) .card::before{
 /* ════════════════════════════════════════════════════
    CURSEUR PERSONNALISÉ — light & dark
 ════════════════════════════════════════════════════ */
-@media (pointer:fine){
-  body,a,button,[role="button"],.card,.nav-link,.qchip,label[for],.pcard{
-    cursor:none!important;
-  }
-}
-#cursor-dot{
-  position:fixed; top:0; left:0; z-index:99999;
-  width:8px; height:8px; border-radius:50%;
-  background:var(--accent); pointer-events:none;
-  opacity:0; will-change:transform;
-  transition:width .2s var(--ease-spring),
-             height .2s var(--ease-spring),
-             background .3s,
-             opacity .3s;
-}
-#cursor-ring{
-  position:fixed; top:0; left:0; z-index:99998;
-  width:28px; height:28px; border-radius:50%;
-  border:1.5px solid var(--accent);
-  opacity:0; pointer-events:none; will-change:transform;
-  transition:width .25s var(--ease-spring),
-             height .25s var(--ease-spring),
-             border-color .3s,
-             opacity .3s;
-}
-#cursor-dot.active{ opacity:1; }
-#cursor-ring.active{ opacity:.55; }
-#cursor-dot.on-hover{
-  width:14px; height:14px;
-  background:var(--accent-h);
-}
-#cursor-ring.on-hover{
-  width:42px; height:42px;
-  border-color:var(--accent-h); opacity:.35;
-}
-/* Thème sombre : accent indigo brillant */
-html:not([data-theme="light"]) #cursor-dot{ background:var(--accent); }
-html:not([data-theme="light"]) #cursor-ring{ border-color:var(--accent); opacity:.4; }
-/* Thème clair : sauge cosy */
-[data-theme="light"] #cursor-dot{ background:#4a6e52; }
-[data-theme="light"] #cursor-ring{ border-color:#4a6e52; opacity:.5; }
-[data-theme="light"] #cursor-dot.on-hover{ background:#2d5438; }
-[data-theme="light"] #cursor-ring.on-hover{ border-color:#2d5438; }
+*{ cursor:var(--cursor)!important; }
 
 
 /* ════════════════════════════════════════════════════

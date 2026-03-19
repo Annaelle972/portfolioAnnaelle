@@ -46,18 +46,20 @@
       PicDuMidiBoutique
     </p>
     <div class="project-header">
-      <div class="project-logo-placeholder" aria-hidden="true">Pic</div>
+      <div class="project-logo-placeholder" aria-hidden="true"></div>
       <div class="project-header-text">
         <div class="project-meta">
           <span class="tag tag-violet">Atelier Professionnel</span>
           <span class="tag tag-blue">PHP</span>
           <span class="tag tag-gray">MySQL</span>
           <span class="tag tag-gray">WordPress</span>
+          <span class="tag tag-gray">Elementor</span>
+          <span class="tag tag-gray">TablePress</span>
           <span class="tag tag-gold">Travail individuel</span>
         </div>
         <h1 class="page-title" style="margin-bottom:.4rem">PicDuMidi<em>Boutique</em></h1>
         <p class="project-desc-intro">
-          Développement d'un module de reporting e-commerce pour la boutique en ligne du Pic du Midi de Bigorre — statistiques de ventes, filtres dynamiques et indicateurs par catégorie.
+          Développement d'un tableau de bord d'aide à la décision pour la boutique du Pic du Midi de Bigorre — site WordPress évoluant progressivement de statique à dynamique, interactif, puis interactif avancé avec génération de PDF.
         </p>
       </div>
     </div>
@@ -74,19 +76,35 @@
     <div class="tools-grid">
       <div class="tool-chip">
         <svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>
-        PHP 7 — logique métier et accès BDD
+        PHP — fonctions et codes courts WordPress
       </div>
       <div class="tool-chip">
         <svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>
-        MySQL — requêtes de reporting
+        MySQL / PhpMyAdmin — requêtes et indicateurs
       </div>
       <div class="tool-chip">
         <svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>
-        WordPress — intégration CMS
+        WordPress — CMS, extensions, pages, CSS
       </div>
       <div class="tool-chip">
         <svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>
-        Notepad++ — édition des fonctions
+        Elementor — constructeur de pages
+      </div>
+      <div class="tool-chip">
+        <svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>
+        TablePress — création de tableaux d'indicateurs
+      </div>
+      <div class="tool-chip">
+        <svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>
+        DomPDF — génération de rapports PDF
+      </div>
+      <div class="tool-chip">
+        <svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>
+        WampServer — serveur local de développement
+      </div>
+      <div class="tool-chip">
+        <svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>
+        GanttProject — planification et diagrammes de Gantt
       </div>
     </div>
   </div>
@@ -97,14 +115,18 @@
     <div class="context-block">
       <p>
         Initialement dédié à des activités scientifiques centrées sur l'astronomie et la météorologie,
-        le Pic du Midi de Bigorre a connu au début des années 1990 de graves difficultés financières,
-        allant jusqu'à menacer sa fermeture.
+        le Pic du Midi de Bigorre a connu en 1990 de graves difficultés financières allant jusqu'à
+        menacer sa fermeture.
       </p>
       <p>
-        Pour sauvegarder ce patrimoine touristique, le syndicat mixte de valorisation du Pic du Midi
-        a engagé une transformation numérique incluant une boutique en ligne. L'objectif de cet atelier
-        était d'enrichir cette boutique d'un module de statistiques permettant de suivre les ventes
-        par catégorie, par article et par période.
+        Pour sauvegarder ce patrimoine, le site a ouvert ses portes aux touristes avec la mise en place
+        d'une billetterie pour le musée, d'un restaurant et d'une boutique souvenirs. La communication
+        s'appuie sur un site Web et les offices de tourisme et syndicats d'initiative de la région.
+      </p>
+      <p>
+        Dans ce cadre, l'objectif de cet atelier était de <strong>développer un outil d'aide à la décision
+        pour la boutique du Pic</strong> — un tableau de bord avec les principaux indicateurs à suivre,
+        intégré dans un site WordPress évoluant en 4 missions progressives.
       </p>
     </div>
   </div>
@@ -114,63 +136,74 @@
     <h2 class="project-section-title">Mission &amp; Problématique</h2>
     <div class="card" style="border-left:3px solid var(--accent);background:var(--bg-2)">
       <p style="font-size:.92rem;color:var(--text-soft);line-height:1.85">
-        Comment permettre aux responsables de la boutique de visualiser facilement le chiffre d'affaires
-        par article et par période, sans accès direct à la base de données ?
-        Il fallait concevoir une interface web intégrée à WordPress, interrogeant MySQL via des fonctions PHP sécurisées.
+        Comment permettre aux responsables de la boutique de visualiser facilement les indicateurs clés
+        (visiteurs, chiffre d'affaires, moyennes) sans accès direct à la base de données, et d'interagir
+        avec ces données en temps réel ?
+        Il fallait concevoir un site WordPress progressivement enrichi — de la page statique jusqu'à la
+        génération automatique de PDF — via des fonctions PHP connectées à MySQL et exposées par des codes courts.
       </p>
     </div>
   </div>
 
   <!-- Fonctionnalités -->
   <div class="project-section reveal d1">
-    <h2 class="project-section-title">Fonctionnalités développées</h2>
+    <h2 class="project-section-title">Missions réalisées</h2>
     <ul class="feat-list">
       <li>
         <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Formulaire de filtrage</strong> — sélection par catégorie, article et période de dates</div>
+        <div><strong>Mission 1 — Site statique</strong> — création de la page « Meilleure Journée » avec tableau d'indicateurs (TablePress), barre latérale personnalisée (top 3 jours, top 3 articles, widget météo my-meteo.com), intégration Elementor</div>
       </li>
       <li>
         <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Fonction <code>getListeArticles()</code></strong> — retourne la liste déroulante des articles depuis la BDD</div>
+        <div><strong>Mission 2 — Site dynamique</strong> — création de l'extension WordPress <code>accesbd.php</code>, développement des fonctions PHP (<code>fct_getNbVisiteurs()</code>, <code>fct_getCaDuJour()</code>, <code>fct_getCaMoyenParJour()</code>, <code>fct_getCaMoyenParVisiteur()</code>), codes courts associés, smiley dynamique de satisfaction, CSS additionnel avec animation clignotante</div>
       </li>
       <li>
         <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Fonction <code>getCAParJour()</code></strong> — calcule le chiffre d'affaires par jour pour une catégorie et une période précise</div>
+        <div><strong>Mission 3 — Site interactif</strong> — formulaire HTML de saisie de date, fonctions PHP paramétrées par date (<code>fct_getDateSaisie()</code>, <code>fct_getTempsDUneDate()</code>, <code>fct_nbVisiteursDUneDate()</code>, <code>fct_caTotalDUneDate()</code>…), nouveau tableau TablePress « Indicateurs de cette journée », ajout dans le menu sous la catégorie « Zoom… »</div>
       </li>
       <li>
         <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Fonction <code>genererTableau()</code></strong> — génère le code HTML du tableau d'indicateurs</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Transmission des paramètres</strong> — passage sécurisé des données du formulaire aux requêtes SQL</div>
+        <div><strong>Mission 4 — Site interactif avancé</strong> — génération de rapport PDF avec la bibliothèque DomPDF (<code>fct_getTableauHier()</code>, <code>fct_getTableauHierEnPdf()</code>), intégration du logo, en-tête et pied de page dans le PDF, smiley encodé en base64 pour l'export (<code>fct_getSmiley2()</code>)</div>
       </li>
     </ul>
   </div>
 
   <!-- Code example -->
   <div class="project-section reveal d2">
-    <h2 class="project-section-title">Extrait de code</h2>
-    <div class="code-block" aria-label="Exemple de fonction PHP — getCAParJour">
+    <h2 class="project-section-title">Extraits de code</h2>
+    <p style="font-size:.8rem;color:var(--text-soft);margin-bottom:.75rem">Connexion PDO à la base de données (extension <code>accesbd.php</code>)</p>
+    <div class="code-block" aria-label="Fonction PHP fct_getConnexion">
 <span class="cm">/**
- * Retourne le chiffre d'affaires par jour pour une catégorie/période
- * @param string $dateDebut  date début au format AAAA-MM-JJ
- * @param string $dateFin    date fin   au format AAAA-MM-JJ
- * @param string $idArticle  identifiant de l'article
- * @return array             tableau de résultats
+ * Retourne l'objet connexion PDO à la base de données
+ * @return PDO $connexion
  */</span>
-<span class="kw">function</span> <span class="fn">getCAParJour</span>(<span class="kw">$dateDebut</span>, <span class="kw">$dateFin</span>, <span class="kw">$idArticle</span>) {
-    <span class="kw">$requete</span> = <span class="str">"SELECT DATE(date_commande) as jour,
-                SUM(quantite * prix_unitaire) as ca
-                FROM commandes
-                WHERE id_article = ?
-                AND date_commande BETWEEN ? AND ?
-                GROUP BY jour
-                ORDER BY jour ASC"</span>;
-    <span class="kw">$stmt</span> = <span class="fn">$pdo</span>-><span class="fn">prepare</span>(<span class="kw">$requete</span>);
-    <span class="kw">$stmt</span>-><span class="fn">execute</span>([ <span class="kw">$idArticle</span>, <span class="kw">$dateDebut</span>, <span class="kw">$dateFin</span> ]);
-    <span class="kw">return</span> <span class="kw">$stmt</span>-><span class="fn">fetchAll</span>(PDO::FETCH_ASSOC);
+<span class="kw">function</span> <span class="fn">fct_getConnexion</span>() {
+    <span class="kw">try</span> {
+        <span class="kw">$connexion</span> = <span class="kw">new</span> <span class="fn">PDO</span>(<span class="str">'mysql:host=localhost;dbname=champiau_bdboutiquePic'</span>,
+                             <span class="str">'consultBD'</span>, <span class="str">'pwdConsultBD'</span>);
+        <span class="kw">$connexion</span>-><span class="fn">exec</span>(<span class="str">'SET NAMES utf8'</span>);
+        <span class="kw">return</span> <span class="kw">$connexion</span>;
+    } <span class="kw">catch</span> (PDOException <span class="kw">$e</span>) {
+        <span class="fn">print</span> <span class="str">"Erreur : "</span> . <span class="kw">$e</span>-><span class="fn">getMessage</span>();
+        <span class="fn">die</span>();
+    }
 }
+    </div>
+    <p style="font-size:.8rem;color:var(--text-soft);margin:.75rem 0">Récupération de la date saisie dans le formulaire (Mission 3)</p>
+    <div class="code-block" aria-label="Fonction PHP fct_getDateSaisie">
+<span class="cm">/**
+ * Récupère et retourne la date transmise par le formulaire
+ * @return string  date saisie ou "Date non renseignée."
+ */</span>
+<span class="kw">function</span> <span class="fn">fct_getDateSaisie</span>() {
+    <span class="kw">if</span> (<span class="fn">isset</span>(<span class="kw">$_POST</span>[<span class="str">'dateSouhaitee'</span>]))
+        <span class="kw">$uneDate</span> = <span class="kw">$_POST</span>[<span class="str">'dateSouhaitee'</span>];
+    <span class="kw">else</span>
+        <span class="kw">$uneDate</span> = <span class="str">"Date non renseignée."</span>;
+    <span class="kw">return</span> <span class="kw">$uneDate</span>;
+}
+<span class="cm">/** code court [dateSaisie] associé à la fonction fct_getDateSaisie */</span>
+<span class="fn">add_shortcode</span>(<span class="str">'dateSaisie'</span>, <span class="str">'fct_getDateSaisie'</span>);
     </div>
   </div>
 
@@ -193,23 +226,31 @@
     <h2 class="project-section-title">Résultats &amp; Apprentissages</h2>
     <div class="result-grid">
       <div class="card result-box">
-        <div class="result-num">5</div>
+        <div class="result-num">4</div>
+        <div class="result-label">Missions progressives réalisées</div>
+      </div>
+      <div class="card result-box">
+        <div class="result-num">+10</div>
         <div class="result-label">Fonctions PHP développées</div>
       </div>
       <div class="card result-box">
-        <div class="result-num">PDO</div>
-        <div class="result-label">Requêtes préparées — 0 injection SQL</div>
-      </div>
-      <div class="card result-box">
-        <div class="result-num">MVC</div>
-        <div class="result-label">Architecture respectée</div>
+        <div class="result-num">PDF</div>
+        <div class="result-label">Rapport généré avec DomPDF</div>
       </div>
     </div>
     <div class="context-block">
       <p>
-        Cet atelier m'a permis de consolider ma maîtrise des requêtes SQL avancées (agrégations, filtres sur dates),
-        de l'architecture MVC en PHP et de l'intégration de modules dans WordPress.
-        La contrainte de sécuriser chaque requête avec PDO a renforcé mes réflexes en matière de prévention des injections SQL.
+        Cet atelier m'a permis de maîtriser la création d'extensions WordPress, le développement de fonctions PHP
+        connectées à MySQL via PDO, et l'utilisation de codes courts. En progressant du site statique vers
+        un site interactif avancé, j'ai acquis une vision complète du développement full-stack côté CMS :
+        requêtes SQL (agrégations, filtres sur dates), gestion du formulaire POST, génération de PDF avec DomPDF,
+        styles CSS additionnels et planification par diagramme de Gantt.
+      </p>
+      <p>
+        Les indicateurs affichés (nombre de visiteurs, CA total, montant moyen par vente, CA moyen par visiteur)
+        proviennent directement de la base de données et s'actualisent en temps réel selon la date sélectionnée.
+        Exemple de valeurs réelles testées pour le 02/03/2025 : <strong>106 visiteurs</strong>,
+        <strong>841 € de CA total</strong>, <strong>36,57 € moyen par vente</strong>, <strong>7,93 € par visiteur</strong>.
       </p>
     </div>
   </div>
@@ -218,10 +259,14 @@
   <div class="project-section reveal d1">
     <h2 class="project-section-title">Compétences BTS SIO validées</h2>
     <div style="display:flex;flex-wrap:wrap;gap:.5rem">
-      <span class="tag tag-blue">B2.1 — Développement applicatif</span>
-      <span class="tag tag-violet">B2.3 — Gestion des données</span>
-      <span class="tag tag-green">A1.3 — Présence en ligne</span>
-      <span class="tag tag-gold">A1.4 — Mode projet</span>
+      <span class="tag tag-blue">B1.3 — Développer la présence en ligne de l'organisation</span>
+      <span class="tag tag-violet">B1.1 — Gérer le patrimoine informatique (sauvegardes)</span>
+      <span class="tag tag-gold">B1.4 — Travailler en mode projet</span>
+    </div>
+    <div style="margin-top:.75rem;font-size:.8rem;color:var(--text-soft);line-height:1.7">
+      <p><strong>B1.3</strong> — Participation à l'évolution d'un site Web exploitant les données de l'organisation · Valorisation de l'image de l'organisation sur les médias numériques</p>
+      <p><strong>B1.1</strong> — Sauvegardes et restaurations du site WordPress (plugin Duplicator) testées et opérationnelles après chaque mission</p>
+      <p><strong>B1.4</strong> — Planification des activités par diagramme de Gantt (GanttProject) à chaque étape du projet</p>
     </div>
   </div>
 
