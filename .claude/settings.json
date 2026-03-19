@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://www.svgrepo.com/show/452185/python.svg\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/python.svg\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/css3.svg\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/java.svg\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/wordpress.svg\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/symfony.svg\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linux.svg\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/android.svg\")",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/perl.svg\")",
+      "WebFetch(domain:annaellechampiau.wixsite.com)",
+      "WebFetch(domain:webcache.googleusercontent.com)",
+      "Bash(xargs sed:*)",
+      "WebFetch(domain:www.febus-optics.com)"
+    ]
+  }
+}

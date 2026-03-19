@@ -3,15 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stage ARGITIK — Annaëlle Dupont</title>
+<title>Stage ARGITIK — Annaëlle Champiau</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/css/shared.css">
+<style>
+
+/* ── Info bar rapide ── */
+.stage-info-bar {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  margin-bottom: 2.8rem;
+}
+.info-pill {
+  display: flex; align-items: center; gap: .65rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: .6rem 1.1rem;
+  font-family: var(--font-mono); font-size: .65rem;
+  color: var(--text-soft); letter-spacing: .06em;
+}
+.info-pill svg { flex-shrink: 0; }
+.info-pill strong { color: var(--text); }
+
+/* ── Contexte grid ── */
+.context-grid {
+  display: grid; grid-template-columns: 1fr 320px; gap: 2rem; align-items: start;
+}
+@media (max-width: 800px) { .context-grid { grid-template-columns: 1fr; } }
+
+/* ── Company card ── */
+.company-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.company-card-header {
+  display: flex; align-items: center; gap: 1rem;
+  padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+}
+.company-logo-wrap {
+  width: 56px; height: 56px;
+  background: var(--bg-3); border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.company-name { font-family: var(--font-mono); font-size: .72rem; font-weight: 600; color: var(--text); letter-spacing: .06em; }
+.company-sub  { font-size: .68rem; color: var(--text-muted); margin-top: .15rem; }
+.company-stat { display: flex; justify-content: space-between; font-size: .78rem; color: var(--text-soft); }
+.company-stat span:last-child { color: var(--accent); font-family: var(--font-mono); font-size: .7rem; }
+
+/* ── Tech card grid ── */
+.tech-card-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+@media (max-width: 700px) { .tech-card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 430px) { .tech-card-grid { grid-template-columns: 1fr; } }
+
+.tech-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.2rem;
+  display: flex; flex-direction: column; gap: .65rem;
+  transition: border-color var(--dur), transform var(--dur);
+}
+.tech-card:hover { border-color: var(--border-h); transform: translateY(-3px); }
+.tech-card-icon {
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.tech-card-name { font-family: var(--font-mono); font-size: .7rem; font-weight: 600; color: var(--text); }
+.tech-card-desc { font-size: .75rem; color: var(--text-muted); line-height: 1.5; }
+
+/* ── Mission timeline ── */
+.mission-steps { display: flex; flex-direction: column; gap: 0; }
+.mission-step {
+  display: grid; grid-template-columns: 64px 1fr; gap: 1.2rem;
+  position: relative;
+}
+.mission-step:not(:last-child)::after {
+  content: ''; position: absolute; left: 31px; top: 64px; bottom: 0;
+  width: 2px; background: linear-gradient(var(--border), transparent);
+}
+.step-num-wrap {
+  display: flex; flex-direction: column; align-items: center; padding-top: .3rem;
+}
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--accent-dim); border: 1.5px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: .65rem; font-weight: 600; color: var(--accent);
+  flex-shrink: 0;
+}
+.step-body { padding-bottom: 2rem; }
+.step-title { font-family: var(--font-mono); font-size: .85rem; font-weight: 600; color: var(--text); margin-bottom: .35rem; }
+.step-desc  { font-size: .84rem; color: var(--text-soft); line-height: 1.8; }
+.step-week  { font-family: var(--font-mono); font-size: .58rem; color: var(--text-muted); letter-spacing: .1em; margin-bottom: .4rem; }
+
+/* ── Code block extras ── */
+.code-lang {
+  font-family: var(--font-mono); font-size: .55rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: .65rem; display: flex; align-items: center; gap: .5rem;
+}
+.code-lang::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+/* ── Arch wrap ── */
+.arch-wrap {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  overflow-x: auto;
+}
+.arch-svg { display: block; margin: 0 auto; max-width: 100%; }
+
+/* ── Compétences grid ── */
+.comp-pills-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem;
+}
+@media (max-width: 560px) { .comp-pills-grid { grid-template-columns: 1fr; } }
+.comp-pill {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: .75rem 1rem;
+  display: flex; align-items: center; gap: .75rem;
+  transition: border-color var(--dur);
+}
+.comp-pill:hover { border-color: var(--border-h); }
+.comp-pill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.comp-pill-code { font-family: var(--font-mono); font-size: .6rem; color: var(--accent); flex-shrink: 0; }
+.comp-pill-label { font-size: .78rem; color: var(--text-soft); }
+
+/* ── Result grid ── */
+.result-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 560px) { .result-grid { grid-template-columns: 1fr; } }
+
+/* ── Remote badge ── */
+.remote-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.2);
+  border-radius: var(--radius-sm); padding: .5rem 1rem;
+  font-family: var(--font-mono); font-size: .65rem; color: #34d399;
+  margin-bottom: 1.2rem;
+}
+.remote-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #34d399; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+</style>
 </head>
 <body>
 <script src="../../assets/js/nav-fragment.js"></script>
 
+<!-- Symboles SVG locaux -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <defs>
+    <!-- PHP -->
+    <symbol id="logo-php-local" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(119,82,156,.15)"/>
+      <ellipse cx="24" cy="28" rx="18" ry="9" fill="none" stroke="#7752a0" stroke-width="1.5"/>
+      <text x="24" y="33" font-family="monospace" font-size="11" font-weight="bold" fill="#a78bfa" text-anchor="middle">php</text>
+      <circle cx="14" cy="20" r="5" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+      <circle cx="34" cy="20" r="5" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+      <line x1="19" y1="20" x2="29" y2="20" stroke="#a78bfa" stroke-width="1.2"/>
+    </symbol>
+    <!-- HTML -->
+    <symbol id="logo-html-local" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(227,79,38,.12)"/>
+      <polygon points="10,8 38,8 35,38 24,41 13,38" fill="none" stroke="#e34f26" stroke-width="1.5"/>
+      <text x="24" y="28" font-family="monospace" font-size="9" font-weight="bold" fill="#e34f26" text-anchor="middle">HTML5</text>
+    </symbol>
+    <!-- CSS -->
+    <symbol id="logo-css-local" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(21,114,182,.12)"/>
+      <polygon points="10,8 38,8 35,38 24,41 13,38" fill="none" stroke="#1572b6" stroke-width="1.5"/>
+      <text x="24" y="28" font-family="monospace" font-size="9" font-weight="bold" fill="#1572b6" text-anchor="middle">CSS3</text>
+    </symbol>
+    <!-- Outlook / Mail -->
+    <symbol id="logo-mail" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(0,120,215,.1)"/>
+      <rect x="8" y="14" width="32" height="22" rx="4" fill="none" stroke="#0078d7" stroke-width="1.5"/>
+      <polyline points="8,18 24,28 40,18" fill="none" stroke="#0078d7" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <!-- VS Code -->
+    <symbol id="logo-vscode-local" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(0,122,204,.1)"/>
+      <path d="M34 10 L14 24 L34 38 L40 34 L22 24 L40 14 Z" fill="none" stroke="#007acc" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M8 18 L14 24 L8 30" fill="none" stroke="#007acc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- SMTP / serveur -->
+    <symbol id="logo-smtp" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(52,211,153,.08)"/>
+      <rect x="8" y="10" width="32" height="10" rx="3" fill="none" stroke="#34d399" stroke-width="1.5"/>
+      <rect x="8" y="24" width="32" height="10" rx="3" fill="none" stroke="#34d399" stroke-width="1.2" opacity=".6"/>
+      <circle cx="36" cy="15" r="2.5" fill="#34d399"/>
+      <line x1="14" y1="15" x2="28" y2="15" stroke="#34d399" stroke-width="1.2" opacity=".5"/>
+      <line x1="14" y1="29" x2="24" y2="29" stroke="#34d399" stroke-width="1.2" opacity=".4"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ════ HERO ════ -->
 <header class="page-hero">
   <div class="page-hero-inner">
     <p class="page-breadcrumb">
@@ -20,21 +206,23 @@
       ARGITIK
     </p>
     <div class="project-header">
-      <div class="project-logo">
-        <svg width="48" height="48"><use href="#logo-argitik"/></svg>
+      <div class="project-logo" style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2)">
+        <svg width="32" height="32" fill="none" stroke="#34d399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+        </svg>
       </div>
       <div>
         <div class="project-meta">
           <span class="tag tag-gold">Stage</span>
           <span class="tag tag-green">PHP</span>
-          <span class="tag tag-teal">MySQL</span>
-          <span class="tag tag-violet">Cybersécurité</span>
-          <span class="tag tag-gray">Agile</span>
+          <span class="tag tag-teal">HTML / CSS</span>
+          <span class="tag tag-blue">SMTP / Outlook</span>
+          <span class="tag tag-gray">VS Code</span>
         </div>
         <h1 class="page-title" style="margin-bottom:.4rem">Stage <em>ARGITIK</em></h1>
         <p class="project-desc-intro">
-          Stage chez ARGITIK, entreprise de services numériques (ESN) spécialisée dans le développement
-          d'applications web et mobiles. Missions de développement applicatif, sécurisation et déploiement.
+          Développement d'un site web vitrine avec formulaire de contact et envoi automatique
+          par e-mail via SMTP / Outlook, réalisé en autonomie totale en télétravail.
         </p>
       </div>
     </div>
@@ -45,113 +233,420 @@
 <section class="section">
 <div class="container">
 
+  <!-- ── Infos rapides ── -->
+  <div class="stage-info-bar reveal">
+    <div class="info-pill">
+      <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span><strong>2026</strong> — 6 semaines</span>
+    </div>
+    <div class="info-pill">
+      <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <span><strong>Télétravail</strong> — Pau, 64000</span>
+    </div>
+    <div class="info-pill">
+      <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span>Secteur <strong>Services numériques</strong></span>
+    </div>
+    <div class="info-pill">
+      <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <span>Stack <strong>HTML · CSS · PHP</strong></span>
+    </div>
+  </div>
+
+  <!-- ── Contexte entreprise ── -->
   <div class="project-section reveal">
     <h2 class="project-section-title">Contexte de l'entreprise</h2>
-    <div class="context-block">
-      <p>
-        ARGITIK est une entreprise de services du numérique (ESN) intervenant sur des projets de développement web
-        et mobile pour des clients variés (PME, collectivités, startups). L'équipe technique pratique une méthodologie
-        Agile avec des sprints réguliers et des revues de code systématiques.
-      </p>
-      <p>
-        Au sein de l'équipe de développement, j'ai pris part à un projet client en PHP/MySQL tout en effectuant
-        des tâches de sécurisation et de documentation. Ce contexte ESN m'a permis de travailler en équipe
-        sur une base de code existante et d'apprendre à respecter des conventions de développement strictes.
-      </p>
+    <div class="context-grid">
+      <div class="context-block">
+        <div class="remote-badge">Télétravail intégral — Pau, 64</div>
+        <p>
+          <strong style="color:var(--text)">ARGITIK</strong> est une entreprise basée à Pau (Pyrénées-Atlantiques) proposant des
+          <strong style="color:var(--accent)">services numériques</strong> : développement web, conseil informatique et accompagnement
+          à la transition digitale pour des PME et TPE locales.
+        </p>
+        <p>
+          La mission confiée lors de ce stage portait sur la <strong style="color:var(--text)">réalisation complète d'un site web vitrine</strong>
+          avec formulaire de contact fonctionnel, incluant l'envoi automatique des données saisies
+          par e-mail vers une adresse Outlook, via un script PHP et un serveur SMTP.
+        </p>
+        <p>
+          L'intégralité du stage s'est déroulée en <strong style="color:var(--text)">télétravail</strong>, ce qui a impliqué une
+          organisation rigoureuse, des points réguliers avec le maître de stage et une communication
+          écrite structurée pour valider chaque livrable.
+        </p>
+      </div>
+      <div class="company-card">
+        <div class="company-card-header">
+          <div class="company-logo-wrap" style="background:rgba(52,211,153,.06)">
+            <svg width="30" height="30" fill="none" stroke="#34d399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <div>
+            <div class="company-name">ARGITIK</div>
+            <div class="company-sub">Services numériques — Pau, 64</div>
+          </div>
+        </div>
+        <div class="company-stat"><span>Secteur</span><span>Services numériques</span></div>
+        <div class="company-stat"><span>Modalité</span><span>Télétravail 100%</span></div>
+        <div class="company-stat"><span>Livrable</span><span>Site web + formulaire PHP</span></div>
+        <div class="company-stat"><span>Stack</span><span>HTML · CSS · PHP</span></div>
+        <div class="company-stat"><span>Durée</span><span>6 semaines · 2026</span></div>
+        <div style="margin-top:.5rem">
+          <span class="tag tag-green">Développement web</span>
+          <span class="tag tag-teal" style="margin-left:.35rem">Full autonomie</span>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- ── Mission & Problématique ── -->
   <div class="project-section reveal d1">
-    <h2 class="project-section-title">Outils &amp; Technologies</h2>
-    <div class="tools-grid">
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>PHP 8 — développement back-end</div>
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>MySQL / PostgreSQL</div>
-      <div class="tool-chip"><svg width="20" height="20" color="#f05032"><use href="#logo-git"/></svg>Git / GitHub — collaboration</div>
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-shield"/></svg>PHPUnit — tests unitaires</div>
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-layers"/></svg>Scrum / Jira — Agile</div>
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-eye"/></svg>OWASP — sécurisation</div>
-    </div>
-  </div>
-
-  <div class="project-section reveal d2">
     <h2 class="project-section-title">Mission &amp; Problématique</h2>
     <div class="card" style="border-left:3px solid var(--accent);background:var(--bg-2)">
-      <p style="font-size:.92rem;color:var(--text-soft);line-height:1.9">
-        Comment contribuer efficacement à un projet client existant en PHP/MySQL tout en améliorant
-        sa sécurité (vulnérabilités OWASP) et en rédigeant des tests unitaires manquants ?
-        L'enjeu était de livrer des fonctionnalités testées et documentées dans le cadre des sprints Agile.
+      <p style="font-size:.95rem;color:var(--text-soft);line-height:2;font-style:italic;">
+        "ARGITIK a besoin d'un site web vitrine permettant à ses prospects de prendre contact en ligne.
+        Comment concevoir et développer un site en <strong style="color:var(--accent)">HTML / CSS</strong>,
+        avec un formulaire de contact traité en <strong style="color:var(--accent)">PHP</strong>
+        qui transmet automatiquement les données saisies vers une boîte mail <strong style="color:var(--accent)">Outlook</strong>
+        via SMTP, tout en garantissant la validation des champs et la sécurité des envois ?"
       </p>
     </div>
   </div>
 
-  <div class="project-section reveal d1">
-    <h2 class="project-section-title">Missions réalisées</h2>
-    <ul class="feat-list">
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Développement de fonctionnalités</strong> — Ajout d'un module de gestion des tickets client (PHP/MySQL) : création, affectation, suivi et clôture des demandes.</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Correction de vulnérabilités OWASP</strong> — Audit de sécurité partiel : identification et correction de 6 failles (injections SQL via PDO, XSS via htmlspecialchars, CSRF tokens manquants).</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Tests unitaires PHPUnit</strong> — Mise en place de tests unitaires sur les fonctions critiques du module de ticketing, couverture portée de 0% à ~60%.</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Participation aux sprints Agile</strong> — Daily standup quotidien, estimation des user stories, revue de sprint et démo client en fin de cycle.</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Conformité RGPD</strong> — Recensement des traitements de données personnelles, mise en place du consentement pour les formulaires et ajout des mentions légales.</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Déploiement &amp; accompagnement</strong> — Tests d'intégration avant mise en production, déploiement sur serveur de recette, formation des utilisateurs finaux.</div>
-      </li>
-    </ul>
+  <!-- ── Architecture technique ── -->
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">Architecture de la solution</h2>
+    <div class="arch-wrap">
+      <svg class="arch-svg" viewBox="0 0 740 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagramme d'architecture formulaire PHP / SMTP">
+        <defs>
+          <pattern id="grid2" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(52,211,153,.04)" stroke-width="1"/>
+          </pattern>
+          <marker id="arr2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(52,211,153,.6)"/>
+          </marker>
+          <marker id="arr2-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(0,120,215,.6)"/>
+          </marker>
+          <marker id="arr2-v" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(167,139,250,.6)"/>
+          </marker>
+        </defs>
+        <rect width="740" height="220" rx="8" fill="url(#grid2)"/>
+
+        <!-- Visiteur -->
+        <rect x="15" y="70" width="110" height="80" rx="8" fill="rgba(12,17,32,1)" stroke="rgba(52,211,153,.3)" stroke-width="1.5"/>
+        <text x="70" y="98" font-family="monospace" font-size="9" fill="#34d399" text-anchor="middle" font-weight="600">VISITEUR</text>
+        <text x="70" y="112" font-family="monospace" font-size="8" fill="rgba(52,211,153,.6)" text-anchor="middle">Navigateur web</text>
+        <text x="70" y="126" font-family="monospace" font-size="7.5" fill="rgba(52,211,153,.4)" text-anchor="middle">Formulaire HTML</text>
+        <text x="70" y="140" font-family="monospace" font-size="7.5" fill="rgba(52,211,153,.4)" text-anchor="middle">Saisie du contact</text>
+
+        <!-- Flèche → HTML/CSS -->
+        <line x1="125" y1="110" x2="195" y2="110" stroke="rgba(52,211,153,.5)" stroke-width="1.5" marker-end="url(#arr2)"/>
+        <text x="160" y="102" font-family="monospace" font-size="7.5" fill="rgba(52,211,153,.5)" text-anchor="middle">HTTP GET</text>
+
+        <!-- Site HTML/CSS -->
+        <rect x="195" y="60" width="140" height="100" rx="8" fill="rgba(12,17,32,1)" stroke="rgba(227,79,38,.3)" stroke-width="1.5"/>
+        <text x="265" y="83" font-family="monospace" font-size="9" fill="#e34f26" text-anchor="middle" font-weight="600">SITE WEB</text>
+        <line x1="210" y1="91" x2="320" y2="91" stroke="rgba(227,79,38,.15)" stroke-width="1"/>
+        <rect x="210" y="98" width="55" height="22" rx="3" fill="rgba(227,79,38,.08)" stroke="rgba(227,79,38,.2)" stroke-width="1"/>
+        <text x="237" y="112" font-family="monospace" font-size="7.5" fill="#e34f26" text-anchor="middle">HTML5</text>
+        <rect x="272" y="98" width="38" height="22" rx="3" fill="rgba(21,114,182,.08)" stroke="rgba(21,114,182,.2)" stroke-width="1"/>
+        <text x="291" y="112" font-family="monospace" font-size="7.5" fill="#1572b6" text-anchor="middle">CSS3</text>
+        <rect x="210" y="126" width="110" height="22" rx="3" fill="rgba(167,139,250,.06)" stroke="rgba(167,139,250,.2)" stroke-width="1.2"/>
+        <text x="265" y="140" font-family="monospace" font-size="7.5" fill="#a78bfa" text-anchor="middle">Formulaire de contact</text>
+
+        <!-- Flèche POST → PHP -->
+        <line x1="335" y1="110" x2="405" y2="110" stroke="rgba(167,139,250,.5)" stroke-width="1.5" marker-end="url(#arr2-v)"/>
+        <text x="370" y="102" font-family="monospace" font-size="7.5" fill="rgba(167,139,250,.6)" text-anchor="middle">HTTP POST</text>
+
+        <!-- Script PHP -->
+        <rect x="405" y="60" width="140" height="100" rx="8" fill="rgba(12,17,32,1)" stroke="rgba(119,82,156,.4)" stroke-width="1.5"/>
+        <text x="475" y="83" font-family="monospace" font-size="9" fill="#a78bfa" text-anchor="middle" font-weight="600">SCRIPT PHP</text>
+        <line x1="420" y1="91" x2="530" y2="91" stroke="rgba(119,82,156,.15)" stroke-width="1"/>
+        <rect x="420" y="98" width="110" height="18" rx="3" fill="rgba(167,139,250,.06)" stroke="rgba(167,139,250,.15)" stroke-width="1"/>
+        <text x="475" y="110" font-family="monospace" font-size="7" fill="rgba(167,139,250,.7)" text-anchor="middle">Validation des champs</text>
+        <rect x="420" y="120" width="110" height="18" rx="3" fill="rgba(167,139,250,.06)" stroke="rgba(167,139,250,.15)" stroke-width="1"/>
+        <text x="475" y="132" font-family="monospace" font-size="7" fill="rgba(167,139,250,.7)" text-anchor="middle">Protection anti-spam</text>
+        <rect x="420" y="142" width="110" height="14" rx="3" fill="rgba(167,139,250,.04)" stroke="rgba(167,139,250,.1)" stroke-width="1"/>
+        <text x="475" y="152" font-family="monospace" font-size="6.5" fill="rgba(167,139,250,.5)" text-anchor="middle">mail() / SMTP config</text>
+
+        <!-- Flèche → SMTP -->
+        <line x1="545" y1="110" x2="615" y2="110" stroke="rgba(0,120,215,.5)" stroke-width="1.5" marker-end="url(#arr2-blue)"/>
+        <text x="580" y="102" font-family="monospace" font-size="7.5" fill="rgba(0,120,215,.6)" text-anchor="middle">SMTP TLS</text>
+
+        <!-- Boîte Outlook -->
+        <rect x="615" y="70" width="110" height="80" rx="8" fill="rgba(12,17,32,1)" stroke="rgba(0,120,215,.35)" stroke-width="1.5"/>
+        <text x="670" y="95" font-family="monospace" font-size="9" fill="#0078d7" text-anchor="middle" font-weight="600">OUTLOOK</text>
+        <text x="670" y="110" font-family="monospace" font-size="8" fill="rgba(0,120,215,.6)" text-anchor="middle">Boîte mail ARGITIK</text>
+        <text x="670" y="124" font-family="monospace" font-size="7.5" fill="rgba(0,120,215,.4)" text-anchor="middle">Réception contact</text>
+        <text x="670" y="138" font-family="monospace" font-size="7.5" fill="rgba(0,120,215,.4)" text-anchor="middle">+ copie visiteur</text>
+
+        <!-- Légende -->
+        <rect x="15" y="180" width="12" height="3" rx="1" fill="rgba(52,211,153,.6)"/>
+        <text x="32" y="186" font-family="monospace" font-size="7.5" fill="rgba(255,255,255,.3)">Requête navigateur</text>
+        <rect x="155" y="180" width="12" height="3" rx="1" fill="rgba(167,139,250,.6)"/>
+        <text x="172" y="186" font-family="monospace" font-size="7.5" fill="rgba(255,255,255,.3)">Traitement PHP (POST)</text>
+        <rect x="315" y="180" width="12" height="3" rx="1" fill="rgba(0,120,215,.6)"/>
+        <text x="332" y="186" font-family="monospace" font-size="7.5" fill="rgba(255,255,255,.3)">Envoi SMTP → Outlook</text>
+        <text x="15" y="204" font-family="monospace" font-size="7" fill="rgba(255,255,255,.2)">Sécurité : htmlspecialchars() · filter_var() · vérification champs requis · protection injection e-mail</text>
+      </svg>
+    </div>
   </div>
 
+  <!-- ── Outils & Technologies ── -->
+  <div class="project-section reveal">
+    <h2 class="project-section-title">Outils &amp; Technologies</h2>
+    <div class="tech-card-grid">
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(227,79,38,.1)">
+          <svg width="36" height="36"><use href="#logo-html-local"/></svg>
+        </div>
+        <div class="tech-card-name">HTML5</div>
+        <div class="tech-card-desc">Structure sémantique du site vitrine : pages, sections, formulaire de contact avec attributs de validation natifs.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(21,114,182,.1)">
+          <svg width="36" height="36"><use href="#logo-css-local"/></svg>
+        </div>
+        <div class="tech-card-name">CSS3</div>
+        <div class="tech-card-desc">Mise en page responsive, animations, variables CSS. Design adapté à l'identité visuelle d'ARGITIK et compatible mobile.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(119,82,156,.12)">
+          <svg width="36" height="36"><use href="#logo-php-local"/></svg>
+        </div>
+        <div class="tech-card-name">PHP</div>
+        <div class="tech-card-desc">Traitement côté serveur : réception des données POST, validation, sécurisation et envoi e-mail via <code style="color:var(--accent);font-family:var(--font-mono);font-size:.8em">mail()</code> / SMTP.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(0,120,215,.08)">
+          <svg width="36" height="36"><use href="#logo-mail"/></svg>
+        </div>
+        <div class="tech-card-name">SMTP / Outlook</div>
+        <div class="tech-card-desc">Configuration de l'envoi automatique vers une boîte Microsoft Outlook via protocole SMTP avec authentification TLS.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(0,122,204,.08)">
+          <svg width="36" height="36"><use href="#logo-vscode-local"/></svg>
+        </div>
+        <div class="tech-card-name">Visual Studio Code</div>
+        <div class="tech-card-desc">Éditeur principal : extensions HTML/CSS/PHP, Live Server pour le rendu en temps réel, terminal intégré.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(52,211,153,.06)">
+          <svg width="36" height="36"><use href="#logo-smtp"/></svg>
+        </div>
+        <div class="tech-card-name">Serveur web local</div>
+        <div class="tech-card-desc">Environnement de test PHP en local (WAMP/XAMPP) pour valider le traitement du formulaire avant déploiement.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Extrait de code PHP ── -->
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">Exemple — Script PHP d'envoi du formulaire</h2>
+    <div class="code-lang">PHP · Traitement formulaire de contact · envoi SMTP</div>
+    <div class="code-block">
+<span class="cm">&lt;?php</span>
+<span class="cm">// Traitement du formulaire de contact — envoi vers Outlook</span>
+
+<span class="kw">if</span> ($_SERVER[<span class="str">'REQUEST_METHOD'</span>] === <span class="str">'POST'</span>) {
+
+  <span class="cm">// Sécurisation des entrées</span>
+  $nom    = <span class="fn">htmlspecialchars</span>(<span class="fn">strip_tags</span>(<span class="fn">trim</span>($_POST[<span class="str">'nom'</span>])));
+  $email  = <span class="fn">filter_var</span>(<span class="fn">trim</span>($_POST[<span class="str">'email'</span>]), FILTER_SANITIZE_EMAIL);
+  $sujet  = <span class="fn">htmlspecialchars</span>(<span class="fn">strip_tags</span>(<span class="fn">trim</span>($_POST[<span class="str">'sujet'</span>])));
+  $message= <span class="fn">htmlspecialchars</span>(<span class="fn">strip_tags</span>(<span class="fn">trim</span>($_POST[<span class="str">'message'</span>])));
+
+  <span class="cm">// Validation</span>
+  <span class="kw">if</span> (!<span class="fn">filter_var</span>($email, FILTER_VALIDATE_EMAIL)) {
+    $erreur = <span class="str">"Adresse e-mail invalide."</span>;
+  } <span class="kw">elseif</span> (<span class="fn">empty</span>($nom) || <span class="fn">empty</span>($message)) {
+    $erreur = <span class="str">"Tous les champs sont requis."</span>;
+  } <span class="kw">else</span> {
+    <span class="cm">// Construction du message</span>
+    $destinataire = <span class="str">"contact@argitik.fr"</span>;
+    $en_tete  = <span class="str">"From: $nom &lt;$email&gt;\r\n"</span>;
+    $en_tete .= <span class="str">"Reply-To: $email\r\n"</span>;
+    $en_tete .= <span class="str">"Content-Type: text/plain; charset=UTF-8\r\n"</span>;
+
+    $corps = <span class="str">"Nouveau message de : $nom\n"</span>
+           . <span class="str">"E-mail : $email\n\n"</span>
+           . <span class="str">"$message"</span>;
+
+    <span class="cm">// Envoi via fonction mail() configurée SMTP (php.ini)</span>
+    <span class="kw">if</span> (<span class="fn">mail</span>($destinataire, $sujet, $corps, $en_tete)) {
+      $succes = <span class="str">"Message envoyé avec succès !"</span>;
+    }
+  }
+}
+<span class="cm">?&gt;</span>
+    </div>
+  </div>
+
+  <!-- ── Déroulement du stage ── -->
   <div class="project-section reveal d2">
+    <h2 class="project-section-title">Déroulement du stage</h2>
+    <div class="mission-steps">
+
+      <div class="mission-step">
+        <div class="step-num-wrap"><div class="step-num">S1</div></div>
+        <div class="step-body">
+          <div class="step-week">Semaine 1</div>
+          <div class="step-title">Prise de contact &amp; analyse du besoin</div>
+          <div class="step-desc">
+            Réunion de lancement (visio) avec le maître de stage pour définir le périmètre du projet.
+            Analyse du besoin client : pages souhaitées, charte graphique, fonctionnalités du formulaire,
+            adresse de destination Outlook. Configuration de l'environnement de développement local (WAMP, VS Code).
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap"><div class="step-num">S2</div></div>
+        <div class="step-body">
+          <div class="step-week">Semaine 2</div>
+          <div class="step-title">Maquettage &amp; structure HTML</div>
+          <div class="step-desc">
+            Conception des maquettes des pages (accueil, services, contact) validées avec le maître de stage.
+            Développement de la structure HTML5 sémantique : header, navigation, sections, footer.
+            Mise en place de l'architecture des fichiers du projet.
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap"><div class="step-num">S3</div></div>
+        <div class="step-body">
+          <div class="step-week">Semaine 3</div>
+          <div class="step-title">Intégration CSS &amp; responsive design</div>
+          <div class="step-desc">
+            Développement du CSS : mise en page avec Flexbox/Grid, typographie, couleurs, variables CSS,
+            animations légères. Adaptation responsive pour mobile, tablette et desktop.
+            Validation visuelle sur différents navigateurs (Chrome, Firefox, Edge).
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap"><div class="step-num">S4</div></div>
+        <div class="step-body">
+          <div class="step-week">Semaine 4</div>
+          <div class="step-title">Développement du formulaire PHP</div>
+          <div class="step-desc">
+            Développement du script PHP de traitement : réception des données <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">POST</code>,
+            validation avec <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">filter_var()</code>,
+            sécurisation contre les injections e-mail (<code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">htmlspecialchars()</code>),
+            et envoi via la fonction <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">mail()</code> configurée avec SMTP.
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap"><div class="step-num">S5</div></div>
+        <div class="step-body">
+          <div class="step-week">Semaine 5</div>
+          <div class="step-title">Configuration SMTP &amp; tests d'envoi Outlook</div>
+          <div class="step-desc">
+            Configuration du serveur SMTP dans <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">php.ini</code> pour acheminer les e-mails vers
+            la boîte Outlook d'ARGITIK. Tests d'envoi end-to-end, vérification de la réception,
+            correction des problèmes de chiffrement TLS et des en-têtes e-mail.
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap"><div class="step-num">S6</div></div>
+        <div class="step-body">
+          <div class="step-week">Semaine 6</div>
+          <div class="step-title">Tests finaux, livraison &amp; documentation</div>
+          <div class="step-desc">
+            Tests complets (formulaire, responsive, navigateurs, scénarios d'erreur), corrections finales.
+            Livraison des fichiers sources au client, rédaction de la documentation d'installation et d'utilisation.
+            Présentation du rendu final lors d'un point visio de clôture.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Résultats ── -->
+  <div class="project-section reveal">
     <h2 class="project-section-title">Résultats &amp; Apprentissages</h2>
     <div class="result-grid">
       <div class="card result-box">
-        <div class="result-num">6</div>
-        <div class="result-label">Failles OWASP corrigées</div>
+        <div class="result-num">1</div>
+        <div class="result-label">Site web vitrine livré</div>
       </div>
       <div class="card result-box">
-        <div class="result-num">60%</div>
-        <div class="result-label">Couverture tests unitaires</div>
+        <div class="result-num">PHP</div>
+        <div class="result-label">Formulaire → Outlook automatisé</div>
       </div>
       <div class="card result-box">
-        <div class="result-num">Agile</div>
-        <div class="result-label">Méthodo Scrum appliquée</div>
+        <div class="result-num">100%</div>
+        <div class="result-label">Télétravail en autonomie</div>
       </div>
     </div>
-    <div class="context-block">
+    <div class="context-block" style="margin-top:1.5rem">
       <p>
-        Ce stage en ESN m'a plongée dans un contexte professionnel exigeant, où la qualité du code,
-        la sécurité et la collaboration sont des priorités absolues. J'ai considérablement progressé
-        sur la sécurité applicative (OWASP), les tests automatisés (PHPUnit) et le travail en équipe
-        avec la méthode Agile/Scrum. La contrainte de livraison par sprint m'a appris à gérer
-        mes priorités et à communiquer sur mes avancements.
+        Ce stage m'a permis de mener un projet web de bout en bout — du recueil du besoin à la livraison finale —
+        en complète autonomie et à distance. J'ai consolidé mes compétences en <strong style="color:var(--text)">HTML / CSS</strong>
+        et découvert le traitement de formulaires côté serveur avec <strong style="color:var(--text)">PHP</strong>,
+        ainsi que la configuration d'un envoi SMTP vers Outlook.
+      </p>
+      <p>
+        Le travail en télétravail a renforcé ma capacité à <strong style="color:var(--text)">communiquer efficacement à distance</strong>,
+        à m'organiser de façon autonome et à livrer dans les délais sans supervision directe.
+        C'est aussi l'occasion d'avoir mis en pratique des notions de sécurité web essentielles
+        (validation, échappement des entrées, protection contre les injections).
       </p>
     </div>
   </div>
 
+  <!-- ── Compétences BTS SIO ── -->
   <div class="project-section reveal d1">
     <h2 class="project-section-title">Compétences BTS SIO validées</h2>
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem">
-      <span class="tag tag-blue">B2.1 — Développement applicatif</span>
-      <span class="tag tag-violet">B2.2 — Maintenance corrective</span>
-      <span class="tag tag-teal">B2.3 — Gestion des données</span>
-      <span class="tag tag-gold">A1.4 — Mode projet</span>
-      <span class="tag tag-green">A1.5 — Mise à disposition</span>
-      <span class="tag tag-red">C3.1 — Protection données personnelles</span>
-      <span class="tag tag-red">C3.4 — Disponibilité, intégrité, confidentialité</span>
-      <span class="tag tag-red">C3.5 — Cybersécurisation applicative</span>
+    <div class="comp-pills-grid">
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#818cf8"></div>
+        <span class="comp-pill-code">B2.1</span>
+        <span class="comp-pill-label">Développement d'une solution web complète (HTML / CSS / PHP)</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#34d399"></div>
+        <span class="comp-pill-code">A1.3</span>
+        <span class="comp-pill-label">Développement et mise en ligne de la présence web d'un client</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#fbbf24"></div>
+        <span class="comp-pill-code">A1.4</span>
+        <span class="comp-pill-label">Conduite du projet en autonomie avec livrables hebdomadaires</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#22d3ee"></div>
+        <span class="comp-pill-code">A1.5</span>
+        <span class="comp-pill-label">Mise à disposition du site et documentation de livraison</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#c084fc"></div>
+        <span class="comp-pill-code">B2.3</span>
+        <span class="comp-pill-label">Sécurisation des données : validation, échappement, protection PHP</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#f87171"></div>
+        <span class="comp-pill-code">A1.1</span>
+        <span class="comp-pill-label">Communication à distance et gestion de projet en télétravail</span>
+      </div>
     </div>
   </div>
 
@@ -170,7 +665,7 @@
   <a href="../competences.html" class="btn btn-outline btn-sm">Voir les compétences</a>
   <div style="text-align:right">
     <div class="sibling-label">Stage suivant</div>
-    <div class="sibling-title">—</div>
+    <div class="sibling-title" style="color:var(--text-muted)">—</div>
   </div>
 </div>
 

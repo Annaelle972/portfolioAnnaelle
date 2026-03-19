@@ -3,18 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stage FEBUS OPTICS — Annaëlle Dupont</title>
+<title>Stage FEBUS OPTICS — Annaëlle Champiau</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/css/shared.css">
 <style>
-.result-grid{ grid-template-columns:repeat(3,1fr); }
+
+/* ── Info bar rapide ── */
+.stage-info-bar {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  margin-bottom: 2.8rem;
+}
+.info-pill {
+  display: flex; align-items: center; gap: .65rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: .6rem 1.1rem;
+  font-family: var(--font-mono); font-size: .65rem;
+  color: var(--text-soft); letter-spacing: .06em;
+}
+.info-pill svg { flex-shrink: 0; }
+.info-pill strong { color: var(--text); }
+
+/* ── Contexte grid ── */
+.context-grid {
+  display: grid; grid-template-columns: 1fr 340px; gap: 2rem; align-items: start;
+}
+@media (max-width: 800px) { .context-grid { grid-template-columns: 1fr; } }
+
+/* ── Febus company card ── */
+.company-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.company-card-header {
+  display: flex; align-items: center; gap: 1rem;
+  padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+}
+.company-logo-wrap {
+  width: 56px; height: 56px;
+  background: var(--bg-3); border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.company-name { font-family: var(--font-mono); font-size: .72rem; font-weight: 600; color: var(--text); letter-spacing: .06em; }
+.company-sub  { font-size: .68rem; color: var(--text-muted); margin-top: .15rem; }
+.company-stat { display: flex; justify-content: space-between; font-size: .78rem; color: var(--text-soft); }
+.company-stat span:last-child { color: var(--accent); font-family: var(--font-mono); font-size: .7rem; }
+
+/* ── Architecture diagram ── */
+.arch-wrap {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  overflow-x: auto;
+}
+.arch-svg { display: block; margin: 0 auto; max-width: 100%; }
+
+/* ── Tech grid avec icônes ── */
+.tech-card-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+@media (max-width: 700px) { .tech-card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 430px) { .tech-card-grid { grid-template-columns: 1fr; } }
+
+.tech-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.2rem;
+  display: flex; flex-direction: column; gap: .65rem;
+  transition: border-color var(--dur), transform var(--dur);
+}
+.tech-card:hover { border-color: var(--border-h); transform: translateY(-3px); }
+.tech-card-icon {
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.tech-card-name { font-family: var(--font-mono); font-size: .7rem; font-weight: 600; color: var(--text); }
+.tech-card-desc { font-size: .75rem; color: var(--text-muted); line-height: 1.5; }
+
+/* ── Mission timeline ── */
+.mission-steps { display: flex; flex-direction: column; gap: 0; }
+.mission-step {
+  display: grid; grid-template-columns: 64px 1fr; gap: 1.2rem;
+  position: relative;
+}
+.mission-step:not(:last-child)::after {
+  content: ''; position: absolute; left: 31px; top: 64px; bottom: 0;
+  width: 2px; background: linear-gradient(var(--border), transparent);
+}
+.step-num-wrap {
+  display: flex; flex-direction: column; align-items: center; padding-top: .3rem;
+}
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--accent-dim); border: 1.5px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: .65rem; font-weight: 600; color: var(--accent);
+  flex-shrink: 0;
+}
+.step-body {
+  padding-bottom: 2rem;
+}
+.step-title { font-family: var(--font-mono); font-size: .85rem; font-weight: 600; color: var(--text); margin-bottom: .35rem; }
+.step-desc  { font-size: .84rem; color: var(--text-soft); line-height: 1.8; }
+.step-week  { font-family: var(--font-mono); font-size: .58rem; color: var(--text-muted); letter-spacing: .1em; margin-bottom: .4rem; }
+
+/* ── Code block extras ── */
+.code-lang {
+  font-family: var(--font-mono); font-size: .55rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: .65rem; display: flex; align-items: center; gap: .5rem;
+}
+.code-lang::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--violet); flex-shrink: 0; }
+
+/* ── Rapport card ── */
+.rapport-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.8rem;
+  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+}
+.rapport-icon {
+  width: 64px; height: 64px; border-radius: var(--radius-sm);
+  background: rgba(248,113,113,.08); border: 1px solid rgba(248,113,113,.2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  color: #f87171;
+}
+.rapport-info { flex: 1; min-width: 200px; }
+.rapport-title { font-family: var(--font-mono); font-size: .8rem; font-weight: 600; color: var(--text); margin-bottom: .3rem; }
+.rapport-meta  { font-size: .78rem; color: var(--text-muted); }
+.rapport-actions { display: flex; gap: .65rem; flex-wrap: wrap; }
+
+/* ── Compétences grid ── */
+.comp-pills-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem;
+}
+@media (max-width: 560px) { .comp-pills-grid { grid-template-columns: 1fr; } }
+.comp-pill {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: .75rem 1rem;
+  display: flex; align-items: center; gap: .75rem;
+  transition: border-color var(--dur);
+}
+.comp-pill:hover { border-color: var(--border-h); }
+.comp-pill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.comp-pill-code { font-family: var(--font-mono); font-size: .6rem; color: var(--accent); flex-shrink: 0; }
+.comp-pill-label { font-size: .78rem; color: var(--text-soft); }
+
+/* ── Result grid override ── */
+.result-grid{ grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 560px) { .result-grid { grid-template-columns: 1fr; } }
+
+/* ── Galerie images ── */
+.img-gallery {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.2rem;
+}
+.img-gallery-2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 700px) { .img-gallery { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 450px) { .img-gallery, .img-gallery-2 { grid-template-columns: 1fr; } }
+
+.img-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: border-color var(--dur), transform var(--dur);
+}
+.img-card:hover { border-color: var(--border-h); transform: translateY(-2px); }
+.img-card img { width: 100%; height: 160px; object-fit: cover; display: block; background: var(--bg-3); }
+.img-card img.contain { object-fit: contain; padding: .5rem; }
+.img-card-caption { padding: .7rem 1rem; }
+.img-card-title { font-family: var(--font-mono); font-size: .68rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+.img-card-desc  { font-size: .72rem; color: var(--text-muted); line-height: 1.5; }
+
+.step-screenshots { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin-top: 1rem; }
+@media (max-width: 500px) { .step-screenshots { grid-template-columns: 1fr; } }
+.step-screenshot { border-radius: var(--radius-sm); border: 1px solid var(--border); overflow: hidden; }
+.step-screenshot img {
+  width: 100%; max-height: 360px;
+  object-fit: contain; display: block;
+  background: #f5f5f5; /* fond clair pour screenshots blancs */
+}
+.step-screenshot-caption {
+  font-family: var(--font-mono); font-size: .58rem; color: var(--text-muted);
+  padding: .4rem .6rem; background: var(--surface); text-align: center;
+}
+
+.infra-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 1rem; }
+@media (max-width: 600px) { .infra-grid { grid-template-columns: 1fr; } }
+.infra-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+.infra-card img { width: 100%; height: 160px; object-fit: cover; display: block; background: var(--bg-3); }
+.infra-card-label { font-family: var(--font-mono); font-size: .62rem; color: var(--text-muted); padding: .5rem .75rem; text-align: center; }
 </style>
 </head>
 <body>
 <script src="../../assets/js/nav-fragment.js"></script>
 
+<!-- Symboles SVG locaux -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <defs>
+    <!-- Perl -->
+    <symbol id="logo-perl" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(57,116,158,.15)"/>
+      <ellipse cx="24" cy="24" rx="16" ry="10" fill="none" stroke="#39749e" stroke-width="2"/>
+      <ellipse cx="24" cy="24" rx="10" ry="6" fill="none" stroke="#39749e" stroke-width="1.5"/>
+      <circle cx="24" cy="24" r="3" fill="#39749e" opacity=".6"/>
+      <text x="24" y="42" font-family="monospace" font-size="7" font-weight="bold" fill="#39749e" text-anchor="middle" opacity=".7">PERL</text>
+    </symbol>
+    <!-- Webmin -->
+    <symbol id="logo-webmin" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(34,211,238,.08)"/>
+      <circle cx="24" cy="24" r="14" fill="none" stroke="#22d3ee" stroke-width="2"/>
+      <ellipse cx="24" cy="24" rx="7" ry="14" fill="none" stroke="#22d3ee" stroke-width="1.2"/>
+      <line x1="10" y1="24" x2="38" y2="24" stroke="#22d3ee" stroke-width="1.2"/>
+      <line x1="12" y1="17" x2="36" y2="17" stroke="#22d3ee" stroke-width=".8" opacity=".5"/>
+      <line x1="12" y1="31" x2="36" y2="31" stroke="#22d3ee" stroke-width=".8" opacity=".5"/>
+    </symbol>
+    <!-- NTP / Clock network -->
+    <symbol id="logo-ntp" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(251,191,36,.08)"/>
+      <circle cx="24" cy="22" r="11" fill="none" stroke="#fbbf24" stroke-width="2"/>
+      <line x1="24" y1="22" x2="24" y2="15" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+      <line x1="24" y1="22" x2="29" y2="26" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="24" cy="22" r="2" fill="#fbbf24"/>
+      <path d="M14 37 Q14 34 17 34 Q20 34 20 37" fill="none" stroke="#fbbf24" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M22 37 Q22 34 25 34 Q28 34 28 37" fill="none" stroke="#fbbf24" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M30 37 Q30 34 33 34 Q36 34 36 37" fill="none" stroke="#fbbf24" stroke-width="1.2" stroke-linecap="round"/>
+    </symbol>
+    <!-- PTP / Precision -->
+    <symbol id="logo-ptp" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(167,139,250,.08)"/>
+      <circle cx="24" cy="24" r="4" fill="#a78bfa"/>
+      <circle cx="24" cy="24" r="9"  fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <circle cx="24" cy="24" r="15" fill="none" stroke="#a78bfa" stroke-width="1" opacity=".4"/>
+      <line x1="24" y1="9" x2="24" y2="5"  stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="24" y1="39" x2="24" y2="43" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="9"  y1="24" x2="5"  y2="24" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="39" y1="24" x2="43" y2="24" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <!-- Linux Tux simplifié -->
+    <symbol id="logo-linux-local" viewBox="0 0 48 48">
+      <rect width="48" height="48" rx="10" fill="rgba(255,204,0,.07)"/>
+      <ellipse cx="24" cy="18" rx="10" ry="11" fill="none" stroke="#FFCC00" stroke-width="1.8"/>
+      <circle cx="20" cy="17" r="2" fill="#FFCC00"/>
+      <circle cx="28" cy="17" r="2" fill="#FFCC00"/>
+      <path d="M20 22 Q24 25 28 22" fill="none" stroke="#FFCC00" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M14 38 Q16 31 24 30 Q32 31 34 38" fill="none" stroke="#FFCC00" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ════ HERO ════ -->
 <header class="page-hero">
   <div class="page-hero-inner">
     <p class="page-breadcrumb">
@@ -23,21 +259,22 @@
       FEBUS OPTICS
     </p>
     <div class="project-header">
-      <div class="project-logo">
-        <svg width="48" height="48"><use href="#logo-febus"/></svg>
+      <div class="project-logo" style="background:var(--bg-2)">
+        <img src="../../assets/images/Febus_Optics/logo_febus3.png.png" alt="FEBUS OPTICS" style="width:52px;height:52px;object-fit:contain">
       </div>
       <div>
         <div class="project-meta">
           <span class="tag tag-gold">Stage</span>
-          <span class="tag tag-green">PHP</span>
-          <span class="tag tag-teal">MySQL</span>
-          <span class="tag tag-blue">GLPI</span>
+          <span class="tag tag-violet">Perl</span>
+          <span class="tag tag-teal">Webmin</span>
+          <span class="tag tag-blue">NTP / PTP</span>
           <span class="tag tag-gray">Linux</span>
         </div>
         <h1 class="page-title" style="margin-bottom:.4rem">Stage <em>FEBUS OPTICS</em></h1>
         <p class="project-desc-intro">
-          Stage au sein de FEBUS OPTICS, entreprise spécialisée dans les systèmes de mesure par fibre optique distribuée (DOFS).
-          Missions de développement web, support informatique et gestion du patrimoine SI.
+          Développement d'un module Webmin en Perl pour la configuration des protocoles
+          de synchronisation temporelle NTP &amp; PTP sur les systèmes Linux embarqués
+          de l'entreprise.
         </p>
       </div>
     </div>
@@ -48,117 +285,748 @@
 <section class="section">
 <div class="container">
 
-  <!-- Contexte entreprise -->
+  <!-- ── Infos rapides ── -->
+  <div class="stage-info-bar reveal">
+    <div class="info-pill">
+      <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span><strong>2025</strong> — 5 semaines</span>
+    </div>
+    <div class="info-pill">
+      <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span><strong>Présentiel</strong> — Pau, 64000</span>
+    </div>
+    <div class="info-pill">
+      <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span>Secteur <strong>Fibre optique distribuée</strong></span>
+    </div>
+    <div class="info-pill">
+      <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <span>Langage <strong>Perl</strong> — Outil <strong>Webmin</strong></span>
+    </div>
+  </div>
+
+  <!-- ── Contexte entreprise ── -->
   <div class="project-section reveal">
     <h2 class="project-section-title">Contexte de l'entreprise</h2>
-    <div class="context-block">
-      <p>
-        FEBUS OPTICS est une PME innovante fondée à Pau, spécialisée dans la conception et la commercialisation de systèmes
-        d'interrogateurs à fibre optique distribuée (DOFS). Ses solutions sont utilisées dans des secteurs
-        d'activité exigeants : énergie, industrie, sécurité périmétrique et génie civil.
-      </p>
-      <p>
-        Le service informatique, de taille réduite, assure à la fois le support aux utilisateurs,
-        la maintenance du parc informatique et le développement d'outils internes. C'est dans ce contexte
-        polyvalent que j'ai réalisé mon stage.
-      </p>
+    <div class="context-grid">
+      <div class="context-block">
+        <p>
+          <strong style="color:var(--text)">FEBUS OPTICS</strong> est une PME innovante fondée à Pau, spécialisée dans la conception et la commercialisation
+          d'interrogateurs à fibre optique distribuée (<strong style="color:var(--accent)">DOFS — Distributed Optical Fiber Sensing</strong>).
+          Ses équipements permettent de mesurer en temps réel des paramètres physiques (température, vibrations, déformations)
+          sur des distances pouvant dépasser 50 km, grâce à l'analyse rétrodiffusion de la lumière dans la fibre.
+        </p>
+        <p>
+          Ses clients opèrent dans des secteurs critiques : <strong style="color:var(--text)">énergie (pipelines, réseaux électriques), génie civil (barrages, tunnels),
+          sécurité périmétrique et surveillance industrielle</strong>. La précision temporelle des acquisitions y est essentielle —
+          d'où la nécessité de synchroniser rigoureusement les systèmes avec les protocoles NTP et PTP.
+        </p>
+        <p>
+          Le département informatique, à taille réduite, assure à la fois l'administration des serveurs Linux,
+          le maintien du parc et le développement d'outils de gestion interne. Mon stage s'est inscrit dans cet environnement
+          technique exigeant, axé sur la fiabilité et la précision.
+        </p>
+      </div>
+      <div class="company-card">
+        <div style="border-radius:var(--radius-sm);overflow:hidden;margin-bottom:.5rem;border:1px solid var(--border)">
+          <img src="../../assets/images/Febus_Optics/entreprot_febus_optics.png.png" alt="Locaux FEBUS OPTICS" style="width:100%;height:130px;object-fit:cover;display:block">
+        </div>
+        <div class="company-card-header">
+          <div class="company-logo-wrap" style="background:var(--bg)">
+            <img src="../../assets/images/Febus_Optics/logo_febus2.png.png" alt="FEBUS OPTICS" style="width:44px;height:44px;object-fit:contain;border-radius:4px">
+          </div>
+          <div>
+            <div class="company-name">FEBUS OPTICS</div>
+            <div class="company-sub">PME — Pau, Nouvelle-Aquitaine</div>
+          </div>
+        </div>
+        <div class="company-stat"><span>Secteur</span><span>Instrumentation optique</span></div>
+        <div class="company-stat"><span>Technologie</span><span>DOFS / Fibre optique</span></div>
+        <div class="company-stat"><span>Marchés</span><span>Énergie · Génie civil · Sécurité</span></div>
+        <div class="company-stat"><span>OS système</span><span>Linux Debian</span></div>
+        <div class="company-stat"><span>Durée</span><span>5 semaines · 2025</span></div>
+        <div style="margin-top:.5rem">
+          <span class="tag tag-teal">PME Innovante</span>
+          <span class="tag tag-blue" style="margin-left:.35rem">Haute technicité</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Outils -->
+  <!-- ── Produits FEBUS OPTICS ── -->
   <div class="project-section reveal d1">
-    <h2 class="project-section-title">Outils &amp; Technologies</h2>
-    <div class="tools-grid">
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>PHP — développement interne</div>
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>MySQL — bases de données</div>
-      <div class="tool-chip"><svg width="16" height="14"><use href="#logo-glpi"/></svg>GLPI — helpdesk &amp; CMDB</div>
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-settings"/></svg>Linux Debian — serveurs</div>
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-shield"/></svg>Active Directory — droits</div>
-      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-git"/></svg>Git — versioning</div>
+    <h2 class="project-section-title">Les produits FEBUS OPTICS</h2>
+    <p style="font-size:.84rem;color:var(--text-soft);line-height:1.9;margin-bottom:1.2rem">
+      FEBUS OPTICS conçoit une gamme d'interrogateurs à fibre optique distribuée (DOFS) permettant de surveiller
+      des infrastructures critiques sur des dizaines de kilomètres. La précision temporelle des acquisitions —
+      au cœur de ma mission — est indispensable à la fiabilité de ces équipements.
+    </p>
+    <div class="img-gallery">
+      <div class="img-card">
+        <img src="../../assets/images/Febus_Optics/febus_A1.png.png" alt="FEBUS A1 — DAS">
+        <div class="img-card-caption">
+          <div class="img-card-title">FEBUS A1 — DAS</div>
+          <div class="img-card-desc">Détection acoustique distribuée pour la sécurité périmétrique et la surveillance de pipelines.</div>
+        </div>
+      </div>
+      <div class="img-card">
+        <img src="../../assets/images/Febus_Optics/febus_G1.png.png" alt="FEBUS G1 — DTSS">
+        <div class="img-card-caption">
+          <div class="img-card-title">FEBUS G1 — DTSS</div>
+          <div class="img-card-desc">Mesure simultanée de la température et de la déformation sur barrages, tunnels et câbles sous-marins.</div>
+        </div>
+      </div>
+      <div class="img-card">
+        <img src="../../assets/images/Febus_Optics/febus_G2.png.png" alt="FEBUS G2 — DSS/DTS">
+        <div class="img-card-caption">
+          <div class="img-card-title">FEBUS G2 — DSS/DTS</div>
+          <div class="img-card-desc">Mesure indépendante de la déformation et de la température pour le génie civil et l'énergie.</div>
+        </div>
+      </div>
+    </div>
+    <div class="img-gallery img-gallery-2" style="margin-top:.8rem">
+      <div class="img-card">
+        <img src="../../assets/images/Febus_Optics/fibre_optique_cable.png.png" alt="Câble à fibre optique" style="object-fit:contain;background:#1a1a2e;padding:.75rem">
+        <div class="img-card-caption">
+          <div class="img-card-title">Câble à fibre optique</div>
+          <div class="img-card-desc">La fibre devient capteur sur toute sa longueur — température, vibrations et déformations en continu.</div>
+        </div>
+      </div>
+      <div class="img-card">
+        <img src="../../assets/images/Febus_Optics/shema_cable_fibre_optique.png.png" alt="Schéma fibre optique" style="object-fit:contain;background:#fff;padding:.5rem">
+        <div class="img-card-caption">
+          <div class="img-card-title">Structure d'un câble optique</div>
+          <div class="img-card-desc">Coupe transversale multicouche illustrant les composants d'un câble à fibre optique de mesure.</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Mission -->
-  <div class="project-section reveal d2">
+  <!-- ── Mission & Problématique ── -->
+  <div class="project-section reveal d1">
     <h2 class="project-section-title">Mission &amp; Problématique</h2>
     <div class="card" style="border-left:3px solid var(--accent);background:var(--bg-2)">
-      <p style="font-size:.92rem;color:var(--text-soft);line-height:1.9">
-        Comment moderniser les outils internes d'un service informatique à effectif réduit tout en maintenant
-        la disponibilité du parc et en améliorant la traçabilité des interventions ? Il fallait mettre en place
-        GLPI comme solution de ticketing, développer des petits utilitaires PHP et assurer le support quotidien.
+      <p style="font-size:.95rem;color:var(--text-soft);line-height:2;font-style:italic;">
+        "Les systèmes Linux embarqués de FEBUS OPTICS nécessitent une synchronisation temporelle précise
+        pour garantir la cohérence des acquisitions DOFS. Comment concevoir une interface d'administration
+        Webmin — développée en Perl — permettant de configurer, surveiller et gérer les protocoles
+        <strong style="color:var(--accent)">NTP</strong> et <strong style="color:var(--accent)">PTP</strong>
+        depuis un panneau web centralisé, sans accès à la ligne de commande ?"
       </p>
     </div>
   </div>
 
-  <!-- Missions réalisées -->
-  <div class="project-section reveal d1">
-    <h2 class="project-section-title">Missions réalisées</h2>
-    <ul class="feat-list">
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Déploiement de GLPI</strong> — Installation et configuration du logiciel de gestion de parc informatique sur serveur Linux, paramétrage des agents OCS pour l'inventaire automatisé du parc.</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Gestion des incidents</strong> — Prise en charge des tickets de support, diagnostic et résolution des pannes matérielles et logicielles, escalade vers le responsable si nécessaire.</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Développement d'un outil interne PHP</strong> — Conception d'une interface web légère permettant de visualiser l'état du parc (disponibilité des postes, historique des interventions).</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Gestion des droits utilisateurs</strong> — Création et modification des comptes Active Directory, attribution des habilitations selon les profils, respect de la politique de sécurité interne.</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Documentation technique</strong> — Rédaction de procédures d'installation et de guides utilisateurs pour faciliter la montée en compétences de l'équipe.</div>
-      </li>
-      <li>
-        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
-        <div><strong>Présence en ligne</strong> — Participation aux mises à jour du site vitrine de l'entreprise (WordPress) : correction de contenus, intégration de nouvelles pages produits.</div>
-      </li>
-    </ul>
+  <!-- ── Architecture technique ── -->
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">Architecture de la solution</h2>
+    <div class="arch-wrap">
+      <svg class="arch-svg" viewBox="0 0 940 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture d'administration NTP/PTP via Webmin">
+        <defs>
+          <!-- Grille de points subtile -->
+          <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+            <circle cx="18" cy="18" r="0.8" fill="rgba(255,255,255,0.05)"/>
+          </pattern>
+          <!-- Filtres de lueur néon par bloc -->
+          <filter id="glow-g" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="b"/>
+            <feFlood flood-color="#10b981" flood-opacity=".28" result="c"/>
+            <feComposite in="c" in2="b" operator="in" result="glow"/>
+            <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-v" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="10" result="b"/>
+            <feFlood flood-color="#a78bfa" flood-opacity=".32" result="c"/>
+            <feComposite in="c" in2="b" operator="in" result="glow"/>
+            <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-c" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="b"/>
+            <feFlood flood-color="#22d3ee" flood-opacity=".28" result="c"/>
+            <feComposite in="c" in2="b" operator="in" result="glow"/>
+            <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-a" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="b"/>
+            <feFlood flood-color="#fbbf24" flood-opacity=".28" result="c"/>
+            <feComposite in="c" in2="b" operator="in" result="glow"/>
+            <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <!-- Marqueurs double flèche -->
+          <!-- Violet ← (marker-start sur ligne gauche→droite) -->
+          <marker id="mv-l" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+            <polygon points="8 0, 0 3, 8 6" fill="#a78bfa"/>
+          </marker>
+          <!-- Violet → (marker-end) -->
+          <marker id="mv-r" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#a78bfa"/>
+          </marker>
+          <!-- Cyan ← -->
+          <marker id="mc-l" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+            <polygon points="8 0, 0 3, 8 6" fill="#22d3ee"/>
+          </marker>
+          <!-- Cyan → -->
+          <marker id="mc-r" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#22d3ee"/>
+          </marker>
+          <!-- Amber ← -->
+          <marker id="ma-l" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+            <polygon points="8 0, 0 3, 8 6" fill="#fbbf24"/>
+          </marker>
+          <!-- Amber → -->
+          <marker id="ma-r" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#fbbf24"/>
+          </marker>
+        </defs>
+
+        <!-- ── Fond ── -->
+        <rect width="940" height="300" rx="12" fill="#030c1a"/>
+        <rect width="940" height="300" rx="12" fill="url(#grid)"/>
+
+        <!-- ════════════════════════════════════
+             BLOC 1 — Administrateur
+        ════════════════════════════════════ -->
+        <rect x="15" y="68" width="152" height="164" rx="10"
+              fill="rgba(16,185,129,.07)" stroke="#10b981" stroke-width="1.6"
+              filter="url(#glow-g)"/>
+        <!-- Icône personne -->
+        <circle cx="91" cy="107" r="17" fill="none" stroke="#10b981" stroke-width="1.6"/>
+        <path d="M60 144 Q60 127 91 125 Q122 127 122 144"
+              fill="none" stroke="#10b981" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- Textes -->
+        <text x="91" y="166"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="10.5" fill="#34d399" text-anchor="middle" font-weight="700">Administrateur</text>
+        <text x="91" y="182"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8.5" fill="rgba(52,211,153,.6)" text-anchor="middle">Navigateur Web</text>
+        <!-- Badge "sans CLI" -->
+        <rect x="28" y="192" width="126" height="18" rx="5"
+              fill="rgba(16,185,129,.1)" stroke="rgba(16,185,129,.25)" stroke-width="1"/>
+        <text x="91" y="204"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="rgba(16,185,129,.65)" text-anchor="middle">sans ligne de commande</text>
+
+        <!-- ════ FLÈCHE 1 : Admin ↔ Webmin (violet, ←→) ════ -->
+        <line x1="169" y1="150" x2="227" y2="150"
+              stroke="#a78bfa" stroke-width="1.8"
+              marker-start="url(#mv-l)" marker-end="url(#mv-r)"/>
+        <!-- Label au-dessus -->
+        <text x="198" y="137"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7.5" fill="#c4b5fd" text-anchor="middle" font-weight="600">Connexion HTTPS</text>
+        <!-- Label en-dessous -->
+        <text x="198" y="168"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="rgba(167,139,250,.55)" text-anchor="middle">port 10000</text>
+
+        <!-- ════════════════════════════════════
+             BLOC 2 — Interface Web (pièce maîtresse)
+        ════════════════════════════════════ -->
+        <rect x="229" y="50" width="197" height="200" rx="10"
+              fill="rgba(167,139,250,.09)" stroke="#a78bfa" stroke-width="2"
+              filter="url(#glow-v)"/>
+        <!-- Badge haut -->
+        <rect x="258" y="62" width="140" height="22" rx="6"
+              fill="rgba(167,139,250,.18)" stroke="rgba(167,139,250,.35)" stroke-width="1"/>
+        <text x="328" y="77"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8" fill="#c4b5fd" text-anchor="middle" font-weight="600">Module Webmin · Perl</text>
+        <!-- Titre principal -->
+        <text x="328" y="108"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="11.5" fill="#ddd6fe" text-anchor="middle" font-weight="700">Interface Web</text>
+        <text x="328" y="125"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="11.5" fill="#ddd6fe" text-anchor="middle" font-weight="700">d'administration</text>
+        <!-- Séparateur -->
+        <line x1="248" y1="134" x2="408" y2="134" stroke="rgba(167,139,250,.15)" stroke-width="1"/>
+        <!-- Contenu -->
+        <text x="328" y="153"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8.5" fill="rgba(196,181,253,.8)" text-anchor="middle">Configuration NTP / PTP</text>
+        <text x="328" y="170"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8" fill="rgba(167,139,250,.6)" text-anchor="middle">Consultation des logs</text>
+        <text x="328" y="186"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8" fill="rgba(167,139,250,.6)" text-anchor="middle">&amp; état de synchronisation</text>
+        <!-- Badge HTTPS bas -->
+        <rect x="258" y="198" width="140" height="22" rx="6"
+              fill="rgba(167,139,250,.1)" stroke="rgba(167,139,250,.25)" stroke-width="1"/>
+        <!-- Icône cadenas SVG -->
+        <rect x="267" y="204" width="7" height="6" rx="1" fill="none" stroke="rgba(167,139,250,.7)" stroke-width="1"/>
+        <path d="M268.5 204 Q268.5 201 270.5 201 Q272.5 201 272.5 204"
+              fill="none" stroke="rgba(167,139,250,.7)" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="270.5" cy="207" r="1" fill="rgba(167,139,250,.7)"/>
+        <text x="330" y="213"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8" fill="rgba(196,181,253,.7)" text-anchor="middle">HTTPS sécurisé · port 10000</text>
+        <!-- Note bas -->
+        <text x="328" y="240"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="6.5" fill="rgba(167,139,250,.3)" text-anchor="middle">Point d'entrée unique de l'admin</text>
+
+        <!-- ════ FLÈCHE 2 : Webmin ↔ Linux (cyan, ←→) ════ -->
+        <line x1="428" y1="150" x2="490" y2="150"
+              stroke="#22d3ee" stroke-width="1.8"
+              marker-start="url(#mc-l)" marker-end="url(#mc-r)"/>
+        <text x="459" y="135"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="#67e8f9" text-anchor="middle" font-weight="600">Configuration NTP/PTP</text>
+        <text x="459" y="168"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="6.5" fill="rgba(34,211,238,.55)" text-anchor="middle">Logs &amp; état de sync.</text>
+
+        <!-- ════════════════════════════════════
+             BLOC 3 — Système Linux FEBUS
+        ════════════════════════════════════ -->
+        <rect x="492" y="68" width="180" height="164" rx="10"
+              fill="rgba(34,211,238,.07)" stroke="#22d3ee" stroke-width="1.6"
+              filter="url(#glow-c)"/>
+        <!-- Icône terminal -->
+        <rect x="555" y="77" width="54" height="36" rx="5"
+              fill="none" stroke="rgba(34,211,238,.35)" stroke-width="1.2"/>
+        <line x1="561" y1="87" x2="603" y2="87" stroke="rgba(34,211,238,.2)" stroke-width="1"/>
+        <text x="562" y="99"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="rgba(34,211,238,.5)">$ _</text>
+        <!-- Titre -->
+        <text x="582" y="126"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="9.5" fill="#67e8f9" text-anchor="middle" font-weight="700">Système Linux</text>
+        <text x="582" y="142"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="9.5" fill="#67e8f9" text-anchor="middle" font-weight="700">embarqué FEBUS</text>
+        <!-- Séparateur -->
+        <line x1="508" y1="150" x2="656" y2="150" stroke="rgba(34,211,238,.12)" stroke-width="1"/>
+        <!-- Puces -->
+        <circle cx="516" cy="166" r="2.5" fill="#22d3ee" opacity=".8"/>
+        <text x="525" y="170"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8" fill="rgba(34,211,238,.8)">Services NTP &amp; PTP</text>
+        <circle cx="516" cy="186" r="2.5" fill="#22d3ee" opacity=".8"/>
+        <text x="525" y="190"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8" fill="rgba(34,211,238,.8)">Horloge système</text>
+        <text x="525" y="204"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8" fill="rgba(34,211,238,.55)">synchronisée</text>
+        <!-- Tag Linux -->
+        <rect x="514" y="214" width="138" height="16" rx="4"
+              fill="rgba(34,211,238,.07)" stroke="rgba(34,211,238,.2)" stroke-width="1"/>
+        <text x="583" y="226"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="rgba(34,211,238,.5)" text-anchor="middle">Linux Debian embarqué</text>
+
+        <!-- ════ FLÈCHE 3 : Linux ↔ Sources (amber, ←→) ════ -->
+        <line x1="674" y1="150" x2="738" y2="150"
+              stroke="#fbbf24" stroke-width="1.8"
+              marker-start="url(#ma-l)" marker-end="url(#ma-r)"/>
+        <text x="706" y="135"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="#fde68a" text-anchor="middle" font-weight="600">NTP (UDP 123)</text>
+        <text x="706" y="168"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="6.5" fill="rgba(251,191,36,.6)" text-anchor="middle">PTP (IEEE 1588)</text>
+
+        <!-- ════════════════════════════════════
+             BLOC 4 — Sources de temps
+        ════════════════════════════════════ -->
+        <rect x="740" y="68" width="186" height="164" rx="10"
+              fill="rgba(251,191,36,.07)" stroke="#fbbf24" stroke-width="1.6"
+              filter="url(#glow-a)"/>
+        <!-- Titre -->
+        <text x="833" y="98"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="10.5" fill="#fde68a" text-anchor="middle" font-weight="700">Sources</text>
+        <text x="833" y="114"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="10.5" fill="#fde68a" text-anchor="middle" font-weight="700">de temps</text>
+        <!-- Séparateur -->
+        <line x1="757" y1="122" x2="909" y2="122" stroke="rgba(251,191,36,.12)" stroke-width="1"/>
+
+        <!-- Icône globe NTP -->
+        <circle cx="763" cy="148" r="9" fill="none" stroke="rgba(251,191,36,.6)" stroke-width="1.3"/>
+        <ellipse cx="763" cy="148" rx="4.5" ry="9" fill="none" stroke="rgba(251,191,36,.4)" stroke-width="1"/>
+        <line x1="754" y1="148" x2="772" y2="148" stroke="rgba(251,191,36,.4)" stroke-width="1"/>
+        <line x1="756" y1="141" x2="770" y2="141" stroke="rgba(251,191,36,.25)" stroke-width="1"/>
+        <line x1="756" y1="155" x2="770" y2="155" stroke="rgba(251,191,36,.25)" stroke-width="1"/>
+        <!-- Texte NTP -->
+        <text x="778" y="144"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8.5" fill="rgba(253,230,138,.9)" font-weight="600">Serveur NTP</text>
+        <text x="778" y="157"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="rgba(251,191,36,.55)">pool.ntp.org · UDP 123</text>
+
+        <!-- Séparateur interne -->
+        <line x1="757" y1="170" x2="909" y2="170" stroke="rgba(251,191,36,.07)" stroke-width="1"/>
+
+        <!-- Icône horloge PTP -->
+        <circle cx="763" cy="190" r="9" fill="none" stroke="rgba(251,191,36,.6)" stroke-width="1.3"/>
+        <line x1="763" y1="190" x2="763" y2="184" stroke="rgba(251,191,36,.8)" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="763" y1="190" x2="768" y2="193" stroke="rgba(251,191,36,.7)" stroke-width="1.1" stroke-linecap="round"/>
+        <circle cx="763" cy="190" r="1.5" fill="rgba(251,191,36,.8)"/>
+        <!-- Texte PTP -->
+        <text x="778" y="186"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="8.5" fill="rgba(253,230,138,.9)" font-weight="600">Horloge PTP</text>
+        <text x="778" y="199"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="rgba(251,191,36,.55)">Grandmaster · IEEE 1588</text>
+
+        <!-- Tag précision -->
+        <rect x="755" y="214" width="166" height="16" rx="4"
+              fill="rgba(251,191,36,.07)" stroke="rgba(251,191,36,.2)" stroke-width="1"/>
+        <text x="838" y="226"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7" fill="rgba(251,191,36,.5)" text-anchor="middle">Précision nanoseconde (PTP)</text>
+
+        <!-- ════ PIED DE PAGE ════ -->
+        <rect x="15" y="260" width="910" height="24" rx="6"
+              fill="rgba(255,255,255,.025)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+        <text x="470" y="276"
+              font-family="'JetBrains Mono',Consolas,monospace"
+              font-size="7.5" fill="rgba(255,255,255,.28)" text-anchor="middle">
+          L'administrateur configure la synchronisation temporelle via l'interface Web — aucun accès à la ligne de commande requis.
+        </text>
+      </svg>
+    </div>
   </div>
 
-  <!-- Résultats -->
+  <!-- ── Outils & Technologies ── -->
+  <div class="project-section reveal">
+    <h2 class="project-section-title">Outils &amp; Technologies</h2>
+    <div class="tech-card-grid">
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(57,116,158,.12)">
+          <img src="../../assets/images/Febus_Optics/perl_logo.png.png" alt="Perl" style="width:36px;height:36px;object-fit:contain">
+        </div>
+        <div class="tech-card-name">Perl</div>
+        <div class="tech-card-desc">Langage de script utilisé pour développer le module Webmin — syntaxe CGI, manipulation de fichiers système et traitement de texte.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(34,211,238,.08)">
+          <img src="../../assets/images/Febus_Optics/webmin_logo1.png.png" alt="Webmin" style="width:36px;height:36px;object-fit:contain">
+        </div>
+        <div class="tech-card-name">Webmin</div>
+        <div class="tech-card-desc">Interface d'administration web Linux. Les modules sont des scripts Perl CGI qui interagissent avec le système via l'API Webmin.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(251,191,36,.08)">
+          <svg width="36" height="36"><use href="#logo-ntp"/></svg>
+        </div>
+        <div class="tech-card-name">NTP — ntpd</div>
+        <div class="tech-card-desc">Network Time Protocol. Synchronisation des horloges via le démon <code style="color:var(--accent);font-family:var(--font-mono);font-size:.75em">ntpd</code> et configuration du fichier <code style="color:var(--accent);font-family:var(--font-mono);font-size:.75em">/etc/ntp.conf</code>.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(167,139,250,.08)">
+          <svg width="36" height="36"><use href="#logo-ptp"/></svg>
+        </div>
+        <div class="tech-card-name">PTP — ptp4l</div>
+        <div class="tech-card-desc">Precision Time Protocol (IEEE 1588). Synchronisation nanoseconde via <code style="color:var(--accent);font-family:var(--font-mono);font-size:.75em">ptp4l</code> et <code style="color:var(--accent);font-family:var(--font-mono);font-size:.75em">phc2sys</code> sur Linux.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(255,204,0,.06)">
+          <img src="../../assets/images/Febus_Optics/logo_linux.png.png" alt="Linux" style="width:36px;height:36px;object-fit:contain">
+        </div>
+        <div class="tech-card-name">Linux Debian</div>
+        <div class="tech-card-desc">OS des systèmes embarqués FEBUS. Administration via terminal, gestion des services systemd, édition des fichiers de configuration.</div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tech-card-icon" style="background:rgba(248,113,113,.08)">
+          <svg width="36" height="36" fill="none" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 48 48">
+            <rect x="4" y="4" width="40" height="40" rx="8" fill="rgba(248,113,113,.08)"/>
+            <polyline points="16 28 8 24 16 20"/>
+            <polyline points="32 20 40 24 32 28"/>
+            <line x1="20" y1="32" x2="28" y2="16"/>
+          </svg>
+        </div>
+        <div class="tech-card-name">Visual Studio Code</div>
+        <div class="tech-card-desc">Éditeur principal pour le développement du module Perl. Extensions Perl, terminal intégré SSH pour les tests sur le serveur.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Extrait de code ── -->
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">Exemple — Structure du module Perl</h2>
+    <div class="code-lang">Perl · Module Webmin NTP/PTP</div>
+    <div class="code-block">
+<span class="cm"># Module Webmin — Configuration NTP/PTP</span>
+<span class="cm"># Fichier : module.info + index.cgi</span>
+
+<span class="kw">use</span> WebminCore;
+<span class="fn">init_config</span>();
+
+<span class="cm"># Lecture de la configuration NTP courante</span>
+<span class="kw">sub</span> <span class="fn">get_ntp_config</span> {
+  <span class="kw">my</span> $conf = <span class="fn">read_file_lines</span>(<span class="str">"/etc/ntp.conf"</span>);
+  <span class="kw">return</span> { servers =&gt; [<span class="fn">grep</span> { /^server/ } @$conf] };
+}
+
+<span class="cm"># Écriture et redémarrage du service</span>
+<span class="kw">sub</span> <span class="fn">save_ntp_servers</span> {
+  <span class="kw">my</span> (@servers) = @_;
+  <span class="fn">write_file</span>(<span class="str">"/etc/ntp.conf"</span>, \@servers);
+  <span class="fn">system</span>(<span class="str">"systemctl restart ntpd"</span>);
+}
+
+<span class="cm"># Statut de synchronisation PTP</span>
+<span class="kw">sub</span> <span class="fn">get_ptp_status</span> {
+  <span class="kw">return</span> `pmc -u -b 0 'GET TIME_STATUS_NP'`;
+}
+    </div>
+  </div>
+
+  <!-- ── Missions réalisées ── -->
   <div class="project-section reveal d2">
+    <h2 class="project-section-title">Déroulement du stage</h2>
+    <div class="mission-steps">
+
+      <div class="mission-step">
+        <div class="step-num-wrap">
+          <div class="step-num">S1</div>
+        </div>
+        <div class="step-body">
+          <div class="step-week">Semaine 1</div>
+          <div class="step-title">Prise en main &amp; analyse de l'environnement</div>
+          <div class="step-desc">
+            Découverte de l'entreprise et de son infrastructure Linux Debian. Analyse du fonctionnement
+            des protocoles NTP et PTP, étude de la documentation Webmin et de l'API de création de modules.
+            Installation et configuration d'un environnement de développement local.
+          </div>
+          <div class="infra-grid">
+            <div class="infra-card">
+              <img src="../../assets/images/Febus_Optics/baie_brassage.png.png" alt="Baie de brassage" style="object-position:top">
+              <div class="infra-card-label">Baie de brassage réseau</div>
+            </div>
+            <div class="infra-card">
+              <img src="../../assets/images/Febus_Optics/switch_cisco.png.png" alt="Switch Cisco" style="object-fit:contain;background:#111;padding:.5rem">
+              <div class="infra-card-label">Switch Cisco — LAN</div>
+            </div>
+            <div class="infra-card">
+              <img src="../../assets/images/Febus_Optics/point_acces_cisco.png.png" alt="Point d'accès Cisco" style="object-fit:contain;background:#111;padding:.5rem">
+              <div class="infra-card-label">Point d'accès Cisco</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap">
+          <div class="step-num">S2</div>
+        </div>
+        <div class="step-body">
+          <div class="step-week">Semaine 2</div>
+          <div class="step-title">Architecture du module &amp; maquette</div>
+          <div class="step-desc">
+            Conception de l'architecture du module Webmin : structure des fichiers (module.info, index.cgi, lib.pl),
+            définition des fonctionnalités (configuration serveurs NTP, état PTP, journaux).
+            Réalisation d'une maquette de l'interface avant développement.
+          </div>
+          <div class="step-screenshots" style="grid-template-columns:repeat(2,1fr)">
+            <div class="step-screenshot">
+              <img src="../../assets/images/Febus_Optics/maquette_attendu.jpg.jpg" alt="Maquette attendue du module — vue 1"
+                   style="max-height:420px;object-fit:contain;background:#f0ece8">
+              <div class="step-screenshot-caption">Maquette manuscrite — configuration NTP</div>
+            </div>
+            <div class="step-screenshot">
+              <img src="../../assets/images/Febus_Optics/maquette_attendu_2.jpg.jpg" alt="Maquette attendue du module — vue 2"
+                   style="max-height:420px;object-fit:contain;background:#f0ece8">
+              <div class="step-screenshot-caption">Maquette manuscrite — configuration PTP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap">
+          <div class="step-num">S3</div>
+        </div>
+        <div class="step-body">
+          <div class="step-week">Semaine 3</div>
+          <div class="step-title">Développement du module NTP</div>
+          <div class="step-desc">
+            Développement en Perl du sous-module NTP : lecture et écriture de <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">/etc/ntp.conf</code>,
+            interface web de gestion des serveurs de temps, affichage du statut via <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">ntpq</code>,
+            redémarrage du service via systemd depuis l'interface.
+          </div>
+          <div class="step-screenshots" style="grid-template-columns:1fr">
+            <div class="step-screenshot">
+              <img src="../../assets/images/Febus_Optics/application_NTP_PTP2.png.png" alt="Module Webmin — configuration NTP"
+                   style="max-height:440px;object-fit:contain;background:#f5f5f5">
+              <div class="step-screenshot-caption">Module Webmin finalisé — interface de configuration NTP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap">
+          <div class="step-num">S4</div>
+        </div>
+        <div class="step-body">
+          <div class="step-week">Semaine 4</div>
+          <div class="step-title">Développement du module PTP</div>
+          <div class="step-desc">
+            Extension du module au protocole PTP (IEEE 1588) : configuration de <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">ptp4l</code>
+            et <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">phc2sys</code>, lecture du statut de synchronisation en temps réel,
+            gestion des interfaces réseau PTP-compatibles et affichage des métriques d'offset.
+          </div>
+          <div class="step-screenshots" style="grid-template-columns:1fr">
+            <div class="step-screenshot">
+              <img src="../../assets/images/Febus_Optics/application_NTP_PTP1.png.png" alt="Module Webmin — configuration PTP"
+                   style="max-height:440px;object-fit:contain;background:#f5f5f5">
+              <div class="step-screenshot-caption">Module Webmin finalisé — interface de configuration PTP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-step">
+        <div class="step-num-wrap">
+          <div class="step-num">S5</div>
+        </div>
+        <div class="step-body">
+          <div class="step-week">Semaine 5</div>
+          <div class="step-title">Vérification, déploiement &amp; documentation utilisateur</div>
+          <div class="step-desc">
+            Vérification du bon fonctionnement du module sur le système cible — que chaque bouton,
+            chaque champ et chaque action produisent le résultat attendu. Déploiement du module
+            sur le serveur Webmin. Rédaction d'une <strong style="color:var(--text)">documentation utilisateur</strong>
+            (prise en main, explication des champs, procédures) et du rapport de stage.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Résultats ── -->
+  <div class="project-section reveal">
     <h2 class="project-section-title">Résultats &amp; Apprentissages</h2>
     <div class="result-grid">
       <div class="card result-box">
-        <div class="result-num">GLPI</div>
-        <div class="result-label">Déployé &amp; opérationnel</div>
+        <div class="result-num">1</div>
+        <div class="result-label">Module Webmin livré &amp; déployé</div>
       </div>
       <div class="card result-box">
-        <div class="result-num">AD</div>
-        <div class="result-label">Gestion des habilitations</div>
+        <div class="result-num">NTP<br><small style="font-size:.7rem">+</small>PTP</div>
+        <div class="result-label">Deux protocoles intégrés</div>
       </div>
       <div class="card result-box">
-        <div class="result-num">PHP</div>
-        <div class="result-label">Outil interne livré</div>
+        <div class="result-num">5 sem.</div>
+        <div class="result-label">Autonomie sur stack Linux / Perl</div>
       </div>
     </div>
-    <div class="context-block">
+    <div class="context-block" style="margin-top:1.5rem">
       <p>
-        Ce stage m'a apporté une vision concrète du quotidien d'un service informatique en PME industrielle.
-        J'ai renforcé mes compétences en administration système Linux, en gestion de parc avec GLPI
-        et en développement PHP orienté métier. La polyvalence requise — support, développement, documentation —
-        m'a permis de valider de nombreuses compétences du référentiel BTS SIO.
+        Ce stage m'a offert une immersion dans un environnement technique de haute précision. J'ai découvert
+        le langage <strong style="color:var(--text)">Perl</strong> et son écosystème CGI dans le cadre réel du développement de modules Webmin,
+        tout en approfondissant ma maîtrise de l'administration <strong style="color:var(--text)">Linux</strong> via des
+        <strong style="color:var(--text)">commandes en ligne de commande</strong> — navigation dans l'arborescence système,
+        manipulation des fichiers de configuration, gestion des services avec <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">systemctl</code>,
+        consultation des logs avec <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">journalctl</code>
+        et vérification du statut de synchronisation avec <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">ntpq</code> et <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">pmc</code>.
+      </p>
+      <p>
+        J'ai également eu l'occasion de <strong style="color:var(--text)">brasser la baie de brassage réseau</strong> —
+        relier physiquement les câbles entre les équipements (switch, serveurs, points d'accès) —
+        ce qui m'a donné une vision concrète de l'infrastructure réseau sur laquelle reposent les systèmes FEBUS OPTICS.
+      </p>
+      <p>
+        La compréhension des protocoles <strong style="color:var(--text)">NTP et PTP</strong> — jusqu'alors inconnus pour moi — m'a apporté
+        une vision concrète des enjeux de synchronisation temporelle dans les systèmes industriels embarqués.
+        Travailler en autonomie dans un environnement de production réel a renforcé ma rigueur et ma capacité
+        à rédiger une documentation claire à destination des utilisateurs.
       </p>
     </div>
   </div>
 
-  <!-- Compétences validées -->
+  <!-- ── Rapport de stage ── -->
   <div class="project-section reveal d1">
+    <h2 class="project-section-title">Rapport de stage</h2>
+    <div class="rapport-card">
+      <div class="rapport-icon">
+        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <line x1="10" y1="9" x2="8" y2="9"/>
+        </svg>
+      </div>
+      <div class="rapport-info">
+        <div class="rapport-title">Rapport de Stage — FEBUS OPTICS</div>
+        <div class="rapport-meta">Annaëlle Champiau · BTS SIO SLAM · 2025 · PDF</div>
+      </div>
+      <div class="rapport-actions">
+        <a href="../../assets/files/Rapport de Stage Febus OPTICS - CHAMPIAU.pdf"
+           download="Rapport-Stage-FebusOptics-Champiau.pdf"
+           class="btn btn-primary">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Télécharger
+        </a>
+        <a href="../../assets/files/Rapport de Stage Febus OPTICS - CHAMPIAU.pdf"
+           target="_blank" rel="noopener"
+           class="btn btn-outline">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Ouvrir
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Compétences BTS SIO ── -->
+  <div class="project-section reveal d2">
     <h2 class="project-section-title">Compétences BTS SIO validées</h2>
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem">
-      <span class="tag tag-blue">A1.1 — Patrimoine informatique</span>
-      <span class="tag tag-teal">A1.2 — Réponse aux incidents</span>
-      <span class="tag tag-green">A1.3 — Présence en ligne</span>
-      <span class="tag tag-gold">A1.4 — Mode projet</span>
-      <span class="tag tag-violet">A1.5 — Mise à disposition</span>
-      <span class="tag tag-red">C3.2 — Identité numérique</span>
-      <span class="tag tag-red">C3.3 — Sécurisation équipements</span>
+    <div class="comp-pills-grid">
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#818cf8"></div>
+        <span class="comp-pill-code">B2.1</span>
+        <span class="comp-pill-label">Développement d'un module applicatif (Perl / Webmin)</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#22d3ee"></div>
+        <span class="comp-pill-code">B2.3</span>
+        <span class="comp-pill-label">Gestion des services et fichiers de configuration Linux</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#34d399"></div>
+        <span class="comp-pill-code">A1.4</span>
+        <span class="comp-pill-label">Conduite du projet en autonomie avec planning hebdomadaire</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#fbbf24"></div>
+        <span class="comp-pill-code">A1.5</span>
+        <span class="comp-pill-label">Mise à disposition du module, documentation utilisateur</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#c084fc"></div>
+        <span class="comp-pill-code">A1.1</span>
+        <span class="comp-pill-label">Gestion du patrimoine informatique et des serveurs Linux</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#f87171"></div>
+        <span class="comp-pill-code">C3.3</span>
+        <span class="comp-pill-label">Sécurisation de l'interface Webmin (HTTPS, droits utilisateur)</span>
+      </div>
     </div>
   </div>
 
@@ -169,7 +1037,7 @@
 <div class="sibling-nav">
   <div>
     <div class="sibling-label">Stage précédent</div>
-    <div class="sibling-title">—</div>
+    <div class="sibling-title" style="color:var(--text-muted)">—</div>
   </div>
   <a href="../competences.html" class="btn btn-outline btn-sm">Voir les compétences</a>
   <div style="text-align:right">
