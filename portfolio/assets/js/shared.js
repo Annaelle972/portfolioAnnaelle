@@ -22,6 +22,56 @@
   });
 })();
 
+/* ── Curseur personnalisé ────────────────────────── */
+(function initCursor() {
+  if ('ontouchstart' in window || window.matchMedia('(pointer:coarse)').matches) return;
+
+  const dot  = document.createElement('div');
+  const ring = document.createElement('div');
+  dot.id  = 'cursor-dot';
+  ring.id = 'cursor-ring';
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+
+  let mx = -200, my = -200;
+  let rx = -200, ry = -200;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform  = `translate(${mx - 4}px,${my - 4}px)`;
+    if (!dot.classList.contains('active')) {
+      dot.classList.add('active');
+      ring.classList.add('active');
+    }
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * .11;
+    ry += (my - ry) * .11;
+    ring.style.transform = `translate(${rx - 14}px,${ry - 14}px)`;
+    requestAnimationFrame(animRing);
+  })();
+
+  document.addEventListener('mouseleave', () => {
+    dot.classList.remove('active');
+    ring.classList.remove('active');
+  });
+
+  const hoverSel = 'a,button,[role="button"],.card,.pcard,.nav-link,.qchip,label[for],input,select,textarea';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverSel)) {
+      dot.classList.add('on-hover');
+      ring.classList.add('on-hover');
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverSel)) {
+      dot.classList.remove('on-hover');
+      ring.classList.remove('on-hover');
+    }
+  });
+})();
+
 /* ── Mobile nav ─────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   const toggle  = document.getElementById('nav-toggle');

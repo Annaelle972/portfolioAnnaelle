@@ -1,0 +1,90 @@
+	/** fonction qui retourne le code HTML permettant d'afficher le bon icone de satisfaction
+	* (POUR GENERATION DE PDF) 
+    * en fonction du montant du chiffre d'affaires par visiteur qui est passé en paramètre
+    *  @ string code HTML affichant l'image adéquate
+	*/
+	function fct_getSmiley2(){
+		
+		$caMoyenParVisiteur = fct_getCaMoyenParVisiteur();
+		
+	 	if ($caMoyenParVisiteur >=25)
+		{	$fichier = "smileyVertFonce";
+		}
+		else
+			if ($caMoyenParVisiteur >= 18)
+			{	$fichier="smileyJaune";
+			}
+			else {
+				$fichier="smileyRouge";
+				}
+			
+		$cheminSmiley= "http://localhost/VotreNom/PicduMidiBoutiqueVotreNom/wp-content/uploads/2025/03/$fichier.jpg";
+		$type = pathinfo($cheminSmiley, PATHINFO_EXTENSION);
+		$data = file_get_contents($cheminSmiley);
+		$base64Smiley = 'data:image/' . $type . ';base64,' . base64_encode($data);
+		$codeHTMLSmiley = "<p align='center'> <img alt='smiley situation' src='".$base64Smiley."'/> </p>";
+		
+		return $codeHTMLSmiley;
+	}
+	
+	
+	/* *************************************************************************************************************************************************************** */
+	/** fonction qui construit l'ensemble de la page de la journée d'hier
+	 @return string codeHTML associé à ce contenu
+	*/
+function fct_getContenuJourneeHier(){
+
+$cheminLogo="http://localhost/VotreNom/PicduMidiBoutiqueVotreNom/wp-content/uploads/2025/02/PicMidiBigorreLogo.jpg"; // ***************************   ATTENTION, les images doivent être à cet endroit *******
+$type = pathinfo($cheminLogo, PATHINFO_EXTENSION);
+$data = file_get_contents($cheminLogo);
+$base64Logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+
+$codeHTML="
+<html>
+    <head>
+        <style>
+            @page{
+                margin-top: 200px; /* creation d'un espace pour l'en-tête */
+                margin-bottom: 0px; /* creation d'un espace pour le bas de page */
+            }
+            header, footer{
+                position: fixed;
+                left: 0px;
+                right: 0px;
+            }
+            header{
+                height: 100px;
+                margin-top: -150px;
+            }
+            footer{
+                height: 50px;
+                margin-bottom: 0px;
+              }
+			main{
+               text-align: center;
+              }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            <h2><img src='".$base64Logo."' alt='logo pic du midi Bigorre' width='150' height='150'/> SYNTHESE </h2>
+        </header>
+        <main>
+            <br /><br />
+			<h1 color='cadetblue' margin-top='50px' >Chiffres clés de la journée</h1> 
+			<br /><br /><p margin='auto'>". fct_getTableauHier()."</p>
+			<br /><br /><br/><p margin='50px auto'>". fct_getSmiley2()."</p>
+			<br /><br /><br/><h4 align='center' margin-top='50px'><b>Il va falloir analyser tout çà !!!!!!</b></h4>
+		</main>
+		<footer>
+            <p text-align='center'>Copyright &copy; ".date('Y')."</p>
+        </footer>
+    </body>
+</html>";
+
+
+return $codeHTML;
+
+}

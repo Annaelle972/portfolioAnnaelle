@@ -1,0 +1,76 @@
+/* *************************  fonctions à rajouter dans le fichier accesbd.php    - pour la génération de pdf ************************* */
+/* ************************************************************************************************************************************ */
+
+	/** fonction qui construit le tableau des indicateurs de la journée d'hier
+	*   @return string codeHTML associé au tableau des indicateurs
+	*/
+
+	function fct_getTableauHier(){
+	
+	$couleur ="cadetblue";
+	$codeTableau= 	'<table border="1" cellspacing="3" cellpadding="4" style="font-size:15px;">';
+	$codeTableau= 	$codeTableau.'<tr><th bgcolor='.$couleur.' >Nombre de visiteurs</th><td style="font-weight:bold;color:'.$couleur.';text-align:center">';
+	$codeTableau= 	$codeTableau.fct_getNbVisiteurs();
+	$codeTableau=	$codeTableau."</td></tr>";
+	
+	$codeTableau= 	$codeTableau.'<tr><th bgcolor='.$couleur.' >Chiffre d\'affaires total</th><td style="font-weight:bold;color:'.$couleur.';text-align:center">';
+	$codeTableau= 	$codeTableau.fct_getCaDuJour()." €";
+	$codeTableau=	$codeTableau."</td></tr>";
+	
+	$codeTableau= 	$codeTableau.'<tr><th bgcolor='.$couleur.' >Montant moyen d\'une vente</th><td style="font-weight:bold;color:'.$couleur.';text-align:center">';
+	$codeTableau= 	$codeTableau.fct_getCaMoyenParJour()." €";
+	$codeTableau=	$codeTableau."</td></tr>";
+	
+	$codeTableau= 	$codeTableau.'<tr><th bgcolor='.$couleur.'>Chiffre d\'affaires par visiteur</th><td style="font-weight:bold;color:'.$couleur.';text-align:center">';
+	
+	$codeTableau= 	$codeTableau.fct_getCaMoyenParVisiteur()." €";
+	$codeTableau=	$codeTableau."</td></tr>";
+	
+	$codeTableau=	$codeTableau."</table>";
+
+	return $codeTableau;
+	}
+
+	//instructions USE necessaires pour utiliser les classes Dompdf et Options de la bibliothèque Dompdf
+    	use Dompdf\Dompdf;
+    	use Dompdf\Options;
+	
+
+	//instruction add_action necessaire pour charger la fonction fct_getTableauHierEnPdf lors du chargement de Wordpress
+	// et ainsi pouvoir l'utiliser n'importe où, n'importe quand
+	add_action('init', 'fct_getTableauHierEnPdf');
+
+	
+	/** fonction qui créé un fichier pdf à partir d'un code HTML
+	*/
+
+	function fct_getTableauHierEnPdf(){
+		//ceci permettra d'activer la fonction uniquement 
+		//lorsqu'elle sera appelée via le bouton du formulaire de la page Wordpress
+		if (isset($_POST['fct_getTableauHierEnPdf'])){
+			
+			// import de la bibliothèque
+			require_once './wp-includes/dompdf/autoload.inc.php';
+
+			//récupération du codeHTML associé au tableau des indicateurs de la journée d'hier
+			$html = fct_getTableauHier();
+			
+			// définition des caractéristiques du document
+			$options = new Options();
+			$options->set('A4','portrait');
+			$options->set('enable_css_float',true);
+			$options->set('isHtml5ParserEnabled', true);
+		
+			// affectation des options à l'objet documentPDF en création
+			$dompdf = new DOMPDF($options);
+			
+			// integration d'un code HTML comme contenu du document PDF à générer
+			$dompdf->loadHtml($html);
+		
+			//génération du document en mémoire
+			$dompdf->render();
+		
+			//génération du document PDF sur le disque dur en lui indiquant un nom particulier
+			$dompdf->stream('journeeHier.pdf');
+	   }
+    }

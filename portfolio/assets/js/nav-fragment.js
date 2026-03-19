@@ -234,11 +234,16 @@ const footer = `<footer class="site-footer">
   </nav>
 </footer>`;
 
+/* Nav & sprite insérés immédiatement (position:fixed, indépendants du DOM) */
 document.body.insertAdjacentHTML('afterbegin', sprite + nav);
-document.body.insertAdjacentHTML('beforeend', footer);
 
-/* ── Chargement du chatbot ── */
-const chatScript = document.createElement('script');
-chatScript.src = root + 'assets/js/chatbot.js';
-document.body.appendChild(chatScript);
+/* Footer & chatbot insérés après parsing complet du DOM
+   pour éviter que le footer apparaisse AVANT le contenu principal */
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.insertAdjacentHTML('beforeend', footer);
+
+  const chatScript = document.createElement('script');
+  chatScript.src = root + 'assets/js/chatbot.js';
+  document.body.appendChild(chatScript);
+});
 })();
