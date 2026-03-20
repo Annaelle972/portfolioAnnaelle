@@ -1,0 +1,19 @@
+[ {"nom" : "23",
+    "type" :"mixte",
+    "capacité" : 30 ,
+	"nbOrdinateurs": 18,
+    "videoprojecteur" : true
+  } ,
+  {"nom" : "30",
+    "type" :"cours",
+    "capacité" : 20 ,
+	"nbOrdinateurs": 0,
+    "videoprojecteur" : false
+  } ,
+  {"nom" : "27",
+    "type" :"ordinateurs",
+    "capacité" : 20 ,
+	"nbOrdinateurs": 17,
+    "videoprojecteur" : true
+  } 
+]

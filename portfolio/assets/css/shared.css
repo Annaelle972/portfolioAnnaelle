@@ -1,10 +1,10 @@
 /* ════════════════════════════════════════════════════
-   Portfolio Annaëlle Dupont — shared.css v4
-   Direction artistique : Cyberpunk Élégant
+   Portfolio Annaëlle Dupont — shared.css v5
+   Direction artistique : Cyberpunk Élégant (dark) / Cozy Warm Pastel (light)
    Dark : indigo profond · Cyber Blue · Violet · Cyan
-   Light : crème chaud · sauge vert · mauve · cosy & pro
+   Light : crème clair · rose poudré · menthe · lavande · miel — cosy & doux
 ════════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 /* ── Curseurs personnalisés ── */
 :root {
@@ -46,33 +46,33 @@
   --font-mono:   'JetBrains Mono', monospace;
 }
 
-/* ── Tokens LIGHT — Cosy warm sage — contrasté & visible ── */
+/* ── Tokens LIGHT — Cozy Warm Pastel · peach rose · mint · lavender ── */
 [data-theme="light"] {
-  --font-display:'Cormorant Garamond', serif;
+  --font-display:'Nunito', sans-serif;   /* arrondi, friendly, cosy */
   --font-body:   'Sora', sans-serif;
   --font-mono:   'JetBrains Mono', monospace;
-  --radius:      16px;
-  --radius-sm:   9px;
-  --bg:          #f5f0e8;   /* parchemin chaud */
-  --bg-2:        #ece4d6;   /* lin profond */
-  --bg-3:        #dfd4c0;   /* beige sablé */
-  --surface:     #fdfaf4;   /* papier nacré */
-  --border:      rgba(110,88,65,.18);
-  --border-h:    rgba(110,88,65,.40);
-  --text:        #16110d;   /* encre chaude */
-  --text-soft:   #3d3228;   /* brun ancré */
-  --text-muted:  #8a7a6c;   /* sépia muted */
-  --accent:      #4a6e52;   /* sauge fort & lisible */
-  --accent-dim:  rgba(74,110,82,.10);
-  --accent-h:    #3a5c42;   /* sauge profond */
-  --violet:      #8a6aaa;   /* mauve saturé */
-  --teal:        #2d7d78;   /* sarcelle profonde */
-  --gold:        #b87814;   /* miel ambré */
-  --red:         #b03a2a;   /* terracotta franc */
-  --nav-bg:      rgba(245,240,232,.97);
-  --shadow-sm:   0 1px 4px rgba(22,17,13,.08), 0 0 0 1px rgba(74,110,82,.06);
-  --shadow-md:   0 4px 18px rgba(22,17,13,.11);
-  --shadow-lg:   0 12px 44px rgba(22,17,13,.16), 0 2px 8px rgba(22,17,13,.08);
+  --radius:      18px;
+  --radius-sm:   10px;
+  --bg:          #fdf9f5;   /* blanc cassé très clair */
+  --bg-2:        #f8f0e9;   /* crème douce */
+  --bg-3:        #ede4d9;   /* beige lin doux */
+  --surface:     #ffffff;   /* papier blanc pur */
+  --border:      rgba(210,165,145,.18);
+  --border-h:    rgba(210,165,145,.42);
+  --text:        #2a1a12;   /* brun encre profond */
+  --text-soft:   #5c3e30;   /* brun chocolat moyen */
+  --text-muted:  #a88878;   /* sépia muted */
+  --accent:      #c8727a;   /* rose terracotta poudré */
+  --accent-dim:  rgba(200,114,122,.10);
+  --accent-h:    #b55a62;   /* rose profond */
+  --violet:      #b898c8;   /* lavande pastel */
+  --teal:        #6db8a8;   /* menthe sauge */
+  --gold:        #d4a040;   /* miel doux */
+  --red:         #c86868;   /* rose terracotta */
+  --nav-bg:      rgba(253,249,245,.97);
+  --shadow-sm:   0 1px 4px rgba(42,26,18,.07), 0 0 0 1px rgba(200,114,122,.05);
+  --shadow-md:   0 4px 18px rgba(42,26,18,.10);
+  --shadow-lg:   0 12px 44px rgba(42,26,18,.14), 0 2px 8px rgba(42,26,18,.07);
 }
 
 @media(prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.01ms!important; } }
@@ -569,115 +569,142 @@ body::before{
 
 
 /* ════════════════════════════════════════════════════
-   THÈME LIGHT — Overrides composants
+   THÈME LIGHT — Cozy Warm Pastel — Overrides composants
 ════════════════════════════════════════════════════ */
 
-/* Tags light — palette cosy bien saturée */
-[data-theme="light"] .tag-blue   { background:rgba(74,110,82,.11);   border-color:rgba(74,110,82,.28);   color:#3a5c42; }
-[data-theme="light"] .tag-violet { background:rgba(138,106,170,.11); border-color:rgba(138,106,170,.28); color:#6a4a8a; }
-[data-theme="light"] .tag-green  { background:rgba(58,100,66,.11);   border-color:rgba(58,100,66,.28);   color:#325838; }
-[data-theme="light"] .tag-teal   { background:rgba(45,125,120,.11);  border-color:rgba(45,125,120,.28);  color:#226068; }
-[data-theme="light"] .tag-gold   { background:rgba(184,120,20,.11);  border-color:rgba(184,120,20,.28);  color:#8a5e0a; }
-[data-theme="light"] .tag-red    { background:rgba(176,58,42,.11);   border-color:rgba(176,58,42,.28);   color:#882a1a; }
-[data-theme="light"] .tag-gray   { background:rgba(110,88,65,.08);   border-color:rgba(110,88,65,.20);   color:#7a6a5c; }
+/* Typographie light : Nunito arrondi, letter-spacing doux */
+[data-theme="light"] body{ line-height:1.8; }
+[data-theme="light"] .hero-title{ letter-spacing:-.01em; line-height:1.0; }
+[data-theme="light"] .section-heading{ letter-spacing:-.01em; }
+[data-theme="light"] .page-title{ letter-spacing:-.01em; }
+[data-theme="light"] .contact-info-title{ letter-spacing:-.01em; }
+[data-theme="light"] .cv-name{ letter-spacing:-.01em; }
+[data-theme="light"] .cat-num{ letter-spacing:-.03em; }
+
+/* Tags light — palette warm pastel */
+[data-theme="light"] .tag-blue   { background:rgba(100,120,200,.10); border-color:rgba(100,120,200,.25); color:#4a5ea0; }
+[data-theme="light"] .tag-violet { background:rgba(155,100,185,.10); border-color:rgba(155,100,185,.25); color:#8a52a8; }
+[data-theme="light"] .tag-green  { background:rgba(80,165,135,.10);  border-color:rgba(80,165,135,.25);  color:#3a8a72; }
+[data-theme="light"] .tag-teal   { background:rgba(80,175,160,.10);  border-color:rgba(80,175,160,.25);  color:#3a9080; }
+[data-theme="light"] .tag-gold   { background:rgba(185,140,40,.10);  border-color:rgba(185,140,40,.25);  color:#8a6010; }
+[data-theme="light"] .tag-red    { background:rgba(195,100,110,.10); border-color:rgba(195,100,110,.25); color:#a84448; }
+[data-theme="light"] .tag-gray   { background:rgba(90,62,48,.06);    border-color:rgba(90,62,48,.15);    color:var(--text-muted); }
 
 /* Bouton primaire light */
 [data-theme="light"] .btn-primary{
-  background:var(--accent); color:#fff; font-weight:600;
-  box-shadow:0 0 0 0 transparent;
+  background:var(--accent); color:#fff; font-weight:700;
+  box-shadow:0 2px 16px rgba(200,114,122,.25);
 }
 [data-theme="light"] .btn-primary:hover{
   background:var(--accent-h);
-  box-shadow:0 4px 20px rgba(74,110,82,.30);
+  box-shadow:0 4px 28px rgba(200,114,122,.40);
 }
-[data-theme="light"] .btn-submit{ background:var(--accent); color:#fff; }
-[data-theme="light"] .btn-submit:hover{ background:var(--accent-h); }
+[data-theme="light"] .btn-submit{ background:var(--accent); color:#fff; font-weight:700; box-shadow:0 2px 16px rgba(200,114,122,.22); }
+[data-theme="light"] .btn-submit:hover{ background:var(--accent-h); box-shadow:0 4px 28px rgba(200,114,122,.38); }
 
-/* Brand title light : vert forêt cosy */
-[data-theme="light"] .nav-brand{ color:#3d6644; }
-[data-theme="light"] .nav-brand em{ color:#2d7d78; font-style:italic; }
-[data-theme="light"] .nav-brand:hover{ color:#2d5438; }
+/* Brand title light */
+[data-theme="light"] .nav-brand{ color:#b05a62; }
+[data-theme="light"] .nav-brand em{ color:#6db8a8; font-style:italic; }
+[data-theme="light"] .nav-brand:hover{ color:#8a4448; }
 
-/* Body light : fond parchemin chaud animé */
+/* Body light : fond crème clair avec touches pastels */
 [data-theme="light"] body{
-  background:linear-gradient(155deg,#f8f3ea 0%,#ede8d8 55%,#f4ede2 100%);
+  background:linear-gradient(155deg,#fdf9f5 0%,#f5ece3 55%,#faf5ee 100%);
 }
 
-/* Deuxième orbe bas-gauche pour ambiance cosy */
+/* Orbes décoratifs légers */
 [data-theme="light"] body::before{
   content:'';
   position:fixed; inset:0; z-index:1; pointer-events:none;
   background-image:
-    url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(110%2C88%2C65%2C0.15)'/%3E%3C/svg%3E"),
-    radial-gradient(ellipse at 10% 90%, rgba(138,106,170,.07) 0%,transparent 55%),
-    radial-gradient(ellipse at 90% 10%, rgba(74,110,82,.06) 0%,transparent 55%);
+    url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(200%2C114%2C122%2C0.10)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 10% 90%, rgba(184,152,200,.08) 0%,transparent 55%),
+    radial-gradient(ellipse at 90% 10%, rgba(109,184,168,.07) 0%,transparent 55%);
   background-size:28px 28px, 100% 100%, 100% 100%;
   background-repeat:repeat, no-repeat, no-repeat;
   opacity:1;
 }
 
+/* Lueur ambiante animée light */
+[data-theme="light"] body::after{
+  content:''; position:fixed; top:-15%; right:-8%; z-index:0; pointer-events:none;
+  width:720px; height:720px; border-radius:50%;
+  background:radial-gradient(circle,rgba(200,114,122,.09) 0%,rgba(184,152,200,.06) 45%,transparent 70%);
+  animation:ambient-drift 14s ease-in-out infinite;
+}
+
 /* Nav light */
 [data-theme="light"] .site-nav::after{
   content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(74,110,82,.35),rgba(138,106,170,.20),transparent);
+  background:linear-gradient(90deg,transparent,rgba(200,114,122,.30),rgba(184,152,200,.20),transparent);
   pointer-events:none;
 }
 
-/* body::before défini avec nav-brand section */
-
-/* Cards light — géré dans section animations */
+/* Hero décorations light — remplacent les couleurs neon dark */
+[data-theme="light"] .hero::before{
+  background:radial-gradient(circle,rgba(200,114,122,.07) 0%,transparent 60%);
+}
+[data-theme="light"] .hero::after{
+  background:radial-gradient(circle,rgba(184,152,200,.06) 0%,transparent 65%);
+}
+[data-theme="light"] .hero-dotgrid{
+  background-image:radial-gradient(rgba(200,114,122,.09) 1px,transparent 1px);
+}
+[data-theme="light"] .pcard::after{
+  background:linear-gradient(135deg,rgba(200,114,122,.05) 0%,transparent 60%);
+}
+[data-theme="light"] .hero-avail{
+  background:rgba(200,114,122,.07); border-color:rgba(200,114,122,.20);
+}
 
 /* Code blocks light */
 [data-theme="light"] .code-block{
-  background:#ede8de; border-color:rgba(74,110,82,.22); color:#16110d;
+  background:#f5ede6; border-color:rgba(200,114,122,.20); color:#2a1a12;
 }
-[data-theme="light"] .code-block::before{ background:linear-gradient(#8a6aaa,#4a6e52); }
-[data-theme="light"] .code-block .kw { color:#6a4a8a; }
-[data-theme="light"] .code-block .fn { color:#2d7d78; }
-[data-theme="light"] .code-block .str{ color:#8a5e0a; }
-[data-theme="light"] .code-block .cm { color:#8a7a6c; }
+[data-theme="light"] .code-block::before{ background:linear-gradient(#b898c8,#c8727a); }
+[data-theme="light"] .code-block .kw { color:#8a52a8; }
+[data-theme="light"] .code-block .fn { color:#3a8a72; }
+[data-theme="light"] .code-block .str{ color:#8a6010; }
+[data-theme="light"] .code-block .cm { color:#a88878; }
+
+/* Formulaire light */
+[data-theme="light"] .form-input:focus,
+[data-theme="light"] .form-textarea:focus{
+  border-color:var(--accent); box-shadow:0 0 0 3px rgba(200,114,122,.12); background:var(--surface);
+}
 
 /* Timeline light */
 [data-theme="light"] .timeline-item::before{
-  background:var(--accent); box-shadow:0 0 10px rgba(74,110,82,.40);
+  background:var(--accent); box-shadow:0 0 10px rgba(200,114,122,.35);
 }
-/* skill-fill géré dans section animations */
 
 /* CV avatar light */
 [data-theme="light"] .cv-avatar{
-  background:linear-gradient(135deg,#2d7d78,#4a6e52);
-  box-shadow:0 0 36px rgba(74,110,82,.24);
+  background:linear-gradient(135deg,#6db8a8,#c8727a);
+  box-shadow:0 0 36px rgba(200,114,122,.20);
 }
-[data-theme="light"] .cv-avatar::after{ border-top-color:#4a6e52; }
+[data-theme="light"] .cv-avatar::after{ border-top-color:#c8727a; }
 
 /* Source pills light */
-[data-theme="light"] .sp-stage  { background:rgba(74,110,82,.12);  border-color:rgba(74,110,82,.28);  color:#3a5c42; }
-[data-theme="light"] .sp-atelier{ background:rgba(138,106,170,.12); border-color:rgba(138,106,170,.28); color:#6a4a8a; }
-[data-theme="light"] .sp-perso  { background:rgba(45,125,120,.12);  border-color:rgba(45,125,120,.28);  color:#226068; }
+[data-theme="light"] .sp-stage  { background:rgba(100,120,200,.10); border-color:rgba(100,120,200,.25); color:#4a5ea0; }
+[data-theme="light"] .sp-atelier{ background:rgba(155,100,185,.10); border-color:rgba(155,100,185,.25); color:#8a52a8; }
+[data-theme="light"] .sp-perso  { background:rgba(80,165,135,.10);  border-color:rgba(80,165,135,.25);  color:#3a8a72; }
 
 /* Dot legend light */
-[data-theme="light"] .dot-stages  { background:#4a6e52; }
-[data-theme="light"] .dot-ateliers{ background:#8a6aaa; }
-[data-theme="light"] .dot-transv  { background:#2d7d78; }
+[data-theme="light"] .dot-stages  { background:#4a5ea0; }
+[data-theme="light"] .dot-ateliers{ background:#8a52a8; }
+[data-theme="light"] .dot-transv  { background:#3a8a72; }
 
 /* Contact light */
 [data-theme="light"] .contact-item:hover{
-  border-color:rgba(74,110,82,.34); color:var(--accent);
-  background:rgba(74,110,82,.07); transform:translateX(4px);
-  box-shadow:0 4px 18px rgba(74,110,82,.12);
+  border-color:rgba(200,114,122,.34); color:var(--accent);
+  background:rgba(200,114,122,.07); transform:translateX(4px);
+  box-shadow:0 4px 18px rgba(200,114,122,.12);
 }
 
 /* Pros block light */
 [data-theme="light"] .pros-block{
-  background:rgba(74,110,82,.06); border-color:rgba(74,110,82,.20);
-}
-
-/* Lueur ambiante animée light — coin supérieur droit */
-[data-theme="light"] body::after{
-  content:''; position:fixed; top:-15%; right:-8%; z-index:0; pointer-events:none;
-  width:720px; height:720px; border-radius:50%;
-  background:radial-gradient(circle,rgba(74,110,82,.10) 0%,rgba(138,106,170,.06) 45%,transparent 70%);
-  animation:ambient-drift 14s ease-in-out infinite;
+  background:rgba(80,165,135,.06); border-color:rgba(80,165,135,.18);
 }
 
 /* ════════════════════════════════════════════════════
