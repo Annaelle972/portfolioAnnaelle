@@ -167,7 +167,7 @@
 <section class="section">
   <div class="container">
     <div class="section-label reveal">Avantages / Limites</div>
-    <h2 class="section-heading reveal">Bonne pratique vs <em>réalité</em></h2>
+    <h2 class="section-heading reveal">Bonne pratique &amp; <em>réalité</em></h2>
     <div class="pros-cons reveal d1" style="margin-top:1.5rem">
       <div class="pros-block">
         <div class="pros-title">Bonnes pratiques</div>
@@ -197,35 +197,143 @@
 <section class="section section--alt">
   <div class="container">
     <div class="section-label reveal">Méthodologie</div>
-    <h2 class="section-heading reveal">Outils &amp; sources de <em>veille</em></h2>
-    <div class="source-grid reveal d1" style="margin-top:1.5rem">
+    <h2 class="section-heading reveal">Outils de <em>veille</em></h2>
+    <p class="section-sub reveal d1">Organisation de la veille avec des outils complémentaires : agrégation de flux, alertes officielles et lecture approfondie.</p>
+    <div class="source-grid reveal d2" style="margin-top:1.5rem">
       <div class="card source-card">
-        <div class="source-name"><svg width="15" height="15" color="var(--accent)"><use href="#ic-shield"/></svg>ANSSI</div>
-        <p class="source-desc">Agence nationale de la sécurité des systèmes d'information — rapports, bulletins et recommandations officiels.</p>
+        <div class="source-name">
+          <svg width="15" height="15" color="var(--accent)"><use href="#ic-rss"/></svg>
+          Feedly
+        </div>
+        <p class="source-desc">Agrégateur de flux RSS — abonnement aux flux CERT-FR, ANSSI, OWASP, Krebs on Security. Lecture quotidienne classée par importance.</p>
         <ul class="source-feeds">
-          <li>Bulletins d'alertes</li>
+          <li>Flux RSS CERT-FR</li>
+          <li>Flux ANSSI actualités</li>
+          <li>Feed Krebs on Security</li>
+          <li>Feed OWASP Blog</li>
+        </ul>
+      </div>
+      <div class="card source-card">
+        <div class="source-name">
+          <svg width="15" height="15" color="var(--accent)"><use href="#ic-shield"/></svg>
+          ANSSI &amp; CERT-FR
+        </div>
+        <p class="source-desc">Sources officielles françaises — alertes de sécurité, bulletins CVE critiques et rapports annuels sur l'état de la cybermenace.</p>
+        <ul class="source-feeds">
+          <li>Bulletins d'alertes CERT-FR</li>
+          <li>Panorama de la cybermenace</li>
           <li>Guides de bonnes pratiques</li>
-          <li>Rapports annuels sur la cybermenace</li>
+          <li>Alertes vulnérabilités critiques</li>
         </ul>
       </div>
       <div class="card source-card">
-        <div class="source-name"><svg width="15" height="15" color="var(--accent)"><use href="#ic-eye"/></svg>OWASP Foundation</div>
-        <p class="source-desc">Organisation mondiale à but non lucratif — référentiels, outils de test et documentation sur la sécurité applicative.</p>
+        <div class="source-name">
+          <svg width="15" height="15" color="var(--accent)"><use href="#ic-eye"/></svg>
+          OWASP Foundation
+        </div>
+        <p class="source-desc">Référentiel mondial de sécurité applicative — lecture du Top 10, Cheat Sheets et guides de tests pour intégrer la sécurité au développement.</p>
         <ul class="source-feeds">
-          <li>OWASP Top 10</li>
-          <li>OWASP Testing Guide</li>
-          <li>OWASP Cheat Sheets</li>
+          <li>OWASP Top 10 (2021)</li>
+          <li>OWASP Cheat Sheet Series</li>
+          <li>OWASP Testing Guide v4</li>
+          <li>OWASP Application Security</li>
         </ul>
       </div>
-      <div class="card source-card">
-        <div class="source-name"><svg width="15" height="15" color="var(--accent)"><use href="#ic-rss"/></svg>CERT-FR / Feedly</div>
-        <p class="source-desc">Agrégation des alertes du CERT-FR et des actualités cybersécurité via Feedly pour un suivi quotidien.</p>
-        <ul class="source-feeds">
-          <li>Alertes CVE</li>
-          <li>Incidents notables</li>
-          <li>Blog Krebs on Security</li>
-        </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">Sources</div>
+    <h2 class="section-heading reveal">Articles <em>consultés</em></h2>
+    <p class="section-sub reveal d1">Sélection d'articles et de rapports ayant alimenté cette veille sur la cybersécurité.</p>
+    <div style="display:flex;flex-direction:column;gap:.75rem;margin-top:1.5rem" class="reveal d2">
+
+      <div class="card" style="display:flex;gap:1.1rem;align-items:flex-start;padding:1rem 1.2rem">
+        <div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:rgba(239,68,68,.1);display:flex;align-items:center;justify-content:center">
+          <svg width="16" height="16" fill="none" stroke="#ef4444" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.25rem">
+            <span style="font-size:.88rem;font-weight:600;color:var(--text)">Panorama de la cybermenace 2023</span>
+            <span class="tag tag-red" style="font-size:.6rem">ANSSI</span>
+            <span style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted)">Jan. 2024</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--text-soft);line-height:1.6;margin:0">Bilan annuel de l'ANSSI sur les cybermenaces pesant sur la France : hausse des ransomwares, ciblage des collectivités et des hôpitaux, évolution des techniques d'attaque.</p>
+        </div>
       </div>
+
+      <div class="card" style="display:flex;gap:1.1rem;align-items:flex-start;padding:1rem 1.2rem">
+        <div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:rgba(239,68,68,.1);display:flex;align-items:center;justify-content:center">
+          <svg width="16" height="16" fill="none" stroke="#ef4444" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.25rem">
+            <span style="font-size:.88rem;font-weight:600;color:var(--text)">OWASP Top 10 — 2021 Edition</span>
+            <span class="tag tag-gold" style="font-size:.6rem">OWASP</span>
+            <span style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted)">2021</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--text-soft);line-height:1.6;margin:0">Publication officielle du classement révisé des 10 risques les plus critiques pour la sécurité des applications web — intégration de l'Insecure Design (A04) et des Software Integrity Failures (A08).</p>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;gap:1.1rem;align-items:flex-start;padding:1rem 1.2rem">
+        <div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:rgba(239,68,68,.1);display:flex;align-items:center;justify-content:center">
+          <svg width="16" height="16" fill="none" stroke="#ef4444" stroke-width="1.8" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.25rem">
+            <span style="font-size:.88rem;font-weight:600;color:var(--text)">Vulnérabilité critique Log4Shell (CVE-2021-44228)</span>
+            <span class="tag tag-red" style="font-size:.6rem">CERT-FR</span>
+            <span style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted)">Déc. 2021</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--text-soft);line-height:1.6;margin:0">Bulletin d'alerte du CERT-FR sur la vulnérabilité Log4Shell permettant l'exécution de code arbitraire à distance — l'une des failles les plus critiques de la décennie, affectant des millions de systèmes.</p>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;gap:1.1rem;align-items:flex-start;padding:1rem 1.2rem">
+        <div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:rgba(239,68,68,.1);display:flex;align-items:center;justify-content:center">
+          <svg width="16" height="16" fill="none" stroke="#ef4444" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.25rem">
+            <span style="font-size:.88rem;font-weight:600;color:var(--text)">Ransomware-as-a-Service : la professionnalisation du cybercrime</span>
+            <span class="tag tag-gray" style="font-size:.6rem">Krebs on Security</span>
+            <span style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted)">2023</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--text-soft);line-height:1.6;margin:0">Analyse des modèles économiques des groupes de ransomware (LockBit, ALPHV) : affiliation, partage des revenus, support client aux victimes — la cybercriminalité comme véritable industrie structurée.</p>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;gap:1.1rem;align-items:flex-start;padding:1rem 1.2rem">
+        <div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:rgba(239,68,68,.1);display:flex;align-items:center;justify-content:center">
+          <svg width="16" height="16" fill="none" stroke="#ef4444" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.25rem">
+            <span style="font-size:.88rem;font-weight:600;color:var(--text)">RGPD et développement web : obligations pratiques</span>
+            <span class="tag tag-violet" style="font-size:.6rem">CNIL</span>
+            <span style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted)">2022</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--text-soft);line-height:1.6;margin:0">Guide pratique de la CNIL à destination des développeurs : collecte minimale, durées de conservation, droits des utilisateurs, sécurisation des données personnelles et gestion des cookies.</p>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex;gap:1.1rem;align-items:flex-start;padding:1rem 1.2rem">
+        <div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:rgba(239,68,68,.1);display:flex;align-items:center;justify-content:center">
+          <svg width="16" height="16" fill="none" stroke="#ef4444" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.25rem">
+            <span style="font-size:.88rem;font-weight:600;color:var(--text)">Injection SQL : comprendre et prévenir avec PHP et PDO</span>
+            <span class="tag tag-blue" style="font-size:.6rem">OWASP Cheat Sheet</span>
+            <span style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted)">2023</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--text-soft);line-height:1.6;margin:0">Fiche technique OWASP détaillant les mécanismes d'injection SQL, les variantes (blind, time-based, UNION), et les contre-mesures à appliquer — requêtes préparées, validation des entrées, principe du moindre privilège.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
