@@ -1,0 +1,4 @@
+Contact: mailto:contact@annaellechampiau.fr
+Preferred-Languages: fr, en
+Canonical: https://annaellechampiau.fr/.well-known/security.txt
+Expires: 2027-03-23T00:00:00.000Z
