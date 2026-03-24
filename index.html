@@ -47,13 +47,19 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Baloo+2:wght@400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="portfolio/assets/css/shared.css">
 <style>
 /* ── HERO ── */
 .hero{
   min-height:100svh; display:flex; align-items:center;
   padding-top:85px; position:relative; overflow:hidden; background:var(--bg);
+}
+@media(max-width:640px){
+  .hero{ min-height:auto; padding-top:80px; padding-bottom:3rem; }
+}
+@media(max-width:480px){
+  .hero{ padding-bottom:2.5rem; }
 }
 .hero::before{
   content:''; position:absolute; top:-15%; right:55%;
@@ -80,6 +86,8 @@
   position:relative; z-index:2; width:100%;
 }
 @media(max-width:900px){ .hero-inner{ grid-template-columns:1fr; gap:3rem; } }
+@media(max-width:640px){ .hero-inner{ gap:2rem; padding:0 1.25rem; } }
+@media(max-width:480px){ .hero-inner{ gap:1.5rem; padding:0 1rem; } }
 
 /* Eyebrow : badge pill style LearnHub en mode light */
 .hero-eyebrow{
@@ -158,7 +166,7 @@
 /* Grille projets */
 .cards-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; margin-top:2.5rem; }
 @media(max-width:900px){ .cards-grid{ grid-template-columns:1fr 1fr; } }
-@media(max-width:560px){ .cards-grid{ grid-template-columns:1fr; } }
+@media(max-width:560px){ .cards-grid{ grid-template-columns:1fr!important; } }
 
 .pcard{
   border-radius:var(--radius); padding:1.6rem;
@@ -188,6 +196,7 @@
 /* Stack */
 .stack-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:2rem; }
 @media(max-width:700px){ .stack-grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:400px){ .stack-grid{ grid-template-columns:1fr; } }
 .stack-item{ text-align:center; padding:1.4rem 1rem; }
 .stack-logo{ margin:0 auto .75rem; display:flex; align-items:center; justify-content:center; }
 .stack-name{ font-family:var(--font-display); font-weight:700; font-size:1rem; color:var(--text); margin-bottom:.2rem; }
