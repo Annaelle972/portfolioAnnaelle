@@ -1,0 +1,1 @@
+Build an immersive gaming platform landing page with 3D elements, retro-futuristic style, game showcase carousel, community features, and download CTA. Use vibrant neon colors on dark background.

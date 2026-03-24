@@ -47,7 +47,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="portfolio/assets/css/shared.css">
 <style>
 /* ── HERO ── */
@@ -81,12 +81,25 @@
 }
 @media(max-width:900px){ .hero-inner{ grid-template-columns:1fr; gap:3rem; } }
 
+/* Eyebrow : badge pill style LearnHub en mode light */
 .hero-eyebrow{
   font-family:var(--font-mono); font-size:.6rem;
   color:var(--accent); letter-spacing:.28em; text-transform:uppercase;
   display:flex; align-items:center; gap:.7rem; margin-bottom:1.5rem;
 }
 .hero-eyebrow::before{ content:''; width:28px; height:1px; background:var(--accent); }
+[data-theme="light"] .hero-eyebrow{
+  display:inline-flex; align-items:center; gap:.5rem;
+  background:#FFE8DF; border:2px solid #1A1A2E;
+  border-radius:99px; padding:.35rem 1rem;
+  font-family:var(--font-display); font-size:.78rem; font-weight:700;
+  color:#7A2E0E; letter-spacing:0; text-transform:none;
+  box-shadow:2px 2px 0 #1A1A2E;
+}
+[data-theme="light"] .hero-eyebrow::before{
+  content:''; width:8px; height:8px; border-radius:50%;
+  background:#F4845F; flex-shrink:0;
+}
 
 .hero-title{
   font-family:var(--font-display); font-weight:700;
@@ -96,6 +109,7 @@
 }
 .hero-title .l1{ display:block; }
 .hero-title .l2{ display:block; font-style:italic; font-weight:400; color:var(--accent); }
+[data-theme="light"] .hero-title .l2{ font-style:normal; font-weight:900; }
 .hero-title .l3{ display:block; font-size:clamp(1.4rem,3.2vw,2.6rem); font-weight:400; color:var(--text-soft); margin-top:.3rem; }
 
 .hero-desc{ font-size:.98rem; color:var(--text-soft); line-height:1.9; max-width:480px; margin-bottom:2.2rem; }
@@ -118,12 +132,18 @@
   font-family:var(--font-mono); font-size:.56rem; color:var(--text-muted);
   letter-spacing:.22em; text-transform:uppercase; margin-bottom:1.4rem;
 }
+[data-theme="light"] .hero-card-label{
+  font-family:var(--font-display); font-size:.72rem; font-weight:700;
+  letter-spacing:0; text-transform:none; color:var(--text-muted);
+}
 .hero-stat{
   display:flex; align-items:baseline; gap:.7rem;
   padding:.85rem 0; border-bottom:1px solid var(--border);
 }
+[data-theme="light"] .hero-stat{ border-bottom:2px solid var(--border); }
 .hero-stat:last-of-type{ border-bottom:none; }
 .hs-num{ font-family:var(--font-display); font-size:2.2rem; font-weight:700; color:var(--accent); line-height:1; }
+[data-theme="light"] .hs-num{ font-weight:900; }
 .hs-label{ font-size:.82rem; color:var(--text-soft); line-height:1.4; }
 .hero-avail{
   margin-top:1.4rem;
@@ -145,7 +165,7 @@
   text-decoration:none; display:block;
   background:var(--surface); border:1px solid var(--border);
   transition:border-color var(--dur),transform var(--dur),box-shadow var(--dur);
-  position:relative; overflow:hidden;
+  position:relative; overflow:hidden; cursor:pointer;
 }
 .pcard::after{
   content:''; position:absolute; inset:0;
@@ -157,10 +177,13 @@
 
 .pcard-logo{ width:44px; height:44px; margin-bottom:1.1rem; }
 .pcard-num{ font-family:var(--font-mono); font-size:.56rem; color:var(--text-muted); letter-spacing:.14em; margin-bottom:.5rem; }
+[data-theme="light"] .pcard-num{ font-family:var(--font-display); font-size:.7rem; font-weight:700; letter-spacing:0; color:var(--text-muted); }
 .pcard-title{ font-family:var(--font-display); font-weight:700; font-size:1.05rem; color:var(--text); margin-bottom:.4rem; line-height:1.2; }
+[data-theme="light"] .pcard-title{ font-weight:800; }
 .pcard-desc{ font-size:.8rem; color:var(--text-soft); line-height:1.75; margin-bottom:.9rem; }
 .pcard-tags{ display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.9rem; }
 .pcard-arrow{ font-family:var(--font-mono); font-size:.58rem; color:var(--accent); letter-spacing:.12em; text-transform:uppercase; display:flex; align-items:center; gap:.4rem; }
+[data-theme="light"] .pcard-arrow{ font-family:var(--font-display); font-size:.78rem; font-weight:700; letter-spacing:0; text-transform:none; }
 
 /* Stack */
 .stack-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:2rem; }
@@ -168,7 +191,9 @@
 .stack-item{ text-align:center; padding:1.4rem 1rem; }
 .stack-logo{ margin:0 auto .75rem; display:flex; align-items:center; justify-content:center; }
 .stack-name{ font-family:var(--font-display); font-weight:700; font-size:1rem; color:var(--text); margin-bottom:.2rem; }
+[data-theme="light"] .stack-name{ font-weight:800; }
 .stack-sub{ font-size:.73rem; color:var(--text-muted); font-family:var(--font-mono); }
+[data-theme="light"] .stack-sub{ font-family:var(--font-body); font-size:.75rem; }
 
 /* Bar highlights */
 .highlights{
@@ -205,7 +230,7 @@
   <div class="hero-dotgrid" aria-hidden="true"></div>
   <div class="hero-inner">
     <div>
-      <p class="hero-eyebrow">Portfolio BTS SIO SLAM</p>
+      <p class="hero-eyebrow">Portfolio BTS SIO SLAM · Pau</p>
       <h1 class="hero-title">
         <span class="l1">Annaëlle</span>
         <span class="l2">Champiau</span>

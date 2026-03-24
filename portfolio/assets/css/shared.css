@@ -1,17 +1,17 @@
 /* ════════════════════════════════════════════════════
-   Portfolio Annaëlle Dupont — shared.css v5
-   Direction artistique : Cyberpunk Élégant (dark) / Cozy Warm Pastel (light)
-   Dark : indigo profond · Cyber Blue · Violet · Cyan
-   Light : crème clair · rose poudré · menthe · lavande · miel — cosy & doux
+   Portfolio Annaëlle Champiau — shared.css v6
+   Direction artistique : Claymorphism Neo-Brut (light) / Cyberpunk Élégant (dark)
+   Light : crème chaude · vert vif · bleu nuit · bordures épaisses · ombres décalées
+   Dark  : indigo profond · Cyber Blue · Violet · Cyan
 ════════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-/* ── Curseurs personnalisés ── */
+/* ── Curseurs personnalisés (dark uniquement) ── */
 :root {
   --cursor: url('../images/joystick_cursor_32.png'), auto;
 }
 [data-theme="light"] {
-  --cursor: url('../images/joystick_cursor2_32.png'), auto;
+  --cursor: default;
 }
 
 /* ── Tokens DARK — Cyberpunk élégant ── */
@@ -46,33 +46,33 @@
   --font-mono:   'JetBrains Mono', monospace;
 }
 
-/* ── Tokens LIGHT — Cozy Warm Pastel · peach rose · mint · lavender ── */
+/* ── Tokens LIGHT — Claymorphism Neo-Brut (inspiré LearnHub) ── */
 [data-theme="light"] {
-  --font-display:'Nunito', sans-serif;   /* arrondi, friendly, cosy */
+  --font-display:'Nunito', sans-serif;   /* arrondi, bold, playful */
   --font-body:   'Sora', sans-serif;
   --font-mono:   'JetBrains Mono', monospace;
-  --radius:      18px;
-  --radius-sm:   10px;
-  --bg:          #fdf9f5;   /* blanc cassé très clair */
-  --bg-2:        #f8f0e9;   /* crème douce */
-  --bg-3:        #ede4d9;   /* beige lin doux */
-  --surface:     #ffffff;   /* papier blanc pur */
-  --border:      rgba(210,165,145,.18);
-  --border-h:    rgba(210,165,145,.42);
-  --text:        #2a1a12;   /* brun encre profond */
-  --text-soft:   #5c3e30;   /* brun chocolat moyen */
-  --text-muted:  #a88878;   /* sépia muted */
-  --accent:      #c8727a;   /* rose terracotta poudré */
-  --accent-dim:  rgba(200,114,122,.10);
-  --accent-h:    #b55a62;   /* rose profond */
-  --violet:      #b898c8;   /* lavande pastel */
-  --teal:        #6db8a8;   /* menthe sauge */
-  --gold:        #d4a040;   /* miel doux */
-  --red:         #c86868;   /* rose terracotta */
-  --nav-bg:      rgba(253,249,245,.97);
-  --shadow-sm:   0 1px 4px rgba(42,26,18,.07), 0 0 0 1px rgba(200,114,122,.05);
-  --shadow-md:   0 4px 18px rgba(42,26,18,.10);
-  --shadow-lg:   0 12px 44px rgba(42,26,18,.14), 0 2px 8px rgba(42,26,18,.07);
+  --radius:      20px;
+  --radius-sm:   12px;
+  --bg:          #FBF7F2;   /* crème chaude */
+  --bg-2:        #F3EDE5;   /* crème légèrement plus foncée */
+  --bg-3:        #E8E0D5;   /* beige doux */
+  --surface:     #FFFFFF;   /* blanc pur */
+  --border:      #1A1A2E;   /* bleu-nuit foncé — néo-brut */
+  --border-h:    #F4845F;   /* pêche au hover */
+  --text:        #1A1A2E;   /* bleu-nuit profond */
+  --text-soft:   #3D3854;   /* gris-bleu doux */
+  --text-muted:  #7A7A9A;   /* gris clair */
+  --accent:      #F4845F;   /* pêche chaud */
+  --accent-dim:  rgba(244,132,95,.12);
+  --accent-h:    #E06840;   /* pêche foncé hover */
+  --violet:      #818CF8;   /* indigo doux */
+  --teal:        #38BDF8;   /* bleu ciel */
+  --gold:        #F59E0B;   /* ambre */
+  --red:         #EF4444;   /* rouge vif */
+  --nav-bg:      #FFFFFF;
+  --shadow-sm:   3px 3px 0 #1A1A2E;
+  --shadow-md:   4px 4px 0 #1A1A2E;
+  --shadow-lg:   5px 5px 0 #1A1A2E;
 }
 
 @media(prefers-reduced-motion:reduce){ *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.01ms!important; } }
@@ -569,143 +569,246 @@ body::before{
 
 
 /* ════════════════════════════════════════════════════
-   THÈME LIGHT — Cozy Warm Pastel — Overrides composants
+   THÈME LIGHT — Claymorphism Neo-Brut (LearnHub style) — Overrides composants
 ════════════════════════════════════════════════════ */
 
-/* Typographie light : Nunito arrondi, letter-spacing doux */
-[data-theme="light"] body{ line-height:1.8; }
-[data-theme="light"] .hero-title{ letter-spacing:-.01em; line-height:1.0; }
-[data-theme="light"] .section-heading{ letter-spacing:-.01em; }
-[data-theme="light"] .page-title{ letter-spacing:-.01em; }
-[data-theme="light"] .contact-info-title{ letter-spacing:-.01em; }
-[data-theme="light"] .cv-name{ letter-spacing:-.01em; }
+/* Typographie light : Nunito extra-bold, sans letter-spacing serré */
+[data-theme="light"] body{ line-height:1.8; background:var(--bg); }
+[data-theme="light"] body::before{ display:none; }
+[data-theme="light"] body::after{ display:none; }
+[data-theme="light"] .hero-title{ letter-spacing:-.02em; line-height:.95; font-weight:800; }
+[data-theme="light"] .section-heading{ letter-spacing:-.02em; font-weight:800; }
+[data-theme="light"] .page-title{ letter-spacing:-.02em; font-weight:800; }
+[data-theme="light"] .contact-info-title{ letter-spacing:-.02em; font-weight:800; }
+[data-theme="light"] .cv-name{ letter-spacing:-.02em; font-weight:800; }
 [data-theme="light"] .cat-num{ letter-spacing:-.03em; }
 
-/* Tags light — palette warm pastel */
-[data-theme="light"] .tag-blue   { background:rgba(100,120,200,.10); border-color:rgba(100,120,200,.25); color:#4a5ea0; }
-[data-theme="light"] .tag-violet { background:rgba(155,100,185,.10); border-color:rgba(155,100,185,.25); color:#8a52a8; }
-[data-theme="light"] .tag-green  { background:rgba(80,165,135,.10);  border-color:rgba(80,165,135,.25);  color:#3a8a72; }
-[data-theme="light"] .tag-teal   { background:rgba(80,175,160,.10);  border-color:rgba(80,175,160,.25);  color:#3a9080; }
-[data-theme="light"] .tag-gold   { background:rgba(185,140,40,.10);  border-color:rgba(185,140,40,.25);  color:#8a6010; }
-[data-theme="light"] .tag-red    { background:rgba(195,100,110,.10); border-color:rgba(195,100,110,.25); color:#a84448; }
-[data-theme="light"] .tag-gray   { background:rgba(90,62,48,.06);    border-color:rgba(90,62,48,.15);    color:var(--text-muted); }
+/* ── Navbar flottante centrée (style LearnHub) ── */
+[data-theme="light"] .site-nav{
+  top:12px;
+  left:0;
+  right:0;
+  inset-inline:0;
+  transform:none;
+  width:calc(100% - 64px);
+  max-width:1220px;
+  margin:0 auto;
+  border-radius:var(--radius);
+  border:2.5px solid var(--border);
+  border-bottom:2.5px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  backdrop-filter:none;
+}
+[data-theme="light"] .site-nav::after{ display:none; }
+[data-theme="light"] .hero{ padding-top:100px; }
+[data-theme="light"] .page-hero{ padding-top:100px; }
 
-/* Bouton primaire light */
+/* ── Cards neo-brut (épaisse bordure + ombre décalée) ── */
+[data-theme="light"] .card{
+  border:2.5px solid var(--border);
+  box-shadow:var(--shadow-sm);
+}
+[data-theme="light"] .card:hover{
+  border-color:var(--border);
+  box-shadow:var(--shadow-md);
+}
+[data-theme="light"] .card--lift:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:var(--shadow-lg);
+}
+[data-theme="light"] .card::after{ display:none; }
+
+/* ── Project cards ── */
+[data-theme="light"] .pcard{
+  border:2.5px solid var(--border);
+  box-shadow:var(--shadow-sm);
+}
+[data-theme="light"] .pcard:hover{
+  border-color:var(--border);
+  transform:translate(-2px,-2px);
+  box-shadow:var(--shadow-lg);
+}
+[data-theme="light"] .pcard::after{ display:none; }
+
+/* ── Boutons neo-brut (pill + thick border + offset shadow) ── */
+[data-theme="light"] .btn{
+  font-family:var(--font-display); font-size:.88rem;
+  letter-spacing:0; text-transform:none; font-weight:700;
+  border-radius:99px; padding:.7rem 1.7rem;
+}
 [data-theme="light"] .btn-primary{
-  background:var(--accent); color:#fff; font-weight:700;
-  box-shadow:0 2px 16px rgba(200,114,122,.25);
+  background:var(--accent); color:#fff;
+  border:2.5px solid var(--border);
+  box-shadow:var(--shadow-sm);
 }
 [data-theme="light"] .btn-primary:hover{
   background:var(--accent-h);
-  box-shadow:0 4px 28px rgba(200,114,122,.40);
+  transform:translate(-2px,-2px);
+  box-shadow:var(--shadow-md);
 }
-[data-theme="light"] .btn-submit{ background:var(--accent); color:#fff; font-weight:700; box-shadow:0 2px 16px rgba(200,114,122,.22); }
-[data-theme="light"] .btn-submit:hover{ background:var(--accent-h); box-shadow:0 4px 28px rgba(200,114,122,.38); }
-
-/* Brand title light */
-[data-theme="light"] .nav-brand{ color:#b05a62; }
-[data-theme="light"] .nav-brand em{ color:#6db8a8; font-style:italic; }
-[data-theme="light"] .nav-brand:hover{ color:#8a4448; }
-
-/* Body light : fond crème clair avec touches pastels */
-[data-theme="light"] body{
-  background:linear-gradient(155deg,#fdf9f5 0%,#f5ece3 55%,#faf5ee 100%);
+[data-theme="light"] .btn-outline{
+  background:#BFDBFE; color:var(--text);
+  border:2.5px solid var(--border);
+  box-shadow:var(--shadow-sm);
 }
-
-/* Orbes décoratifs légers */
-[data-theme="light"] body::before{
-  content:'';
-  position:fixed; inset:0; z-index:1; pointer-events:none;
-  background-image:
-    url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(200%2C114%2C122%2C0.10)'/%3E%3C/svg%3E"),
-    radial-gradient(ellipse at 10% 90%, rgba(184,152,200,.08) 0%,transparent 55%),
-    radial-gradient(ellipse at 90% 10%, rgba(109,184,168,.07) 0%,transparent 55%);
-  background-size:28px 28px, 100% 100%, 100% 100%;
-  background-repeat:repeat, no-repeat, no-repeat;
-  opacity:1;
+[data-theme="light"] .btn-outline:hover{
+  background:#93C5FD;
+  transform:translate(-2px,-2px);
+  box-shadow:var(--shadow-md);
+  color:var(--text); border-color:var(--border);
 }
-
-/* Lueur ambiante animée light */
-[data-theme="light"] body::after{
-  content:''; position:fixed; top:-15%; right:-8%; z-index:0; pointer-events:none;
-  width:720px; height:720px; border-radius:50%;
-  background:radial-gradient(circle,rgba(200,114,122,.09) 0%,rgba(184,152,200,.06) 45%,transparent 70%);
-  animation:ambient-drift 14s ease-in-out infinite;
+[data-theme="light"] .btn-submit{
+  background:var(--accent); color:#fff; font-weight:700;
+  border:2.5px solid var(--border);
+  box-shadow:var(--shadow-sm); border-radius:var(--radius-sm);
+  font-family:var(--font-display); font-size:.9rem;
+  letter-spacing:0; text-transform:none;
+}
+[data-theme="light"] .btn-submit:hover{
+  background:var(--accent-h);
+  transform:translate(-2px,-2px);
+  box-shadow:var(--shadow-md);
 }
 
-/* Nav light */
-[data-theme="light"] .site-nav::after{
-  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(200,114,122,.30),rgba(184,152,200,.20),transparent);
-  pointer-events:none;
+/* ── Tags neo-brut (pill coloré + dark border) ── */
+[data-theme="light"] .tag{
+  font-family:var(--font-display); font-size:.7rem;
+  font-weight:700; letter-spacing:0; text-transform:none;
+  border-width:2px; border-color:var(--border);
+  border-radius:99px;
 }
+[data-theme="light"] .tag-blue   { background:#DBEAFE; color:#1E40AF; border-color:var(--border); }
+[data-theme="light"] .tag-violet { background:#EDE9FE; color:#5B21B6; border-color:var(--border); }
+[data-theme="light"] .tag-green  { background:#D1FAE5; color:#065F46; border-color:var(--border); }
+[data-theme="light"] .tag-teal   { background:#CFFAFE; color:#0E7490; border-color:var(--border); }
+[data-theme="light"] .tag-gold   { background:#FEF3C7; color:#92400E; border-color:var(--border); }
+[data-theme="light"] .tag-red    { background:#FEE2E2; color:#991B1B; border-color:var(--border); }
+[data-theme="light"] .tag-gray   { background:#F1F5F9; color:#334155; border-color:var(--border); }
 
-/* Hero décorations light — remplacent les couleurs neon dark */
+/* ── Brand nav light ── */
+[data-theme="light"] .nav-brand{ color:var(--text); font-weight:800; }
+[data-theme="light"] .nav-brand em{ color:var(--accent); }
+[data-theme="light"] .nav-brand:hover{ color:var(--accent); }
+[data-theme="light"] .nav-link--accent{
+  background:var(--accent); color:#fff; border:2px solid var(--border);
+  box-shadow:2px 2px 0 var(--border);
+}
+[data-theme="light"] .nav-link--accent:hover{ background:var(--accent-h); color:#fff; }
+
+/* ── Hero décorations light — subtil polka dot crème ── */
+[data-theme="light"] .hero{
+  background:var(--bg);
+}
 [data-theme="light"] .hero::before{
-  background:radial-gradient(circle,rgba(200,114,122,.07) 0%,transparent 60%);
+  background:radial-gradient(circle,rgba(244,132,95,.06) 0%,transparent 60%);
 }
 [data-theme="light"] .hero::after{
-  background:radial-gradient(circle,rgba(184,152,200,.06) 0%,transparent 65%);
+  background:radial-gradient(circle,rgba(56,189,248,.05) 0%,transparent 65%);
 }
 [data-theme="light"] .hero-dotgrid{
-  background-image:radial-gradient(rgba(200,114,122,.09) 1px,transparent 1px);
+  background-image:radial-gradient(rgba(26,26,46,.07) 1px,transparent 1px);
+  mask-image:radial-gradient(ellipse 70% 70% at 80% 50%,black 0%,transparent 100%);
 }
-[data-theme="light"] .pcard::after{
-  background:linear-gradient(135deg,rgba(200,114,122,.05) 0%,transparent 60%);
+
+/* ── Hero card neo-brut ── */
+[data-theme="light"] .hero-card{
+  border:2.5px solid var(--border);
+  box-shadow:var(--shadow-md);
 }
+[data-theme="light"] .hero-card::before{ background:var(--accent); height:3px; }
 [data-theme="light"] .hero-avail{
-  background:rgba(200,114,122,.07); border-color:rgba(200,114,122,.20);
+  background:rgba(244,132,95,.10); border:2px solid var(--border);
+  border-radius:var(--radius-sm);
+}
+[data-theme="light"] .avail-dot{ background:var(--accent); box-shadow:0 0 8px rgba(244,132,95,.5); }
+
+/* ── Section labels light ── */
+[data-theme="light"] .section-label{ color:var(--accent); }
+[data-theme="light"] .section-label::before{ background:var(--accent); }
+
+/* ── Highlights bar light ── */
+[data-theme="light"] .highlights{
+  border-top:2px solid var(--border); border-bottom:2px solid var(--border);
 }
 
-/* Code blocks light */
+/* ── Code blocks light ── */
 [data-theme="light"] .code-block{
-  background:#f5ede6; border-color:rgba(200,114,122,.20); color:#2a1a12;
+  background:#F8F5F0; border:2px solid var(--border);
+  color:var(--text); box-shadow:var(--shadow-sm);
 }
-[data-theme="light"] .code-block::before{ background:linear-gradient(#b898c8,#c8727a); }
-[data-theme="light"] .code-block .kw { color:#8a52a8; }
-[data-theme="light"] .code-block .fn { color:#3a8a72; }
-[data-theme="light"] .code-block .str{ color:#8a6010; }
-[data-theme="light"] .code-block .cm { color:#a88878; }
+[data-theme="light"] .code-block::before{ background:linear-gradient(var(--accent),var(--teal)); }
+[data-theme="light"] .code-block .kw { color:#5B21B6; }
+[data-theme="light"] .code-block .fn { color:#C2410C; }
+[data-theme="light"] .code-block .str{ color:#92400E; }
+[data-theme="light"] .code-block .cm { color:var(--text-muted); }
 
-/* Formulaire light */
+/* ── Tool chips light ── */
+[data-theme="light"] .tool-chip{
+  border:2px solid var(--border); background:var(--surface);
+  box-shadow:2px 2px 0 var(--border);
+}
+[data-theme="light"] .tool-chip:hover{
+  border-color:var(--accent-h); color:var(--accent);
+  transform:translate(-1px,-1px); box-shadow:3px 3px 0 var(--border);
+}
+
+/* ── Formulaire light ── */
+[data-theme="light"] .form-input,
+[data-theme="light"] .form-textarea{
+  border:2px solid var(--border); background:var(--surface);
+}
 [data-theme="light"] .form-input:focus,
 [data-theme="light"] .form-textarea:focus{
-  border-color:var(--accent); box-shadow:0 0 0 3px rgba(200,114,122,.12); background:var(--surface);
+  border-color:var(--accent); box-shadow:3px 3px 0 var(--accent); background:var(--surface);
 }
 
-/* Timeline light */
+/* ── Timeline light ── */
 [data-theme="light"] .timeline-item::before{
-  background:var(--accent); box-shadow:0 0 10px rgba(200,114,122,.35);
+  background:var(--accent); box-shadow:0 0 8px rgba(244,132,95,.4); border:2px solid var(--border);
 }
 
-/* CV avatar light */
+/* ── CV avatar light ── */
 [data-theme="light"] .cv-avatar{
-  background:linear-gradient(135deg,#6db8a8,#c8727a);
-  box-shadow:0 0 36px rgba(200,114,122,.20);
+  background:linear-gradient(135deg,var(--teal),var(--accent));
+  box-shadow:var(--shadow-md);
+  border:2.5px solid var(--border);
 }
-[data-theme="light"] .cv-avatar::after{ border-top-color:#c8727a; }
+[data-theme="light"] .cv-avatar::after{ border-top-color:var(--accent); }
 
-/* Source pills light */
-[data-theme="light"] .sp-stage  { background:rgba(100,120,200,.10); border-color:rgba(100,120,200,.25); color:#4a5ea0; }
-[data-theme="light"] .sp-atelier{ background:rgba(155,100,185,.10); border-color:rgba(155,100,185,.25); color:#8a52a8; }
-[data-theme="light"] .sp-perso  { background:rgba(80,165,135,.10);  border-color:rgba(80,165,135,.25);  color:#3a8a72; }
-
-/* Dot legend light */
-[data-theme="light"] .dot-stages  { background:#4a5ea0; }
-[data-theme="light"] .dot-ateliers{ background:#8a52a8; }
-[data-theme="light"] .dot-transv  { background:#3a8a72; }
-
-/* Contact light */
+/* ── Contact light ── */
+[data-theme="light"] .contact-item{
+  border:2px solid var(--border); box-shadow:2px 2px 0 var(--border);
+}
 [data-theme="light"] .contact-item:hover{
-  border-color:rgba(200,114,122,.34); color:var(--accent);
-  background:rgba(200,114,122,.07); transform:translateX(4px);
-  box-shadow:0 4px 18px rgba(200,114,122,.12);
+  border-color:var(--accent-h); color:var(--accent);
+  background:rgba(244,132,95,.08); transform:translate(-2px,-2px);
+  box-shadow:4px 4px 0 var(--border);
 }
 
-/* Pros block light */
+/* ── Source pills light ── */
+[data-theme="light"] .sp-stage  { background:#DBEAFE; border-color:var(--border); color:#1E40AF; }
+[data-theme="light"] .sp-atelier{ background:#EDE9FE; border-color:var(--border); color:#5B21B6; }
+[data-theme="light"] .sp-perso  { background:#FFE8DF; border-color:var(--border); color:#7A2E0E; }
+
+/* ── Dot legend light ── */
+[data-theme="light"] .dot-stages  { background:#3B82F6; }
+[data-theme="light"] .dot-ateliers{ background:#8B5CF6; }
+[data-theme="light"] .dot-transv  { background:#F4845F; }
+
+/* ── Pros/Cons block light ── */
 [data-theme="light"] .pros-block{
-  background:rgba(80,165,135,.06); border-color:rgba(80,165,135,.18);
+  background:rgba(244,132,95,.06); border:2px solid var(--border);
 }
+[data-theme="light"] .cons-block{
+  background:rgba(239,68,68,.06); border:2px solid var(--border);
+}
+
+/* ── Result boxes light ── */
+[data-theme="light"] .result-box{ border-left:3px solid var(--accent); }
+
+/* ── Skill bars light ── */
+[data-theme="light"] .skill-track{ background:var(--bg-3); border:1px solid var(--border); border-radius:99px; }
+[data-theme="light"] .skill-fill{ background:linear-gradient(90deg,var(--teal),var(--accent)); }
 
 /* ════════════════════════════════════════════════════
    THÈME DARK — Cyberpunk Élégant — Overrides composants
