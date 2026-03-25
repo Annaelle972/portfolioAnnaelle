@@ -29,12 +29,7 @@
   .sibling-label { font-size:.72rem; color:var(--text-muted); font-family:var(--font-body); }
   .sibling-title { font-weight:500; color:var(--text); }
 
-  /* Result metric boxes */
-  .result-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1.5rem; }
-  @media(max-width:560px){ .result-grid { grid-template-columns:1fr; } }
-  .result-box { padding:1.2rem; text-align:center; border-left:2px solid var(--accent); }
-  .result-num { font-family:var(--font-display); font-size:1.6rem; font-weight:600; color:var(--accent); }
-  .result-label { font-size:.75rem; color:var(--text-soft); margin-top:.2rem; }
+  /* result-grid — voir shared.css */
 </style>
 </head>
 <body>
@@ -261,10 +256,22 @@
   <!-- Compétences validées -->
   <div class="project-section reveal d1">
     <h2 class="project-section-title">Compétences BTS SIO validées</h2>
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem">
-      <span class="tag tag-blue">B1.3 — Développer la présence en ligne de l'organisation</span>
-      <span class="tag tag-violet">B1.1 — Gérer le patrimoine informatique (sauvegardes)</span>
-      <span class="tag tag-gold">B1.4 — Travailler en mode projet</span>
+    <div class="comp-pills-grid">
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#818cf8"></div>
+        <span class="comp-pill-code">B1.3</span>
+        <span class="comp-pill-label">Développer la présence en ligne de l'organisation</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#c084fc"></div>
+        <span class="comp-pill-code">B1.1</span>
+        <span class="comp-pill-label">Gérer le patrimoine informatique (sauvegardes)</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#fbbf24"></div>
+        <span class="comp-pill-code">B1.4</span>
+        <span class="comp-pill-label">Travailler en mode projet</span>
+      </div>
     </div>
   </div>
 

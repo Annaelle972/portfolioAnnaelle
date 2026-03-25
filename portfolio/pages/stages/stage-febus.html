@@ -67,7 +67,7 @@
 .tech-card-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
 }
-@media (max-width: 700px) { .tech-card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) { .tech-card-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 430px) { .tech-card-grid { grid-template-columns: 1fr; } }
 
 .tech-card {
@@ -136,21 +136,7 @@
 .rapport-meta  { font-size: .78rem; color: var(--text-muted); }
 .rapport-actions { display: flex; gap: .65rem; flex-wrap: wrap; }
 
-/* ── Compétences grid ── */
-.comp-pills-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem;
-}
-@media (max-width: 560px) { .comp-pills-grid { grid-template-columns: 1fr; } }
-.comp-pill {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: .75rem 1rem;
-  display: flex; align-items: center; gap: .75rem;
-  transition: border-color var(--dur);
-}
-.comp-pill:hover { border-color: var(--border-h); }
-.comp-pill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.comp-pill-code { font-family: var(--font-mono); font-size: .6rem; color: var(--accent); flex-shrink: 0; }
-.comp-pill-label { font-size: .78rem; color: var(--text-soft); }
+/* ── Compétences grid — voir shared.css ── */
 
 /* ── Result grid override ── */
 .result-grid{ grid-template-columns: repeat(3, 1fr); }

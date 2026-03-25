@@ -59,7 +59,7 @@
 .tech-card-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
 }
-@media (max-width: 700px) { .tech-card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) { .tech-card-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 430px) { .tech-card-grid { grid-template-columns: 1fr; } }
 
 .tech-card {
@@ -117,21 +117,7 @@
 }
 .arch-svg { display: block; margin: 0 auto; max-width: 100%; }
 
-/* ── Compétences grid ── */
-.comp-pills-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem;
-}
-@media (max-width: 560px) { .comp-pills-grid { grid-template-columns: 1fr; } }
-.comp-pill {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: .75rem 1rem;
-  display: flex; align-items: center; gap: .75rem;
-  transition: border-color var(--dur);
-}
-.comp-pill:hover { border-color: var(--border-h); }
-.comp-pill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.comp-pill-code { font-family: var(--font-mono); font-size: .6rem; color: var(--accent); flex-shrink: 0; }
-.comp-pill-label { font-size: .78rem; color: var(--text-soft); }
+/* ── Compétences grid — voir shared.css ── */
 
 /* ── Result grid ── */
 .result-grid { grid-template-columns: repeat(3, 1fr); }
@@ -306,15 +292,16 @@
       <div>
         <div class="project-meta">
           <span class="tag tag-gold">Stage</span>
-          <span class="tag tag-green">PHP</span>
+          <span class="tag tag-green">PHP · MVC DAO</span>
           <span class="tag tag-teal">HTML / CSS</span>
-          <span class="tag tag-blue">SMTP / Outlook</span>
-          <span class="tag tag-gray">VS Code</span>
+          <span class="tag tag-blue">PHPMailer</span>
+          <span class="tag tag-gray">GitHub Codespace</span>
+          <span class="tag tag-gray">AlwaysData</span>
         </div>
         <h1 class="page-title" style="margin-bottom:.4rem">Stage <em>ARGITIK</em></h1>
         <p class="project-desc-intro">
-          Développement d'un site web vitrine avec formulaire de contact et envoi automatique
-          par e-mail via SMTP / Outlook, réalisé en autonomie totale en télétravail.
+          Conception et développement d'un site web de prise de rendez-vous avec formulaire de contact
+          en architecture MVC DAO, envoi mail via PHPMailer, déployé sur AlwaysData — réalisé en télétravail en binôme.
         </p>
       </div>
     </div>
@@ -333,7 +320,7 @@
     </div>
     <div class="info-pill">
       <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      <span><strong>Télétravail</strong> — Pau, 64000</span>
+      <span><strong>Télétravail</strong> — Bidarray, 64780</span>
     </div>
     <div class="info-pill">
       <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -341,7 +328,7 @@
     </div>
     <div class="info-pill">
       <svg width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-      <span>Stack <strong>HTML · CSS · PHP</strong></span>
+      <span>Stack <strong>PHP · MVC DAO · PHPMailer</strong></span>
     </div>
   </div>
 
@@ -350,21 +337,22 @@
     <h2 class="project-section-title">Contexte de l'entreprise</h2>
     <div class="context-grid">
       <div class="context-block">
-        <div class="remote-badge">Télétravail intégral — Pau, 64</div>
+        <div class="remote-badge">Télétravail intégral — Bidarray, 64780</div>
         <p>
-          <strong style="color:var(--text)">ARGITIK</strong> est une entreprise basée à Pau (Pyrénées-Atlantiques) proposant des
-          <strong style="color:var(--accent)">services numériques</strong> : développement web, conseil informatique et accompagnement
-          à la transition digitale pour des PME et TPE locales.
+          <strong style="color:var(--text)">ARGITIK</strong> est une entreprise basée à Bidarray (Pyrénées-Atlantiques, Pays Basque) dont l'adresse est
+          295 Mendiburuko Bidea, 64780 Bidarray. La mission portait sur des
+          <strong style="color:var(--accent)">services numériques</strong> : développement web et prise de rendez-vous en ligne.
         </p>
         <p>
-          La mission confiée lors de ce stage portait sur la <strong style="color:var(--text)">réalisation complète d'un site web vitrine</strong>
-          avec formulaire de contact fonctionnel, incluant l'envoi automatique des données saisies
-          par e-mail vers une adresse Outlook, via un script PHP et un serveur SMTP.
+          La mission confiée portait sur la <strong style="color:var(--text)">conception d'un site web de prise de rendez-vous</strong>
+          sous forme de formulaire de contact en architecture <strong style="color:var(--accent)">MVC DAO</strong>,
+          avec envoi automatique via <strong style="color:var(--accent)">PHPMailer</strong> et base de données MySQL.
+          Le site comprend les pages : Accueil, Réservation, Prestations, À Propos et Contact.
         </p>
         <p>
-          L'intégralité du stage s'est déroulée en <strong style="color:var(--text)">télétravail</strong>, ce qui a impliqué une
-          organisation rigoureuse, des points réguliers avec le maître de stage et une communication
-          écrite structurée pour valider chaque livrable.
+          Le stage s'est déroulé en <strong style="color:var(--text)">télétravail</strong> en collaboration avec un <strong style="color:var(--text)">binôme</strong>,
+          avec des visios hebdomadaires avec le tuteur, en utilisant <strong style="color:var(--accent)">GitHub Codespace</strong>
+          comme environnement de développement partagé.
         </p>
       </div>
       <div class="company-card">
@@ -376,17 +364,18 @@
           </div>
           <div>
             <div class="company-name">ARGITIK</div>
-            <div class="company-sub">Services numériques — Pau, 64</div>
+            <div class="company-sub">Services numériques — Bidarray, 64780</div>
           </div>
         </div>
         <div class="company-stat"><span>Secteur</span><span>Services numériques</span></div>
-        <div class="company-stat"><span>Modalité</span><span>Télétravail 100%</span></div>
-        <div class="company-stat"><span>Livrable</span><span>Site web + formulaire PHP</span></div>
-        <div class="company-stat"><span>Stack</span><span>HTML · CSS · PHP</span></div>
-        <div class="company-stat"><span>Durée</span><span>6 semaines · 2026</span></div>
+        <div class="company-stat"><span>Modalité</span><span>Télétravail · Binôme</span></div>
+        <div class="company-stat"><span>Livrable</span><span>Site RDV · PHP MVC DAO</span></div>
+        <div class="company-stat"><span>Stack</span><span>PHP · DAO · PHPMailer</span></div>
+        <div class="company-stat"><span>Hébergeur</span><span>AlwaysData (SSH/FTP)</span></div>
+        <div class="company-stat"><span>Durée</span><span>5 jan → 13 fév 2026</span></div>
         <div style="margin-top:.5rem">
           <span class="tag tag-green">Développement web</span>
-          <span class="tag tag-teal" style="margin-left:.35rem">Full autonomie</span>
+          <span class="tag tag-teal" style="margin-left:.35rem">MVC DAO</span>
         </div>
       </div>
     </div>
@@ -397,11 +386,12 @@
     <h2 class="project-section-title">Mission &amp; Problématique</h2>
     <div class="card" style="border-left:3px solid var(--accent);background:var(--bg-2)">
       <p style="font-size:.95rem;color:var(--text-soft);line-height:2;font-style:italic;">
-        "ARGITIK a besoin d'un site web vitrine permettant à ses prospects de prendre contact en ligne.
-        Comment concevoir et développer un site en <strong style="color:var(--accent)">HTML / CSS</strong>,
-        avec un formulaire de contact traité en <strong style="color:var(--accent)">PHP</strong>
-        qui transmet automatiquement les données saisies vers une boîte mail <strong style="color:var(--accent)">Outlook</strong>
-        via SMTP, tout en garantissant la validation des champs et la sécurité des envois ?"
+        "ARGITIK a besoin d'un site web permettant à ses clients de <strong style="color:var(--accent)">prendre rendez-vous en ligne</strong>.
+        Comment concevoir et développer un site en <strong style="color:var(--accent)">PHP MVC DAO</strong>
+        avec formulaire de contact, base de données MySQL, envoi automatique via
+        <strong style="color:var(--accent)">PHPMailer</strong>, respect du <strong style="color:var(--accent)">RGPD</strong>
+        (politique de confidentialité, mentions légales, CGU), et déployé sur
+        <strong style="color:var(--accent)">AlwaysData</strong> en SSH/FTP ?"
       </p>
     </div>
   </div>
@@ -556,32 +546,32 @@
         <div class="tech-card-icon" style="background:rgba(119,82,156,.12)">
           <svg width="36" height="36"><use href="#logo-php-local"/></svg>
         </div>
-        <div class="tech-card-name">PHP</div>
-        <div class="tech-card-desc">Traitement côté serveur : réception des données POST, validation, sécurisation et envoi e-mail via <code style="color:var(--accent);font-family:var(--font-mono);font-size:.8em">mail()</code> / SMTP.</div>
+        <div class="tech-card-name">PHP · MVC DAO</div>
+        <div class="tech-card-desc">Architecture MVC avec couche DAO pour l'accès à la base de données MySQL. Traitement des formulaires, validation et sécurisation des entrées côté serveur.</div>
       </div>
 
       <div class="tech-card">
         <div class="tech-card-icon" style="background:rgba(0,120,215,.08)">
           <svg width="36" height="36"><use href="#logo-mail"/></svg>
         </div>
-        <div class="tech-card-name">SMTP / Outlook</div>
-        <div class="tech-card-desc">Configuration de l'envoi automatique vers une boîte Microsoft Outlook via protocole SMTP avec authentification TLS.</div>
+        <div class="tech-card-name">PHPMailer · MailDev</div>
+        <div class="tech-card-desc">Bibliothèque PHPMailer pour l'envoi automatique des demandes de RDV par e-mail. Testé en local avec MailDev avant mise en production sur AlwaysData.</div>
       </div>
 
       <div class="tech-card">
         <div class="tech-card-icon" style="background:rgba(0,122,204,.08)">
           <svg width="36" height="36"><use href="#logo-vscode-local"/></svg>
         </div>
-        <div class="tech-card-name">Visual Studio Code</div>
-        <div class="tech-card-desc">Éditeur principal : extensions HTML/CSS/PHP, Live Server pour le rendu en temps réel, terminal intégré.</div>
+        <div class="tech-card-name">GitHub Codespace · Docker</div>
+        <div class="tech-card-desc">Environnement de développement partagé via GitHub Codespace avec Docker, pour la collaboration à distance avec le binôme et la configuration des ports site/BDD.</div>
       </div>
 
       <div class="tech-card">
         <div class="tech-card-icon" style="background:rgba(52,211,153,.06)">
           <svg width="36" height="36"><use href="#logo-smtp"/></svg>
         </div>
-        <div class="tech-card-name">Serveur web local</div>
-        <div class="tech-card-desc">Environnement de test PHP en local (WAMP/XAMPP) pour valider le traitement du formulaire avant déploiement.</div>
+        <div class="tech-card-name">AlwaysData</div>
+        <div class="tech-card-desc">Hébergeur retenu pour le déploiement final. Accès SSH et FTP pour transférer les fichiers et configurer l'environnement de production du site.</div>
       </div>
 
     </div>
@@ -589,8 +579,8 @@
 
   <!-- ── Extrait de code PHP ── -->
   <div class="project-section reveal d1">
-    <h2 class="project-section-title">Exemple — Script PHP d'envoi du formulaire</h2>
-    <div class="code-lang">PHP · Traitement formulaire de contact · envoi SMTP</div>
+    <h2 class="project-section-title">Exemple — Script PHP (MVC DAO · PHPMailer)</h2>
+    <div class="code-lang">PHP · Traitement formulaire de contact · envoi via PHPMailer</div>
     <div class="code-block">
 <span class="cm">&lt;?php</span>
 <span class="cm">// Traitement du formulaire de contact — envoi vers Outlook</span>
@@ -653,12 +643,14 @@
       <div class="mission-step">
         <div class="step-num-wrap"><div class="step-num">S1</div></div>
         <div class="step-body">
-          <div class="step-week">Semaine 1</div>
-          <div class="step-title">Prise de contact &amp; analyse du besoin</div>
+          <div class="step-week">Semaine 1 — 5 au 9 janvier 2026</div>
+          <div class="step-title">Analyse du besoin &amp; maquettage Canva</div>
           <div class="step-desc">
-            Réunion de lancement (visio) avec le maître de stage pour définir le périmètre du projet.
-            Analyse du besoin client : pages souhaitées, charte graphique, fonctionnalités du formulaire,
-            adresse de destination Outlook. Configuration de l'environnement de développement local (WAMP, VS Code).
+            Communication avec le tuteur pour récupérer la charte graphique. Conception des maquettes des pages
+            (Accueil, Réservation ×2, Contact) avec <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">Canva</code>,
+            en respectant la charte graphique existante et en proposant plusieurs solutions.
+            Configuration de l'environnement GitHub avec Docker (ports site et base de données).
+            Présentation des maquettes en visio vendredi (partage d'écran, Q&R avec le tuteur).
           </div>
         </div>
       </div>
@@ -666,12 +658,15 @@
       <div class="mission-step">
         <div class="step-num-wrap"><div class="step-num">S2</div></div>
         <div class="step-body">
-          <div class="step-week">Semaine 2</div>
-          <div class="step-title">Maquettage &amp; structure HTML</div>
+          <div class="step-week">Semaine 2 — 12 au 16 janvier 2026</div>
+          <div class="step-title">GitHub Codespace, BDD &amp; architecture MVC DAO</div>
           <div class="step-desc">
-            Conception des maquettes des pages (accueil, services, contact) validées avec le maître de stage.
-            Développement de la structure HTML5 sémantique : header, navigation, sections, footer.
-            Mise en place de l'architecture des fichiers du projet.
+            Finalisation de la configuration GitHub Codespace et partage avec le binôme.
+            Conception du diagramme entité-association et des premières requêtes SQL.
+            Listing des dangers de sécurité (RGPD, cybersécurité). Développement des pages
+            À Propos et Prestations (frontend et backend) avec architecture
+            <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">MVC DAO</code> et base de données fonctionnelle.
+            Début du formulaire de contact. Visio vendredi pour retours tuteur.
           </div>
         </div>
       </div>
@@ -679,12 +674,14 @@
       <div class="mission-step">
         <div class="step-num-wrap"><div class="step-num">S3</div></div>
         <div class="step-body">
-          <div class="step-week">Semaine 3</div>
-          <div class="step-title">Intégration CSS &amp; responsive design</div>
+          <div class="step-week">Semaine 3 — 19 au 23 janvier 2026</div>
+          <div class="step-title">PHPMailer, MailDev &amp; corrections MVC DAO</div>
           <div class="step-desc">
-            Développement du CSS : mise en page avec Flexbox/Grid, typographie, couleurs, variables CSS,
-            animations légères. Adaptation responsive pour mobile, tablette et desktop.
-            Validation visuelle sur différents navigateurs (Chrome, Firefox, Edge).
+            Amélioration des sections À Propos, Contact et Prestations selon les retours tuteur.
+            Intégration de <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">PHPMailer</code> pour l'envoi des données du formulaire par e-mail.
+            Test en local avec <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">MailDev</code>. Correction des erreurs MVC DAO sur la partie contact.
+            Finalisation du formulaire avec message de confirmation d'envoi. Visio vendredi 15h
+            pour présentation du site complet fonctionnel.
           </div>
         </div>
       </div>
@@ -692,13 +689,14 @@
       <div class="mission-step">
         <div class="step-num-wrap"><div class="step-num">S4</div></div>
         <div class="step-body">
-          <div class="step-week">Semaine 4</div>
-          <div class="step-title">Développement du formulaire PHP</div>
+          <div class="step-week">Semaine 4 — 26 au 30 janvier 2026</div>
+          <div class="step-title">Implémentation complète MVC DAO &amp; envoi mail</div>
           <div class="step-desc">
-            Développement du script PHP de traitement : réception des données <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">POST</code>,
-            validation avec <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">filter_var()</code>,
-            sécurisation contre les injections e-mail (<code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">htmlspecialchars()</code>),
-            et envoi via la fonction <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">mail()</code> configurée avec SMTP.
+            Mise en place complète des fichiers et dossiers en architecture MVC DAO.
+            Finalisation de la fonctionnalité d'envoi par mail dans la partie du binôme.
+            Correction des erreurs lors de l'implémentation. Correction de la demande client suite à retours visio.
+            Adaptation de certains fichiers et méthodes pour s'adapter à la méthode MVC DAO.
+            Visio 18h30 pour présenter le résultat.
           </div>
         </div>
       </div>
@@ -706,12 +704,14 @@
       <div class="mission-step">
         <div class="step-num-wrap"><div class="step-num">S5</div></div>
         <div class="step-body">
-          <div class="step-week">Semaine 5</div>
-          <div class="step-title">Configuration SMTP &amp; tests d'envoi Outlook</div>
+          <div class="step-week">Semaine 5 — 2 au 6 février 2026</div>
+          <div class="step-title">Déploiement sur AlwaysData (SSH/FTP)</div>
           <div class="step-desc">
-            Configuration du serveur SMTP dans <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">php.ini</code> pour acheminer les e-mails vers
-            la boîte Outlook d'ARGITIK. Tests d'envoi end-to-end, vérification de la réception,
-            correction des problèmes de chiffrement TLS et des en-têtes e-mail.
+            Améliorations et corrections d'erreurs sur le site web.
+            Recherche et sélection de l'hébergeur adapté à la fonctionnalité d'envoi de mail.
+            Test du site en ligne sur <code style="color:var(--accent);font-family:var(--font-mono);font-size:.85em">AlwaysData</code> via SSH et FTP.
+            Deux visios avec le tuteur (mercredi 4 fév. 18h, jeudi 5 fév. 17h30) pour valider
+            le déploiement et ajuster les objectifs.
           </div>
         </div>
       </div>
@@ -719,12 +719,13 @@
       <div class="mission-step">
         <div class="step-num-wrap"><div class="step-num">S6</div></div>
         <div class="step-body">
-          <div class="step-week">Semaine 6</div>
-          <div class="step-title">Tests finaux, livraison &amp; documentation</div>
+          <div class="step-week">Semaine 6 — 9 au 13 février 2026</div>
+          <div class="step-title">Correctifs finaux, pages légales RGPD &amp; livraison</div>
           <div class="step-desc">
-            Tests complets (formulaire, responsive, navigateurs, scénarios d'erreur), corrections finales.
-            Livraison des fichiers sources au client, rédaction de la documentation d'installation et d'utilisation.
-            Présentation du rendu final lors d'un point visio de clôture.
+            Correctifs des dernières erreurs. Vérification du bon fonctionnement du site et de l'absence de failles.
+            Ajout des pages importantes : <strong style="color:var(--text)">politique de confidentialité, mentions légales, CGU</strong>.
+            Ajout des informations utilisateurs sur le site. Visio de validation finale avec le tuteur.
+            Envoi des fichiers et versionnement sous forme de branches. Livraison finale du projet.
           </div>
         </div>
       </div>
@@ -737,30 +738,31 @@
     <h2 class="project-section-title">Résultats &amp; Apprentissages</h2>
     <div class="result-grid">
       <div class="card result-box">
-        <div class="result-num">1</div>
-        <div class="result-label">Site web vitrine livré</div>
+        <div class="result-num">MVC</div>
+        <div class="result-label">Architecture MVC DAO déployée</div>
       </div>
       <div class="card result-box">
         <div class="result-num">PHP</div>
-        <div class="result-label">Formulaire → Outlook automatisé</div>
+        <div class="result-label">PHPMailer + formulaire RDV fonctionnel</div>
       </div>
       <div class="card result-box">
-        <div class="result-num">100%</div>
-        <div class="result-label">Télétravail en autonomie</div>
+        <div class="result-num">RGPD</div>
+        <div class="result-label">Pages légales (CGU, ML, politique confidentialité)</div>
       </div>
     </div>
     <div class="context-block" style="margin-top:1.5rem">
       <p>
         Ce stage m'a permis de mener un projet web de bout en bout — du recueil du besoin à la livraison finale —
-        en complète autonomie et à distance. J'ai consolidé mes compétences en <strong style="color:var(--text)">HTML / CSS</strong>
-        et découvert le traitement de formulaires côté serveur avec <strong style="color:var(--text)">PHP</strong>,
-        ainsi que la configuration d'un envoi SMTP vers Outlook.
+        en télétravail en binôme. J'ai mis en pratique l'architecture
+        <strong style="color:var(--text)">MVC DAO</strong> avec PHP et MySQL, intégré
+        <strong style="color:var(--text)">PHPMailer</strong> pour l'envoi automatisé, et déployé le site sur
+        <strong style="color:var(--text)">AlwaysData</strong> en SSH/FTP.
       </p>
       <p>
-        Le travail en télétravail a renforcé ma capacité à <strong style="color:var(--text)">communiquer efficacement à distance</strong>,
-        à m'organiser de façon autonome et à livrer dans les délais sans supervision directe.
-        C'est aussi l'occasion d'avoir mis en pratique des notions de sécurité web essentielles
-        (validation, échappement des entrées, protection contre les injections).
+        J'ai également appris à travailler en collaboration avec un binôme via
+        <strong style="color:var(--text)">GitHub Codespace</strong>, à respecter les obligations légales
+        (<strong style="color:var(--text)">RGPD</strong>, mentions légales, CGU), et à gérer les points réguliers
+        avec le tuteur pour valider chaque livrable et ajuster le cahier des charges.
       </p>
     </div>
   </div>
@@ -772,32 +774,42 @@
       <div class="comp-pill">
         <div class="comp-pill-dot" style="background:#818cf8"></div>
         <span class="comp-pill-code">B2.1</span>
-        <span class="comp-pill-label">Développement d'une solution web complète (HTML / CSS / PHP)</span>
+        <span class="comp-pill-label">Conception et développement d'une solution applicative PHP MVC DAO</span>
       </div>
       <div class="comp-pill">
         <div class="comp-pill-dot" style="background:#34d399"></div>
-        <span class="comp-pill-code">A1.3</span>
-        <span class="comp-pill-label">Développement et mise en ligne de la présence web d'un client</span>
+        <span class="comp-pill-code">B2.2</span>
+        <span class="comp-pill-label">Maintenance corrective et évolutive : corrections, tests, améliorations</span>
       </div>
       <div class="comp-pill">
         <div class="comp-pill-dot" style="background:#fbbf24"></div>
-        <span class="comp-pill-code">A1.4</span>
-        <span class="comp-pill-label">Conduite du projet en autonomie avec livrables hebdomadaires</span>
+        <span class="comp-pill-code">B2.3</span>
+        <span class="comp-pill-label">Gestion des données : conception BDD (entité-association), requêtes SQL</span>
       </div>
       <div class="comp-pill">
         <div class="comp-pill-dot" style="background:#22d3ee"></div>
-        <span class="comp-pill-code">A1.5</span>
-        <span class="comp-pill-label">Mise à disposition du site et documentation de livraison</span>
+        <span class="comp-pill-code">B3.5</span>
+        <span class="comp-pill-label">Cybersécurisation : listing des failles, protection OWASP, RGPD</span>
       </div>
       <div class="comp-pill">
         <div class="comp-pill-dot" style="background:#c084fc"></div>
-        <span class="comp-pill-code">B2.3</span>
-        <span class="comp-pill-label">Sécurisation des données : validation, échappement, protection PHP</span>
+        <span class="comp-pill-code">A1.3</span>
+        <span class="comp-pill-label">Développement de la présence en ligne (CGU, ML, politique confidentialité)</span>
       </div>
       <div class="comp-pill">
         <div class="comp-pill-dot" style="background:#f87171"></div>
-        <span class="comp-pill-code">A1.1</span>
-        <span class="comp-pill-label">Communication à distance et gestion de projet en télétravail</span>
+        <span class="comp-pill-code">A1.5</span>
+        <span class="comp-pill-label">Déploiement sur AlwaysData (SSH/FTP), tests d'intégration et d'acceptation</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#fb923c"></div>
+        <span class="comp-pill-code">A1.4</span>
+        <span class="comp-pill-label">Travail en mode projet : visios tuteur, binôme, ajustement cahier des charges</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#a3e635"></div>
+        <span class="comp-pill-code">A1.6</span>
+        <span class="comp-pill-label">Développement professionnel : mise en place GitHub Codespace / Docker</span>
       </div>
     </div>
   </div>
