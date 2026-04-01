@@ -82,7 +82,7 @@
 }
 .hero-inner{
   max-width:1200px; margin:0 auto; padding:0 2rem;
-  display:grid; grid-template-columns:1fr 400px; gap:4rem; align-items:center;
+  display:grid; grid-template-columns:minmax(0,1fr) 400px; gap:4rem; align-items:center;
   position:relative; z-index:2; width:100%;
 }
 @media(max-width:900px){ .hero-inner{ grid-template-columns:1fr; gap:3rem; } }
@@ -349,40 +349,31 @@
 <section class="section">
   <div class="container">
     <div class="section-label reveal">Ateliers professionnels</div>
-    <h2 class="section-heading reveal">4 projets <em>réalisés</em></h2>
+    <h2 class="section-heading reveal">3 projets <em>réalisés</em></h2>
     <p class="section-sub reveal d1">Développement full-stack, bases de données, mobile Android et gestion de projet.</p>
 
     <div class="cards-grid">
-      <a href="portfolio/pages/ateliers/atelier-picdumidi.html" class="pcard reveal d1">
-        <div class="pcard-logo"><svg width="44" height="44"><use href="#logo-pic"/></svg></div>
-        <p class="pcard-num">01 — Atelier Pro</p>
-        <h3 class="pcard-title">PicDuMidi<em style="font-style:italic;color:var(--accent)">Boutique</em></h3>
-        <p class="pcard-desc">Module de reporting e-commerce — statistiques de ventes, filtres dynamiques et indicateurs par catégorie.</p>
-        <div class="pcard-tags"><span class="tag tag-green">PHP</span><span class="tag tag-teal">MySQL</span><span class="tag tag-gray">WordPress</span></div>
-        <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
-      </a>
-
-      <a href="portfolio/pages/ateliers/atelier-integration.html" class="pcard reveal d2">
+      <a href="portfolio/pages/ateliers/atelier-integration.html" class="pcard reveal d1">
         <div class="pcard-logo"><svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="rgba(52,211,153,.12)"/><use href="#ic-layers" x="12" y="12" width="20" height="20" color="#34d399"/></svg></div>
-        <p class="pcard-num">02 — Atelier Pro</p>
+        <p class="pcard-num">01 — Atelier Pro</p>
         <h3 class="pcard-title">Journée d'<em style="font-style:italic;color:var(--accent)">intégration</em></h3>
         <p class="pcard-desc">Application PHP MVC pour la gestion des ateliers PICNIC — refactoring DAO, tests PHPUnit et documentation phpDocumentor.</p>
         <div class="pcard-tags"><span class="tag tag-green">PHP</span><span class="tag tag-gold">DAO</span><span class="tag tag-gray">PHPUnit</span></div>
         <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
       </a>
 
-      <a href="portfolio/pages/ateliers/atelier-commande.html" class="pcard reveal d3">
+      <a href="portfolio/pages/ateliers/atelier-commande.html" class="pcard reveal d2">
         <div class="pcard-logo"><svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="rgba(96,165,250,.12)"/><use href="#ic-db" x="12" y="12" width="20" height="20" color="#60a5fa"/></svg></div>
-        <p class="pcard-num">03 — Atelier Pro</p>
+        <p class="pcard-num">02 — Atelier Pro</p>
         <h3 class="pcard-title">Gestion <em style="font-style:italic;color:var(--accent)">Commande V2</em></h3>
         <p class="pcard-desc">Application PHP MVC de gestion complète — clients, commandes, produits, authentification et panneau d'administration.</p>
         <div class="pcard-tags"><span class="tag tag-green">PHP</span><span class="tag tag-teal">MySQL</span><span class="tag tag-gold">MVC</span></div>
         <div class="pcard-arrow">Voir le détail <svg width="12" height="12"><use href="#ic-arrow"/></svg></div>
       </a>
 
-      <a href="portfolio/pages/ateliers/atelier-fa.html" class="pcard reveal d1">
+      <a href="portfolio/pages/ateliers/atelier-fa.html" class="pcard reveal d3">
         <div class="pcard-logo"><svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="10" fill="rgba(167,139,250,.12)"/><use href="#ic-code" x="12" y="12" width="20" height="20" color="#a78bfa"/></svg></div>
-        <p class="pcard-num">04 — Atelier Pro</p>
+        <p class="pcard-num">03 — Atelier Pro</p>
         <h3 class="pcard-title">Site Gallo-Romain <em style="font-style:italic;color:var(--accent)">de Fâ</em></h3>
         <p class="pcard-desc">Application PHP 8 MVC + DAO pour le site archéologique de Fâ — SCRUM, analyse de sécurité et tests PHPUnit.</p>
         <div class="pcard-tags"><span class="tag tag-green">PHP 8</span><span class="tag tag-violet">MVC·DAO</span><span class="tag tag-red">Sécurité</span></div>

@@ -39,10 +39,9 @@ const sprite = `<svg aria-hidden="true" style="display:none" xmlns="http://www.w
     <path fill-rule="evenodd" clip-rule="evenodd" d="M24.4365 12.5243H21.1738L19.4329 22H21.1251L21.5878 19.489H23.0487C23.5437 19.489 24.0226 19.4274 24.4852 19.304C24.9479 19.1805 25.382 18.8898 25.7879 18.4317C26.1207 18.0704 26.3803 17.6652 26.567 17.2159C26.7618 16.7665 26.8877 16.3085 26.9444 15.8414C27.0905 14.8193 26.9486 14.0132 26.5183 13.4229C26.0881 12.8327 25.3942 12.533 24.4365 12.5243ZM22.5958 14.0441L21.8678 17.9956C21.9165 18.0043 21.9652 18.0088 22.0139 18.0088H22.1843C22.9635 18.0176 23.6128 17.934 24.1322 17.7577C24.6515 17.5727 25.0007 16.9296 25.1792 15.8282C25.3253 14.9031 25.1792 14.37 24.7409 14.2291C24.3107 14.0882 23.7711 14.0221 23.1217 14.0309C23.0243 14.0396 22.9311 14.0441 22.8417 14.0441H22.5958Z" fill="white"/>
   </symbol>
 
-  <!-- MySQL — simple-icons -->
-  <symbol id="logo-mysql" viewBox="0 0 24 24">
-    <rect width="24" height="24" rx="4" fill="#00618A"/>
-    <path d="M12 3C7.41 3 5 5.93 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26C17.81 13.47 19 11.38 19 9c0-3.07-2.41-6-7-6zm-1 13v-1h2v1h-2zm1-3c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="white" opacity=".9"/>
+  <!-- MySQL -->
+  <symbol id="logo-mysql" viewBox="0 0 32 32">
+    <image href="${root}assets/images/logoSVG/logo_svg_mysql.png" width="32" height="32"/>
   </symbol>
 
   <!-- JavaScript — svgrepo.com/show/303206/javascript-logo.svg -->
@@ -180,10 +179,6 @@ const nav = `<a href="#main" class="skip">Aller au contenu</a>
       <li class="nav-dropdown nav-item">
         <a class="nav-link" href="#" tabindex="0">Ateliers Pro</a>
         <div class="dropdown-menu" role="menu">
-          <a href="${root}pages/ateliers/atelier-picdumidi.html" role="menuitem">
-            <svg width="16" height="16"><use href="#logo-pic"/></svg>
-            PicDuMidiBoutique
-          </a>
           <a href="${root}pages/ateliers/atelier-integration.html" role="menuitem">
             <svg width="16" height="16" color="var(--accent)"><use href="#ic-layers"/></svg>
             Intégration
