@@ -191,6 +191,10 @@ const nav = `<a href="#main" class="skip">Aller au contenu</a>
             <svg width="16" height="16" color="var(--accent)"><use href="#ic-code"/></svg>
             Fâ
           </a>
+          <a href="${root}pages/ateliers/atelier-canispro.html" role="menuitem">
+            <svg width="16" height="16" color="var(--accent)"><use href="#ic-layers"/></svg>
+            CanisPro
+          </a>
         </div>
       </li>
       <li class="nav-dropdown nav-item">

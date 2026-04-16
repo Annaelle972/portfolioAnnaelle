@@ -351,14 +351,14 @@
     {
       id: 'bonjour',
       match: ['bonjour', 'salut', 'hello', 'coucou', 'hey', 'bonsoir', 'hi'],
-      reply: `Bonjour ! 👋 Je suis <strong>ANNA.BOT</strong>, l'assistant virtuel d'Annaëlle Champiau.<br><br>Je peux vous renseigner sur son <strong>parcours</strong>, ses <strong>compétences</strong>, ses <strong>stages</strong> ou ses <strong>coordonnées</strong>. Que voulez-vous savoir ?`,
-      chips: ['Qui est Annaëlle ?', 'Ses compétences', 'Ses stages', 'La contacter']
+      reply: `Bonjour ! 👋 Je suis <strong>ANNA.BOT</strong>, le guide du portfolio d'<strong>Annaëlle Champiau</strong>.<br><br>Vous cherchez plutôt son <strong>parcours</strong>, ses <strong>projets</strong> ou ses <strong>compétences</strong> ?`,
+      chips: ['Son profil en 2 min', 'Ses projets', 'Ses compétences', 'La contacter']
     },
     {
       id: 'qui',
-      match: ['qui', 'annaëlle', 'annaelle', 'présente', 'présentation', 'profil', 'à propos'],
-      reply: `<strong>Annaëlle Champiau</strong> est une étudiante de <strong>19 ans</strong> passionnée par le développement web et les applications.<br><br>Elle prépare actuellement un <strong>BTS SIO SLAM</strong> au Lycée Saint John Perse à <strong>Pau (64)</strong> et recherche une <strong>alternance Bachelor Bac+3</strong> en Conception & Développement Web (CESI).`,
-      chips: ['Ses compétences', 'Ses stages', 'Sa formation', 'La contacter']
+      match: ['qui', 'annaëlle', 'annaelle', 'présente', 'présentation', 'profil', 'à propos', 'rapide', '2 min'],
+      reply: `<strong>Annaëlle Champiau</strong> est une étudiante passionnée par le développement web et les applications.<br><br>Elle prépare un <strong>BTS SIO SLAM</strong> à Pau et recherche une <strong>alternance Bachelor Bac+3</strong> au CESI dès septembre 2026.<br><br>Elle maîtrise <code>PHP</code>, <code>Symfony</code>, <code>MySQL</code>, <code>JavaScript</code>, <code>HTML/CSS</code> et <code>Python</code>. Elle a réalisé 2 stages en entreprise et 4 ateliers professionnels en équipe.`,
+      chips: ['Ses points forts', 'Ses projets', 'Ses stages', 'La contacter']
     },
     {
       id: 'competences',
@@ -483,11 +483,47 @@ Elle parle <strong>Français</strong> (natif) et <strong>Anglais</strong> (nivea
       match: ['portfolio', 'site', 'projet', 'atelier', 'veille'],
       reply: `Ce portfolio présente l'ensemble du parcours BTS SIO d'Annaëlle :<br><br>
 📂 <strong>Stages</strong> — FEBUS OPTICS & ARGITIK<br>
-🛠️ <strong>Ateliers pro</strong> — PicDuMidi, Intégration, Gestion Commande, Projet Fâ<br>
+🛠️ <strong>Ateliers pro</strong> — Intégration, Commande V2, Site de Fâ, CanisPro (Symfony)<br>
 🔍 <strong>Veilles</strong> — Cybersécurité & Snyk<br>
 📄 <strong>CV</strong> — Téléchargeable en PDF<br><br>
 Naviguez avec le menu en haut de page !`,
       chips: ['Ses stages', 'Son CV', 'La contacter']
+    },
+    {
+      id: 'sections',
+      match: ['section', 'page', 'contient', 'trouve', 'navigation', 'guide', 'partie', 'onglet'],
+      reply: `Voici ce que contient chaque section :<br><br>
+🏠 <strong>Accueil</strong> — présentation, objectif professionnel, aperçu des projets<br>
+📄 <strong>CV</strong> — formations, expériences, compétences résumées<br>
+💼 <strong>Stages</strong> — deux expériences en entreprise avec missions et compétences<br>
+🛠️ <strong>Ateliers Pro</strong> — 4 projets pédagogiques (PHP, Symfony, MVC…)<br>
+🔍 <strong>Veille</strong> — suivi techno cybersécurité & Snyk (curiosité IT)<br>
+🎯 <strong>Compétences</strong> — skills BTS SIO organisés par domaine<br>
+📩 <strong>Contact</strong> — formulaire, email, localisation<br>
+🔗 <strong>Liens</strong> — GitHub, LinkedIn en un clic`,
+      chips: ['Ses projets', 'Ses compétences', 'La contacter']
+    },
+    {
+      id: 'points_forts',
+      match: ['point fort', 'fort', 'meilleur', 'qualité', 'atout', 'spécialité', 'bon en'],
+      reply: `Les points forts d'Annaëlle :<br><br>
+⚡ <strong>PHP / Symfony</strong> — développement full-stack, architecture MVC<br>
+🗄️ <strong>Base de données</strong> — MySQL, Doctrine ORM, relations complexes<br>
+🤝 <strong>Travail en équipe</strong> — Git/GitHub, méthode agile, GANTT<br>
+🔒 <strong>Sécurité web</strong> — OWASP, RGPD, bonnes pratiques<br>
+🚀 <strong>Autonomie</strong> — appris Perl seule pendant son stage FEBUS<br>
+👁️ <strong>Veille active</strong> — suit l'actualité cybersécurité et les nouveaux outils`,
+      chips: ['Ses projets', 'Ses stages', 'La contacter']
+    },
+    {
+      id: 'canispro',
+      match: ['canispro', 'canis', 'chien', 'symfony', 'doctrine', 'twig', 'éducation canine'],
+      reply: `<strong>CanisPro Éducation</strong> est le dernier atelier pro d'Annaëlle (mars 2026).<br><br>
+Application web développée en <code>Symfony</code> avec <code>Doctrine ORM</code> et <code>Twig</code>, permettant de gérer un centre d'éducation canine : chiens, propriétaires, cours, séances et inscriptions.<br><br>
+<strong>Rôles :</strong> Visiteur · Membre · Administrateur<br>
+<strong>Sa contribution :</strong> GANTT, entités Cours & Séance, CSS espace membre<br><br>
+<a href="pages/ateliers/atelier-canispro.html">→ Voir la page CanisPro</a>`,
+      chips: ['Ses autres projets', 'Ses compétences', 'La contacter']
     },
     {
       id: 'merci',
@@ -504,20 +540,26 @@ Naviguez avec le menu en haut de page !`,
   };
 
   /* ── Chips de démarrage ── */
-  const startChips = ['Qui est Annaëlle ?', 'Ses stages', 'Ses compétences', 'La contacter'];
+  const startChips = ['Son profil en 2 min', 'Ses projets', 'Ses compétences', 'La contacter'];
 
   /* ── Chip → question mapping ── */
   const chipMap = {
-    'Qui est Annaëlle ?': 'Qui est Annaëlle ?',
-    'Ses compétences': 'Quelles sont ses compétences ?',
-    'Ses stages': 'Parle-moi de ses stages',
-    'La contacter': 'Comment la contacter ?',
-    'Stage FEBUS': 'Stage FEBUS OPTICS',
-    'Stage ARGITIK': 'Stage ARGITIK',
-    'Son CV': 'Où télécharger le CV ?',
-    'Sa formation': 'Quelle est sa formation ?',
-    'PHP': 'Compétences PHP',
-    'Cybersécurité': 'Compétences cybersécurité',
+    'Qui est Annaëlle ?':    'Qui est Annaëlle ?',
+    'Son profil en 2 min':   'Qui est Annaëlle ?',
+    'Ses compétences':       'Quelles sont ses compétences ?',
+    'Ses projets':           'Quels sont ses projets et ateliers ?',
+    'Ses autres projets':    'Quels sont ses projets et ateliers ?',
+    'Ses stages':            'Parle-moi de ses stages',
+    'La contacter':          'Comment la contacter ?',
+    'Stage FEBUS':           'Stage FEBUS OPTICS',
+    'Stage ARGITIK':         'Stage ARGITIK',
+    'Son CV':                'Où télécharger le CV ?',
+    'Sa formation':          'Quelle est sa formation ?',
+    'PHP':                   'Compétences PHP',
+    'Cybersécurité':         'Compétences cybersécurité',
+    'Ses points forts':      'Quels sont ses points forts ?',
+    'Voir les sections':     'Quelles sections y a-t-il dans le portfolio ?',
+    'CanisPro':              'Parle-moi de CanisPro',
   };
 
   /* ── Moteur de recherche ── */
@@ -699,7 +741,7 @@ Naviguez avec le menu en haut de page !`,
         showTyping();
         setTimeout(() => {
           hideTyping();
-          addMsg(`Bonjour ! 👋 Je suis <strong>ANNA.BOT</strong>, l'assistant du portfolio d'<strong>Annaëlle Champiau</strong>.<br><br>Posez-moi vos questions sur son parcours, ses compétences ou ses stages !`, 'bot');
+          addMsg(`Bonjour ! 👋 Je suis <strong>ANNA.BOT</strong>, le guide du portfolio d'<strong>Annaëlle Champiau</strong>.<br><br>Vous cherchez plutôt son <strong>parcours</strong>, ses <strong>projets</strong> ou ses <strong>compétences</strong> ?`, 'bot');
           setChips(startChips);
           setTimeout(() => inputEl.focus(), 100);
         }, 900);

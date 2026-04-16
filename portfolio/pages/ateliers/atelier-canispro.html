@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier Pro — CanisPro Éducation · Annaëlle Champiau</title>
+<meta name="description" content="Atelier professionnel CanisPro Éducation — application web Symfony MVC gérant chiens, propriétaires et inscriptions, avec Doctrine ORM et gestion des rôles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Baloo+2:wght@400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/shared.css">
+<style>
+
+/* ── Sibling nav ── */
+.sibling-nav {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1rem 1.75rem; background:var(--bg-2); border-top:1px solid var(--border);
+  font-size:.78rem;
+}
+.sibling-link {
+  display:flex; align-items:center; gap:.5rem;
+  color:var(--text-soft); text-decoration:none; font-family:var(--font-mono); font-size:.65rem;
+  letter-spacing:.1em; text-transform:uppercase; transition:color .2s;
+}
+.sibling-link:hover { color:var(--accent); }
+.sibling-label { font-size:.72rem; color:var(--text-muted); font-family:var(--font-body); }
+
+/* ── Label de sous-section ── */
+.sub-label {
+  font-size:.72rem; font-weight:600; color:var(--text-muted);
+  text-transform:uppercase; letter-spacing:.1em;
+  margin:1.5rem 0 .7rem;
+  display:flex; align-items:center; gap:.45rem;
+}
+.sub-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ── Carte image simple ── */
+.img-card {
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+}
+.img-card figcaption {
+  padding:.45rem .85rem;
+  background:var(--bg-2);
+  border-top:1px solid var(--border);
+  font-size:.73rem; color:var(--text-soft); line-height:1.5;
+}
+.img-zoomable {
+  width:100%; display:block; cursor:zoom-in;
+  transition:opacity .2s;
+}
+.img-zoomable:hover { opacity:.88; }
+
+/* ── Carousel ── */
+.carousel {
+  position:relative;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  background:var(--surface);
+  user-select:none;
+}
+.carousel-viewport { overflow:hidden; }
+.carousel-track {
+  display:flex;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.carousel-slide { flex:0 0 100%; }
+.carousel-slide img {
+  width:100%; display:block; cursor:zoom-in;
+  transition:opacity .2s;
+}
+.carousel-slide img:hover { opacity:.88; }
+.carousel-slide img.s-app  { height:320px; object-fit:cover;   object-position:top; }
+.carousel-slide img.s-code { height:280px; object-fit:contain; background:var(--bg-2); }
+.carousel-slide img.s-db   { height:300px; object-fit:contain; background:var(--bg-2); }
+.carousel-caption {
+  padding:.55rem 3.5rem .55rem .9rem;
+  background:var(--bg-2);
+  border-top:1px solid var(--border);
+  font-size:.74rem; color:var(--text-soft); line-height:1.5;
+  min-height:2.4rem;
+}
+.carousel-btn {
+  position:absolute; top:42%; transform:translateY(-50%);
+  width:32px; height:32px;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:50%; box-shadow:var(--shadow-sm);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:1rem; color:var(--text);
+  transition:background .15s, border-color .15s;
+  z-index:2; line-height:1; padding:0;
+}
+.carousel-btn:hover { background:var(--bg-2); border-color:var(--border-h); }
+.carousel-prev { left:.6rem; }
+.carousel-next { right:.6rem; }
+.carousel-dots {
+  display:flex; justify-content:center; gap:.4rem;
+  padding:.5rem 0 .4rem;
+  background:var(--bg-2);
+  border-top:1px solid var(--border);
+}
+.carousel-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--border); border:none; padding:0; cursor:pointer;
+  transition:background .2s, transform .2s;
+}
+.carousel-dot.active { background:var(--accent); transform:scale(1.25); }
+.carousel-counter {
+  position:absolute; bottom:2.5rem; right:.75rem;
+  font-size:.68rem; color:var(--text-muted);
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:999px; padding:.15rem .55rem;
+  pointer-events:none; z-index:2;
+}
+
+/* ── Lightbox ── */
+.lightbox {
+  position:fixed; inset:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center;
+  visibility:hidden; opacity:0;
+  transition:opacity .25s, visibility .25s;
+}
+.lightbox.open { visibility:visible; opacity:1; }
+.lb-backdrop {
+  position:absolute; inset:0;
+  background:rgba(15,15,20,.82);
+  backdrop-filter:blur(4px);
+  cursor:zoom-out;
+}
+.lb-content {
+  position:relative; z-index:1;
+  max-width:90vw; max-height:90vh;
+  display:flex; flex-direction:column; align-items:center;
+  gap:.6rem;
+}
+.lb-img-wrap {
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 16px 64px rgba(0,0,0,.4);
+  max-height:80vh;
+  display:flex; align-items:center;
+}
+.lb-img-wrap img {
+  max-width:88vw; max-height:78vh;
+  object-fit:contain; display:block;
+  border-radius:var(--radius);
+}
+.lb-caption-bar {
+  font-size:.8rem; color:rgba(255,255,255,.7);
+  text-align:center; max-width:600px; line-height:1.5;
+}
+.lb-close {
+  position:fixed; top:1.2rem; right:1.4rem;
+  width:36px; height:36px; border-radius:50%;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2);
+  color:#fff; font-size:1.2rem; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background .15s;
+}
+.lb-close:hover { background:rgba(255,255,255,.22); }
+.lb-nav {
+  position:fixed; top:50%; transform:translateY(-50%);
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2);
+  color:#fff; font-size:1.4rem; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background .15s;
+}
+.lb-nav:hover { background:rgba(255,255,255,.22); }
+.lb-nav.lb-prev { left:1.2rem; }
+.lb-nav.lb-next { right:1.2rem; }
+.lb-nav[hidden] { display:none; }
+.lb-counter {
+  position:fixed; bottom:1.4rem; left:50%; transform:translateX(-50%);
+  font-size:.75rem; color:rgba(255,255,255,.55);
+}
+
+/* ── Membres du groupe ── */
+.team-grid { display:flex; flex-wrap:wrap; gap:.6rem; }
+.team-chip {
+  display:flex; align-items:center; gap:.5rem;
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:999px; padding:.35rem .85rem;
+  font-size:.8rem; color:var(--text-soft);
+}
+.team-chip.me { border-color:var(--accent); color:var(--accent); font-weight:600; }
+.team-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+
+/* ── Bloc téléchargement ── */
+.doc-download {
+  display:flex; align-items:center; gap:1rem;
+  background:var(--bg-2); border:1px solid var(--border);
+  border-left:3px solid var(--accent);
+  border-radius:var(--radius); padding:.9rem 1.1rem;
+  text-decoration:none; color:var(--text);
+  transition:background .15s, border-color .15s;
+}
+.doc-download:hover { background:var(--surface); border-color:var(--border-h); }
+.doc-download-icon {
+  width:38px; height:38px; flex-shrink:0;
+  background:rgba(99,102,241,.1); border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+}
+.doc-download-text strong { font-size:.88rem; display:block; margin-bottom:.2rem; }
+.doc-download-text span { font-size:.78rem; color:var(--text-soft); }
+</style>
+</head>
+<body>
+<script src="../../assets/js/nav-fragment.js"></script>
+
+<!-- ══ Hero ══════════════════════════════════════════ -->
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-breadcrumb">
+      <a href="../../index.html">Accueil</a> ›
+      <a href="#">Ateliers Professionnels</a> ›
+      CanisPro Éducation
+    </p>
+    <div class="project-header">
+      <div class="project-logo-placeholder" aria-hidden="true"></div>
+      <div class="project-header-text">
+        <div class="project-meta">
+          <span class="tag tag-violet">Atelier Professionnel</span>
+          <span class="tag tag-blue">Symfony</span>
+          <span class="tag tag-green">PHP</span>
+          <span class="tag tag-teal">MySQL · Doctrine</span>
+          <span class="tag tag-gray">Twig</span>
+          <span class="tag tag-gold">Travail en groupe</span>
+        </div>
+        <h1 class="page-title" style="margin-bottom:.4rem">CanisPro <em>Éducation</em></h1>
+        <p class="project-desc-intro">
+          Application web Symfony centralisant la gestion d'un centre d'éducation canine — chiens, propriétaires, cours et inscriptions aux séances — avec une architecture MVC, l'ORM Doctrine et une gestion stricte des rôles (Visiteur, Membre, Administrateur).
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="section">
+<div class="container">
+
+  <!-- ══ Outils & Technologies ══════════════════════ -->
+  <div class="project-section reveal">
+    <h2 class="project-section-title">Outils &amp; Technologies</h2>
+    <div class="tools-grid">
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>PHP — langage backend</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>Symfony — framework MVC</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Doctrine ORM — mapping objet-relationnel</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>MySQL — base de données relationnelle</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>Twig — moteur de templates (vues)</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>Git / GitHub — versioning et collaboration</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>ClickUp — gestion des tâches (GANTT)</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-code"/></svg>Canva — maquettage des interfaces</div>
+    </div>
+  </div>
+
+  <!-- ══ Contexte ══════════════════════════════════ -->
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">Contexte</h2>
+    <div class="context-block">
+      <p>
+        Le centre <strong>CanisPro Éducation</strong>, spécialisé dans l'accompagnement personnalisé (cours individuels, collectifs et agility), souhaitait effectuer sa transition numérique en remplaçant ses outils de gestion rudimentaires par une application web moderne.
+      </p>
+      <p>
+        En tant qu'équipe de développeurs juniors, notre mission consistait à maintenir et faire évoluer une application web développée sous le framework <strong>Symfony</strong>. Le projet vise à centraliser la gestion des chiens, des propriétaires et des inscriptions, tout en garantissant une sécurité stricte des accès via différents rôles.
+      </p>
+      <p>
+        L'intervention, prévue sur un volume de <strong>24 heures</strong>, imposait une méthodologie rigoureuse : méthode agile, GANTT (ClickUp), branches GitHub dédiées, validation par fixtures et production de documentation.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══ Équipe ═════════════════════════════════════ -->
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">Équipe du projet</h2>
+    <div class="team-grid">
+      <div class="team-chip me">
+        <div class="team-dot"></div>
+        Annaëlle CHAMPIAU — GANTT · Entités Cours &amp; Séance · CSS membre
+      </div>
+      <div class="team-chip">
+        <div class="team-dot" style="background:var(--text-muted)"></div>
+        Yohan IRIBARREN — Installation Symfony · Entités Utilisateur/Chien · Fixtures
+      </div>
+      <div class="team-chip">
+        <div class="team-dot" style="background:var(--text-muted)"></div>
+        Calixta DELAGE — Diagrammes UML · Entités Propriétaire/Inscription · Relations
+      </div>
+      <div class="team-chip">
+        <div class="team-dot" style="background:var(--text-muted)"></div>
+        Marina RENAUD — Maquettage Canva · VisiteurController · Templates accueil
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Organisation du projet ════════════════════ -->
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:.4rem"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Organisation du projet
+    </h2>
+    <div class="context-block">
+      <p>
+        Le projet a été piloté avec une <strong>méthode agile</strong> : tableau Kanban sur ClickUp, GANTT pour la répartition des tâches par membre, et versioning GitHub avec des commits réguliers et des branches par fonctionnalité.
+      </p>
+    </div>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Tableau Kanban — ClickUp
+    </div>
+    <figure class="img-card" style="margin-bottom:1.2rem">
+      <img class="img-zoomable"
+           src="../../assets/images/CanisPro/Organisation/KANBAN.png"
+           alt="Tableau Kanban ClickUp"
+           data-lb-src="../../assets/images/CanisPro/Organisation/KANBAN.png"
+           data-lb-caption="Tableau Kanban sur ClickUp — répartition des tâches par membre et par statut">
+      <figcaption>Tableau Kanban ClickUp — tâches réparties entre les 4 membres</figcaption>
+    </figure>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      Suivi de versions — GitHub
+    </div>
+    <figure class="img-card">
+      <img class="img-zoomable"
+           src="../../assets/images/CanisPro/Organisation/Github versions.png"
+           alt="Historique des versions GitHub"
+           data-lb-src="../../assets/images/CanisPro/Organisation/Github versions.png"
+           data-lb-caption="Historique des commits GitHub — versioning de l'application par l'équipe">
+      <figcaption>Historique des commits GitHub — versioning collaboratif</figcaption>
+    </figure>
+  </div>
+
+  <!-- ══ Architecture technique ════════════════════ -->
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:.4rem"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Architecture technique — MVC Symfony
+    </h2>
+    <div class="context-block">
+      <p>
+        L'application repose sur l'architecture <strong>MVC Symfony</strong> :
+        les <em>Modèles</em> correspondent aux entités Doctrine (Utilisateur, Propriétaire, Chien, Race, NiveauxApprentissage, Cours, Séance, Inscription),
+        les <em>Vues</em> aux fichiers Twig (<code>templates/</code>),
+        et les <em>Contrôleurs</em> aux classes PHP dans <code>src/Controller/</code>.
+      </p>
+    </div>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      Structure du projet — Entity / Form / Repository / Controller
+    </div>
+    <figure class="img-card" style="margin-bottom:1.2rem">
+      <img class="img-zoomable s-code"
+           src="../../assets/images/CanisPro/Architecture/Entity-Form-Repository.png"
+           alt="Structure Entity Form Repository"
+           data-lb-src="../../assets/images/CanisPro/Architecture/Entity-Form-Repository.png"
+           data-lb-caption="Structure du projet Symfony — Entity, Form, Repository côte à côte">
+      <figcaption>Arborescence <code>src/</code> — Entity · Form · Repository</figcaption>
+    </figure>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Controllers · DataFixtures · Documentation phpDoc
+    </div>
+    <figure class="img-card" style="margin-bottom:1.2rem">
+      <img class="img-zoomable s-code"
+           src="../../assets/images/CanisPro/Architecture/phpdoc, (src)Controller+DataFixtures.png"
+           alt="Controllers DataFixtures phpDoc"
+           data-lb-src="../../assets/images/CanisPro/Architecture/phpdoc, (src)Controller+DataFixtures.png"
+           data-lb-caption="src/Controller + DataFixtures — documentation phpDoc générée">
+      <figcaption>Contrôleurs, Fixtures et documentation phpDoc</figcaption>
+    </figure>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Templates Twig — vues par rôle
+    </div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img class="s-code"
+                 src="../../assets/images/CanisPro/Architecture/Templates(1).png"
+                 alt="Templates Twig partie 1"
+                 data-lb-src="../../assets/images/CanisPro/Architecture/Templates(1).png"
+                 data-lb-caption="Arborescence templates/ — vues Twig par rôle (1/3)">
+            <div class="carousel-caption">Templates Twig — arborescence par rôle (1/3)</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-code"
+                 src="../../assets/images/CanisPro/Architecture/Templates(2).png"
+                 alt="Templates Twig partie 2"
+                 data-lb-src="../../assets/images/CanisPro/Architecture/Templates(2).png"
+                 data-lb-caption="Arborescence templates/ — vues membre et admin (2/3)">
+            <div class="carousel-caption">Templates Twig — espace membre &amp; admin (2/3)</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-code"
+                 src="../../assets/images/CanisPro/Architecture/Templates(3).png"
+                 alt="Templates Twig partie 3"
+                 data-lb-src="../../assets/images/CanisPro/Architecture/Templates(3).png"
+                 data-lb-caption="Arborescence templates/ — suite des vues (3/3)">
+            <div class="carousel-caption">Templates Twig — suite (3/3)</div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn carousel-prev" aria-label="Précédent">&#8249;</button>
+      <button class="carousel-btn carousel-next" aria-label="Suivant">&#8250;</button>
+      <div class="carousel-counter"></div>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ Modèles de données ═════════════════════════ -->
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:.4rem"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Modèles de données
+    </h2>
+    <div class="context-block">
+      <p>
+        La base de données MySQL est gérée par <strong>Doctrine ORM</strong>. Les entités principales sont :
+        <strong>Utilisateur</strong>, <strong>Propriétaire</strong>, <strong>Chien</strong>, <strong>Race</strong>, <strong>NiveauxApprentissage</strong>, <strong>Cours</strong>, <strong>Séance</strong> et <strong>Inscription</strong>.
+      </p>
+    </div>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      Modèle Conceptuel de Données (MCD)
+    </div>
+    <figure class="img-card" style="margin-bottom:1.2rem">
+      <img class="img-zoomable s-db"
+           src="../../assets/images/CanisPro/Modeles/MCD(2).png"
+           alt="Modèle Conceptuel de Données"
+           data-lb-src="../../assets/images/CanisPro/Modeles/MCD(2).png"
+           data-lb-caption="MCD — relations entre toutes les entités du système CanisPro">
+      <figcaption>MCD — relations entre entités (Chien, Propriétaire, Cours, Séance, Inscription…)</figcaption>
+    </figure>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      Diagramme de classe
+    </div>
+    <figure class="img-card" style="margin-bottom:1.2rem">
+      <img class="img-zoomable s-db"
+           src="../../assets/images/CanisPro/Modeles/Diagramme de classe.png"
+           alt="Diagramme de classe"
+           data-lb-src="../../assets/images/CanisPro/Modeles/Diagramme de classe.png"
+           data-lb-caption="Diagramme de classe UML — attributs et relations entre les entités Doctrine">
+      <figcaption>Diagramme de classe UML — par Calixta DELAGE</figcaption>
+    </figure>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+      Relations entre les entités
+    </div>
+    <div class="tools-grid">
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Chien → Race : ManyToOne</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Chien → Propriétaire : ManyToOne</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Chien → NiveauxApprentissage : ManyToOne</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Cours → NiveauxApprentissage : ManyToOne</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Cours → Séance : OneToMany</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Séance ↔ Inscription : ManyToMany</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Chien ↔ Inscription : ManyToMany</div>
+      <div class="tool-chip"><svg width="15" height="15" color="var(--accent)"><use href="#ic-db"/></svg>Propriétaire → Utilisateur : OneToOne</div>
+    </div>
+
+  </div>
+
+  <!-- ══ Vues Visiteur ══════════════════════════════ -->
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:.4rem"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Vues Visiteur
+    </h2>
+    <div class="context-block">
+      <p>
+        Un visiteur non connecté peut consulter l'accueil, le catalogue des cours (Socialisation, Obéissance, Agilité), les séances disponibles, les informations du centre et la page de contact. Il peut aussi s'inscrire ou se connecter.
+      </p>
+    </div>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+      Contrôleur associé — <code>VisiteurController.php</code>
+    </div>
+    <div class="code-block" aria-label="VisiteurController routes">
+<span class="cm">// Routes publiques — accessibles sans authentification</span>
+<span class="kw">#[Route(</span><span class="str">'/'</span><span class="kw">,</span> name: <span class="str">'accueil'</span><span class="kw">)]</span>         <span class="fn">accueil</span>()
+<span class="kw">#[Route(</span><span class="str">'/cours'</span><span class="kw">,</span> name: <span class="str">'cours'</span><span class="kw">)]</span>           <span class="fn">listeCours</span>()
+<span class="kw">#[Route(</span><span class="str">'/seances'</span><span class="kw">,</span> name: <span class="str">'seances'</span><span class="kw">)]</span>       <span class="fn">listeSeances</span>()
+<span class="kw">#[Route(</span><span class="str">'/informations'</span><span class="kw">,</span> name: <span class="str">'infos'</span><span class="kw">)]</span>   <span class="fn">informations</span>()
+<span class="kw">#[Route(</span><span class="str">'/contact'</span><span class="kw">,</span> name: <span class="str">'contact'</span><span class="kw">)]</span>       <span class="fn">contact</span>()
+    </div>
+
+    <div class="sub-label" style="margin-top:1rem">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Captures d'écran — vue visiteur
+    </div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Accueil.png"
+                 alt="Page d'accueil"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Accueil.png"
+                 data-lb-caption="Accueil — page d'accueil du site CanisPro Éducation">
+            <div class="carousel-caption">Page d'accueil — CanisPro Éducation</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Menu%20visiteur.png"
+                 alt="Menu visiteur"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Menu%20visiteur.png"
+                 data-lb-caption="Menu de navigation — vue visiteur non connecté">
+            <div class="carousel-caption">Menu de navigation — visiteur non connecté</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Cours.png"
+                 alt="Page cours"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Cours.png"
+                 data-lb-caption="Catalogue des cours — Socialisation, Obéissance, Agilité">
+            <div class="carousel-caption">Catalogue des cours — Socialisation · Obéissance · Agilité</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/S%C3%A9ances.png"
+                 alt="Page séances"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/S%C3%A9ances.png"
+                 data-lb-caption="Séances disponibles — créneaux individuels et collectifs">
+            <div class="carousel-caption">Séances disponibles — créneaux individuels et collectifs</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Informations.png"
+                 alt="Page informations"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Informations.png"
+                 data-lb-caption="Page informations — présentation du centre CanisPro">
+            <div class="carousel-caption">Page informations — présentation du centre</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Contact.png"
+                 alt="Page contact"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Contact.png"
+                 data-lb-caption="Page contact — formulaire et localisation">
+            <div class="carousel-caption">Page contact — formulaire de contact</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Connexion.png"
+                 alt="Page connexion"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Connexion.png"
+                 data-lb-caption="Connexion — formulaire d'authentification membre">
+            <div class="carousel-caption">Connexion — authentification membre</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Inscription.png"
+                 alt="Page inscription"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Inscription.png"
+                 data-lb-caption="Inscription — création d'un compte propriétaire">
+            <div class="carousel-caption">Inscription — création d'un compte propriétaire</div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn carousel-prev" aria-label="Précédent">&#8249;</button>
+      <button class="carousel-btn carousel-next" aria-label="Suivant">&#8250;</button>
+      <div class="carousel-counter"></div>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ Espace Membre ══════════════════════════════ -->
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:.4rem"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Espace Membre
+    </h2>
+    <div class="context-block">
+      <p>
+        Un membre connecté accède à son espace personnel : consulter et modifier son profil propriétaire, gérer ses chiens (ajout, modification, voir les séances inscrites) et inscrire un chien à une séance.
+      </p>
+    </div>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Contrôleur associé — <code>MembreController.php</code>
+    </div>
+    <div class="code-block" aria-label="MembreController routes">
+<span class="kw">#[Route(</span><span class="str">'/espace-personnel'</span><span class="kw">,</span> name: <span class="str">'espace_personnel'</span><span class="kw">)]</span>
+<span class="kw">public function</span> <span class="fn">espaceProprietaire</span>(): Response {
+    <span class="kw">$proprietaire</span> = <span class="kw">$this</span>-><span class="fn">getUser</span>()-><span class="fn">getProprietaire</span>();
+    <span class="kw">return</span> <span class="kw">$this</span>-><span class="fn">render</span>(<span class="str">'membre/espace_personnel.html.twig'</span>, [<span class="str">'proprietaire'</span> => <span class="kw">$proprietaire</span>]);
+}
+
+<span class="kw">#[Route(</span><span class="str">'/espace-chien'</span><span class="kw">,</span> name: <span class="str">'espace_chien'</span><span class="kw">)]</span>
+<span class="kw">public function</span> <span class="fn">espaceChien</span>(): Response {
+    <span class="kw">$chiens</span> = <span class="kw">$this</span>-><span class="fn">getUser</span>()-><span class="fn">getProprietaire</span>()-><span class="fn">getChiens</span>();
+    <span class="kw">return</span> <span class="kw">$this</span>-><span class="fn">render</span>(<span class="str">'membre/espace_chien.html.twig'</span>, [<span class="str">'chiens'</span> => <span class="kw">$chiens</span>]);
+}
+
+<span class="kw">#[Route(</span><span class="str">'/espace-chien/seances/{id}'</span><span class="kw">,</span> name: <span class="str">'chien_inscrit_seance'</span><span class="kw">)]</span>
+<span class="kw">public function</span> <span class="fn">voirSeancesChien</span>(ChienRepository <span class="kw">$repo</span>, <span class="kw">int</span> <span class="kw">$id</span>): Response {
+    <span class="kw">$chien</span> = <span class="kw">$repo</span>-><span class="fn">find</span>(<span class="kw">$id</span>);
+    <span class="kw">return</span> <span class="kw">$this</span>-><span class="fn">render</span>(<span class="str">'membre/chien_seances.html.twig'</span>, [
+        <span class="str">'chien'</span>        => <span class="kw">$chien</span>,
+        <span class="str">'inscriptions'</span> => <span class="kw">$chien</span>-><span class="fn">getInscriptions</span>(),
+    ]);
+}
+    </div>
+
+    <div class="sub-label" style="margin-top:1rem">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Captures d'écran — espace membre
+    </div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Arriver%20%C3%A0%20l%27espace%20membre.png"
+                 alt="Arriver à l'espace membre"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Arriver%20%C3%A0%20l%27espace%20membre.png"
+                 data-lb-caption="Accès à l'espace membre après connexion">
+            <div class="carousel-caption">Accès à l'espace membre après connexion</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Menu%20espace%20membre.png"
+                 alt="Menu espace membre"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Menu%20espace%20membre.png"
+                 data-lb-caption="Menu de navigation — vue membre connecté">
+            <div class="carousel-caption">Menu de navigation — membre connecté</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Mon%20espace.png"
+                 alt="Mon espace personnel"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Mon%20espace.png"
+                 data-lb-caption="Mon espace — informations personnelles du propriétaire">
+            <div class="carousel-caption">Mon espace — profil du propriétaire</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Modifier%20le%20propri%C3%A9taire_info%20du%20compte.png"
+                 alt="Modifier le propriétaire"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Modifier%20le%20propri%C3%A9taire_info%20du%20compte.png"
+                 data-lb-caption="Modification du profil propriétaire — formulaire">
+            <div class="carousel-caption">Modifier le profil propriétaire</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/G%C3%A9rer%20les%20chiens_Voir%20mes%20chiens.png"
+                 alt="Voir mes chiens"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/G%C3%A9rer%20les%20chiens_Voir%20mes%20chiens.png"
+                 data-lb-caption="Espace chien — liste des chiens du propriétaire">
+            <div class="carousel-caption">Espace chien — liste des compagnons</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Ajouter%20un%20compagnon.png"
+                 alt="Ajouter un compagnon"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Ajouter%20un%20compagnon.png"
+                 data-lb-caption="Formulaire — ajout d'un nouveau chien">
+            <div class="carousel-caption">Formulaire — ajouter un compagnon</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Modifier%20le%20profil%20d%27un%20chien.png"
+                 alt="Modifier le profil d'un chien"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Modifier%20le%20profil%20d%27un%20chien.png"
+                 data-lb-caption="Formulaire — modification du profil d'un chien">
+            <div class="carousel-caption">Modifier le profil d'un chien</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Inscription%20seance.png"
+                 alt="Inscription à une séance"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Inscription%20seance.png"
+                 data-lb-caption="Inscription d'un chien à une séance de cours">
+            <div class="carousel-caption">Inscrire un chien à une séance</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/Navigation%20s%C3%A9ance.png"
+                 alt="Navigation séances"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/Navigation%20s%C3%A9ance.png"
+                 data-lb-caption="Navigation entre les séances — vue membre">
+            <div class="carousel-caption">Navigation entre les séances</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/S%C3%A9ance%20de%20Pica.png"
+                 alt="Séances de Pica"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/S%C3%A9ance%20de%20Pica.png"
+                 data-lb-caption="Séances inscrites — chien Pica">
+            <div class="carousel-caption">Séances inscrites — chien Pica</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/S%C3%A9ance%20de%20Suki.png"
+                 alt="Séances de Suki"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/S%C3%A9ance%20de%20Suki.png"
+                 data-lb-caption="Séances inscrites — chien Suki">
+            <div class="carousel-caption">Séances inscrites — chien Suki</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Visiteur-Membre/S%C3%A9ances%20de%20PInto.png"
+                 alt="Séances de Pinto"
+                 data-lb-src="../../assets/images/CanisPro/Visiteur-Membre/S%C3%A9ances%20de%20PInto.png"
+                 data-lb-caption="Séances inscrites — chien Pinto">
+            <div class="carousel-caption">Séances inscrites — chien Pinto</div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn carousel-prev" aria-label="Précédent">&#8249;</button>
+      <button class="carousel-btn carousel-next" aria-label="Suivant">&#8250;</button>
+      <div class="carousel-counter"></div>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ Espace Administration ══════════════════════ -->
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:.4rem"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Espace Administration
+    </h2>
+    <div class="context-block">
+      <p>
+        L'administrateur dispose d'un accès complet en CRUD sur toutes les entités : chiens, propriétaires, cours, séances et inscriptions.
+      </p>
+    </div>
+
+    <div class="sub-label">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Contrôleur associé — <code>AdminController.php</code>
+    </div>
+    <div class="code-block" aria-label="AdminController routes">
+<span class="cm">// Accès restreint au rôle ADMIN — gestion CRUD complète</span>
+<span class="kw">#[IsGranted(</span><span class="str">'ROLE_ADMIN'</span><span class="kw">)]</span>
+<span class="kw">class</span> <span class="fn">AdminController</span> <span class="kw">extends</span> <span class="fn">AbstractController</span>
+{
+    <span class="kw">#[Route(</span><span class="str">'/admin/chiens'</span><span class="kw">)]</span>     <span class="fn">gererChiens</span>()       <span class="cm">// liste + CRUD</span>
+    <span class="kw">#[Route(</span><span class="str">'/admin/cours'</span><span class="kw">)]</span>      <span class="fn">gererCours</span>()        <span class="cm">// liste + CRUD</span>
+    <span class="kw">#[Route(</span><span class="str">'/admin/proprietaires'</span><span class="kw">)]</span> <span class="fn">gererProprietaires</span>() <span class="cm">// liste + CRUD</span>
+    <span class="kw">#[Route(</span><span class="str">'/admin/inscriptions'</span><span class="kw">)]</span> <span class="fn">gererInscriptions</span>() <span class="cm">// liste + CRUD</span>
+    <span class="kw">#[Route(</span><span class="str">'/admin/seances'</span><span class="kw">)]</span>    <span class="fn">gererSeances</span>()      <span class="cm">// liste + CRUD</span>
+}
+    </div>
+
+    <div class="sub-label" style="margin-top:1rem">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Captures d'écran — back-office admin
+    </div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Admin/G%C3%A9rer%20les%20chiens.png"
+                 alt="Admin — gérer les chiens"
+                 data-lb-src="../../assets/images/CanisPro/Admin/G%C3%A9rer%20les%20chiens.png"
+                 data-lb-caption="Administration — tableau de gestion des chiens (liste, CRUD)">
+            <div class="carousel-caption">Admin — gestion des chiens (liste + CRUD)</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Admin/G%C3%A9rer%20les%20cours.png"
+                 alt="Admin — gérer les cours"
+                 data-lb-src="../../assets/images/CanisPro/Admin/G%C3%A9rer%20les%20cours.png"
+                 data-lb-caption="Administration — tableau de gestion des cours">
+            <div class="carousel-caption">Admin — gestion des cours</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Admin/Gestion%20propri%C3%A9taire.png"
+                 alt="Admin — gestion propriétaires"
+                 data-lb-src="../../assets/images/CanisPro/Admin/Gestion%20propri%C3%A9taire.png"
+                 data-lb-caption="Administration — gestion des propriétaires">
+            <div class="carousel-caption">Admin — gestion des propriétaires</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Admin/Gestion%20inscription.png"
+                 alt="Admin — gestion inscriptions"
+                 data-lb-src="../../assets/images/CanisPro/Admin/Gestion%20inscription.png"
+                 data-lb-caption="Administration — gestion des inscriptions aux séances">
+            <div class="carousel-caption">Admin — gestion des inscriptions</div>
+          </div>
+          <div class="carousel-slide">
+            <img class="s-app"
+                 src="../../assets/images/CanisPro/Admin/Seance.png"
+                 alt="Admin — gestion séances"
+                 data-lb-src="../../assets/images/CanisPro/Admin/Seance.png"
+                 data-lb-caption="Administration — gestion des séances">
+            <div class="carousel-caption">Admin — gestion des séances</div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn carousel-prev" aria-label="Précédent">&#8249;</button>
+      <button class="carousel-btn carousel-next" aria-label="Suivant">&#8250;</button>
+      <div class="carousel-counter"></div>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ Ma contribution ═══════════════════════════ -->
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">Ma contribution</h2>
+    <ul class="feat-list">
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div><strong>Planification GANTT</strong> — création et gestion du tableau de tâches ClickUp, répartition des responsabilités et suivi de l'avancement</div>
+      </li>
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div>
+          <strong>Entité Doctrine <code>Cours</code></strong> — champs <code>typeEntrainement</code>, <code>description</code>, <code>prix</code>, <code>esCollectif</code>, <code>nbChienMax</code>, <code>durée</code> ; relation <code>OneToMany → Séance</code> ; relation <code>ManyToOne → NiveauxApprentissage</code>
+        </div>
+      </li>
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div>
+          <strong>Entité Doctrine <code>Séance</code></strong> — champs <code>date</code>, <code>heure</code> ; relation <code>ManyToOne → Cours</code> ; relation <code>ManyToMany ↔ Inscription</code>
+        </div>
+      </li>
+      <li>
+        <svg width="15" height="15" color="var(--accent)" class="feat-icon"><use href="#ic-check"/></svg>
+        <div><strong>CSS espace membre</strong> — correction et amélioration du bouton « Modifier un propriétaire »</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ══ Résultats ══════════════════════════════════ -->
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">Résultats &amp; Apprentissages</h2>
+    <div class="result-grid">
+      <div class="card result-box">
+        <div class="result-num">8</div>
+        <div class="result-label">Entités Doctrine créées</div>
+      </div>
+      <div class="card result-box">
+        <div class="result-num">3</div>
+        <div class="result-label">Rôles gérés (Visiteur · Membre · Admin)</div>
+      </div>
+      <div class="card result-box">
+        <div class="result-num">24h</div>
+        <div class="result-label">Volume de travail en équipe</div>
+      </div>
+      <div class="card result-box">
+        <div class="result-num">4</div>
+        <div class="result-label">Membres dans l'équipe</div>
+      </div>
+    </div>
+    <div class="context-block">
+      <p>Ce projet m'a permis de découvrir le framework Symfony et l'ORM Doctrine, en travaillant sur une architecture MVC complète avec gestion des rôles. La collaboration en équipe de 4, organisée via ClickUp et des branches GitHub dédiées, m'a appris à coordonner le développement et à gérer les conflits de fusion.</p>
+      <p>J'ai pris en charge la planification (GANTT), la création des entités <strong>Cours</strong> et <strong>Séance</strong> avec leurs relations ManyToMany et OneToMany, ainsi que des corrections CSS sur l'espace membre.</p>
+    </div>
+  </div>
+
+  <!-- ══ Documentation ══════════════════════════════ -->
+  <div class="project-section reveal d1">
+    <h2 class="project-section-title">Documentation</h2>
+    <a href="../../assets/files/Documentation Personnelle CanisPro - .pdf"
+       target="_blank" rel="noopener noreferrer"
+       class="doc-download">
+      <div class="doc-download-icon">
+        <svg width="18" height="18" fill="none" stroke="var(--accent)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="doc-download-text">
+        <strong>Documentation personnelle CanisPro (PDF)</strong>
+        <span>Contexte, choix techniques, base de données, vues utilisateur — 37 pages</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- ══ Compétences BTS SIO ════════════════════════ -->
+  <div class="project-section reveal d2">
+    <h2 class="project-section-title">Compétences BTS SIO validées</h2>
+    <div class="comp-pills-grid">
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#818cf8"></div>
+        <span class="comp-pill-code">B1.3</span>
+        <span class="comp-pill-label">Développer la présence en ligne de l'organisation</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#fbbf24"></div>
+        <span class="comp-pill-code">B1.4</span>
+        <span class="comp-pill-label">Travailler en mode projet (agile, GANTT, GitHub)</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#c084fc"></div>
+        <span class="comp-pill-code">B1.1</span>
+        <span class="comp-pill-label">Gérer le patrimoine informatique (versioning Git)</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#34d399"></div>
+        <span class="comp-pill-code">B2.2</span>
+        <span class="comp-pill-label">Concevoir et développer une solution applicative</span>
+      </div>
+      <div class="comp-pill">
+        <div class="comp-pill-dot" style="background:#22d3ee"></div>
+        <span class="comp-pill-code">B2.4</span>
+        <span class="comp-pill-label">Concevoir et réaliser une base de données</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+</main>
+
+<!-- Navigation entre ateliers -->
+<div class="sibling-nav">
+  <div style="text-align:left">
+    <div class="sibling-label">Atelier précédent</div>
+    <a class="sibling-link" href="atelier-commande.html">
+      <svg width="14" height="14"><use href="#ic-arrow"/></svg>
+      Gestion Commande V2
+    </a>
+  </div>
+  <a href="../competences.html" class="btn btn-outline btn-sm">Voir les compétences</a>
+  <div style="text-align:right">
+    <div class="sibling-label">&nbsp;</div>
+    <span class="sibling-link" style="opacity:.35;cursor:default">Dernier atelier</span>
+  </div>
+</div>
+
+<script src="../../assets/js/shared.js"></script>
+</body>
+</html>
