@@ -231,7 +231,7 @@ const nav = `<a href="#main" class="skip">Aller au contenu</a>
 </nav>`;
 
 const footer = `<footer class="site-footer">
-  <div>Portfolio BTS SIO SLAM &nbsp;·&nbsp; <strong style="color:var(--accent)">Annaëlle Champiau</strong> &nbsp;·&nbsp; 2025</div>
+  <div>Portfolio BTS SIO SLAM &nbsp;·&nbsp; <strong style="color:var(--accent)">Annaëlle Champiau</strong> &nbsp;·&nbsp; 2026</div>
   <nav class="footer-links" aria-label="Liens footer">
     <a href="${root}pages/cv.html">CV</a>
     <a href="${root}pages/competences.html">Compétences</a>
